@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -27,11 +30,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
     buildFeatures {
         compose true
@@ -45,17 +48,53 @@ android {
         }
     }
 }
+kapt {
+    correctErrorTypes true
+}
 
 dependencies {
 
+    //Core
     implementation 'androidx.core:core-ktx:1.10.0'
+
+    //UI - Compose
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     implementation 'androidx.activity:activity-compose:1.7.1'
     implementation platform('androidx.compose:compose-bom:2022.10.00')
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-graphics'
-    implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+
+    //Cache - Room
+    def room_version = "2.5.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    testImplementation "androidx.room:room-testing:$room_version"
+
+    //Preferences - DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    //Navigation - Compose
+    def nav_version = "2.5.3"
+    implementation "androidx.navigation:navigation-compose:$nav_version"
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    //DI - Hilt
+    def hilt_version = "2.44"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    //Network - Retrofit
+    def retrofit_version = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:4.10.0"
+    implementation 'com.google.code.gson:gson:2.9.0'
+
+    //Mock Server
+    implementation "com.squareup.okhttp3:mockwebserver:4.9.2"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
