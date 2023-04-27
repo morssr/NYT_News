@@ -1,0 +1,1454 @@
+{
+  "status": "OK",
+  "copyright": "Copyright (c) 2023 The New York Times Company. All Rights Reserved.",
+  "section": "Science",
+  "last_updated": "2023-04-26T17:30:43-04:00",
+  "num_results": 24,
+  "results": [
+    {
+      "section": "science",
+      "subsection": "",
+      "title": "Sign Up for the Science Times Newsletter",
+      "abstract": "Every week, we’ll bring you stories that capture the wonders of the human body, nature and the cosmos.",
+      "url": "null",
+      "uri": "nyt://embeddedinteractive/daba9d03-29b8-5cfc-8cbd-74b8abf54a07",
+      "byline": "",
+      "item_type": "EmbeddedInteractive",
+      "updated_date": "2018-04-07T13:23:25-04:00",
+      "created_date": "2016-02-05T18:18:53-05:00",
+      "published_date": "2016-02-05T18:18:53-05:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2016/02/06/science/sciencenewsletter2/sciencenewsletter2-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1534,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "NASA, via Associated Press"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2016/02/06/science/sciencenewsletter2/sciencenewsletter2-mediumThreeByTwo440.jpg",
+          "format": "mediumThreeByTwo440",
+          "height": 293,
+          "width": 440,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "NASA, via Associated Press"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2016/02/06/science/sciencenewsletter2/sciencenewsletter2-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "NASA, via Associated Press"
+        }
+      ],
+      "short_url": ""
+    },
+    {
+      "section": "admin",
+      "subsection": "",
+      "title": "",
+      "abstract": "",
+      "url": "",
+      "uri": "nyt://embeddedinteractive/6cb185ed-65ac-50a5-ace3-5bab81934245",
+      "byline": "",
+      "item_type": "EmbeddedInteractive",
+      "updated_date": "2015-07-20T13:45:03-04:00",
+      "created_date": "2015-04-16T14:13:18-04:00",
+      "published_date": "2015-04-16T14:13:18-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "multimedia": null,
+      "short_url": ""
+    },
+    {
+      "section": "climate",
+      "subsection": "",
+      "title": "Climate Change’s Fingerprints Turn Up in Parched East Africa",
+      "abstract": "Droughts like the one that has ravaged Ethiopia, Kenya and Somalia are now 100 times as likely as in the preindustrial era, a new study has found.",
+      "url": "https://www.nytimes.com/2023/04/27/climate/horn-of-africa-somalia-drought.html",
+      "uri": "nyt://article/99222396-0c56-5877-ae0b-cb46af2f3e52",
+      "byline": "By Raymond Zhong",
+      "item_type": "Article",
+      "updated_date": "2023-04-27T01:00:11-04:00",
+      "created_date": "2023-04-27T01:00:11-04:00",
+      "published_date": "2023-04-27T01:00:11-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Global Warming",
+        "Greenhouse Gas Emissions",
+        "Drought",
+        "Heat and Heat Waves",
+        "Research",
+        "Famine"
+      ],
+      "org_facet": [
+        "World Weather Attribution"
+      ],
+      "per_facet": [],
+      "geo_facet": [
+        "Horn of Africa",
+        "East Africa",
+        "Ethiopia",
+        "Kenya",
+        "Somalia"
+      ],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/climate/26cli-africadrought-01/26cli-africadrought-01-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1366,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "A water well near the town of Kelafo in Ethiopia, one of the nations hit hardest by the drought.",
+          "copyright": "Eduardo Soteras/Agence France-Presse — Getty Images"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/climate/26cli-africadrought-01/26cli-africadrought-01-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "A water well near the town of Kelafo in Ethiopia, one of the nations hit hardest by the drought.",
+          "copyright": "Eduardo Soteras/Agence France-Presse — Getty Images"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/climate/26cli-africadrought-01/26cli-africadrought-01-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "A water well near the town of Kelafo in Ethiopia, one of the nations hit hardest by the drought.",
+          "copyright": "Eduardo Soteras/Agence France-Presse — Getty Images"
+        }
+      ],
+      "short_url": "https://nyti.ms/41WvIBu"
+    },
+    {
+      "section": "health",
+      "subsection": "",
+      "title": "A Century-Old Vaccine Fails to Protect Against Covid",
+      "abstract": "Early in the pandemic, scientists began testing an old TB vaccine against the coronavirus. But the trial enrolled fewer participants than expected as new Covid vaccines were introduced, and no discernible effect was found.",
+      "url": "https://www.nytimes.com/2023/04/26/health/bcg-vaccine-covid.html",
+      "uri": "nyt://article/743d3d9b-39b8-583d-8cb3-164a16f8b5c0",
+      "byline": "By Roni Caryn Rabin",
+      "item_type": "Article",
+      "updated_date": "2023-04-26T23:44:36-04:00",
+      "created_date": "2023-04-26T17:00:08-04:00",
+      "published_date": "2023-04-26T17:00:08-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "your-feed-science",
+        "Coronavirus (2019-nCoV)",
+        "Vaccination and Immunization",
+        "Immune System",
+        "Tuberculosis",
+        "Clinical Trials"
+      ],
+      "org_facet": [
+        "New England Journal of Medicine"
+      ],
+      "per_facet": [],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/science/26virus-vaccine/26virus-vaccine-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1364,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "In the early days of the pandemic, when there were no effective treatments for Covid and a new vaccine seemed a distant fantasy, health care workers were enrolled in a trial and inoculated with an old TB vaccine.",
+          "copyright": "Chaideer Mahyuddin/Agence France-Presse — Getty Images"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/science/26virus-vaccine/26virus-vaccine-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "In the early days of the pandemic, when there were no effective treatments for Covid and a new vaccine seemed a distant fantasy, health care workers were enrolled in a trial and inoculated with an old TB vaccine.",
+          "copyright": "Chaideer Mahyuddin/Agence France-Presse — Getty Images"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/science/26virus-vaccine/26virus-vaccine-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "In the early days of the pandemic, when there were no effective treatments for Covid and a new vaccine seemed a distant fantasy, health care workers were enrolled in a trial and inoculated with an old TB vaccine.",
+          "copyright": "Chaideer Mahyuddin/Agence France-Presse — Getty Images"
+        }
+      ],
+      "short_url": "https://nyti.ms/3Ldy6gN"
+    },
+    {
+      "section": "climate",
+      "subsection": "",
+      "title": "New Rules for Power Plants Could Give Carbon Capture a Boost. Here’s How.",
+      "abstract": "The technology has struggled to gain traction, but strict new emissions limits for gas and coal stations could encourage broader adoption.",
+      "url": "https://www.nytimes.com/2023/04/26/climate/carbon-capture-power-plants.html",
+      "uri": "nyt://article/159d276d-d6dc-5f6f-be50-d7e021d43827",
+      "byline": "By Brad Plumer",
+      "item_type": "Article",
+      "updated_date": "2023-04-26T23:40:50-04:00",
+      "created_date": "2023-04-26T16:34:07-04:00",
+      "published_date": "2023-04-26T16:34:07-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Global Warming",
+        "Greenhouse Gas Emissions",
+        "Carbon Capture and Sequestration",
+        "Carbon Dioxide",
+        "Electric Light and Power",
+        "Inflation Reduction Act of 2022"
+      ],
+      "org_facet": [
+        "Environmental Protection Agency"
+      ],
+      "per_facet": [
+        "Biden, Joseph R Jr"
+      ],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/multimedia/26cli-carboncapture-01b-zkfq/26cli-carboncapture-01b-zkfq-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1365,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Carbon dioxide capture equipment at a power station near Houston that uses both coal and natural gas. ",
+          "copyright": "Michael Stravato for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/multimedia/26cli-carboncapture-01b-zkfq/26cli-carboncapture-01b-zkfq-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Carbon dioxide capture equipment at a power station near Houston that uses both coal and natural gas. ",
+          "copyright": "Michael Stravato for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/multimedia/26cli-carboncapture-01b-zkfq/26cli-carboncapture-01b-zkfq-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Carbon dioxide capture equipment at a power station near Houston that uses both coal and natural gas. ",
+          "copyright": "Michael Stravato for The New York Times"
+        }
+      ],
+      "short_url": "https://nyti.ms/3HdtFkI"
+    },
+    {
+      "section": "health",
+      "subsection": "",
+      "title": "Kaiser Permanente to Acquire Geisinger",
+      "abstract": "The California health care organization will create a new nonprofit that aims to acquire a half-dozen additional community health systems.",
+      "url": "https://www.nytimes.com/2023/04/26/health/kaiser-permanente-geisinger.html",
+      "uri": "nyt://article/41ff0715-4f9d-5466-a8c8-d36331815d47",
+      "byline": "By Reed Abelson",
+      "item_type": "Article",
+      "updated_date": "2023-04-26T22:53:56-04:00",
+      "created_date": "2023-04-26T12:00:08-04:00",
+      "published_date": "2023-04-26T12:00:08-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "your-feed-health",
+        "your-feed-healthcare",
+        "Health Insurance and Managed Care",
+        "Finances",
+        "Nonprofit Organizations",
+        "Mergers, Acquisitions and Divestitures"
+      ],
+      "org_facet": [
+        "Kaiser Permanente",
+        "Geisinger Health System"
+      ],
+      "per_facet": [],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/multimedia/26kaiser-lhjm/26kaiser-lhjm-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1347,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Mike Blake/Reuters"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/multimedia/26kaiser-lhjm/26kaiser-lhjm-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Mike Blake/Reuters"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/multimedia/26kaiser-lhjm/26kaiser-lhjm-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Mike Blake/Reuters"
+        }
+      ],
+      "short_url": "https://nyti.ms/3L1wkio"
+    },
+    {
+      "section": "arts",
+      "subsection": "design",
+      "title": "She’s More Than the Creator of Peter Rabbit",
+      "abstract": "An exhibition in Nashville of Beatrix Potter’s works explores her love of the world of science and the challenges facing women of the Victorian era.",
+      "url": "https://www.nytimes.com/2023/04/26/arts/design/beatrix-potter-peter-rabbit-science.html",
+      "uri": "nyt://article/ba5afa32-df57-50c4-8ab3-fa50db2f7041",
+      "byline": "By Tanya Mohn",
+      "item_type": "Article",
+      "updated_date": "2023-04-26T16:23:04-04:00",
+      "created_date": "2023-04-26T05:00:45-04:00",
+      "published_date": "2023-04-26T05:00:45-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Museums",
+        "Writing and Writers",
+        "Art"
+      ],
+      "org_facet": [
+        "Frist Art Museum"
+      ],
+      "per_facet": [
+        "Potter, Beatrix"
+      ],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/30/multimedia/30sp-museums-beatrix-01-pmvl/30sp-museums-beatrix-01-pmvl-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 2048,
+          "width": 1263,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Beatrix Potter at 15, with Spot, her family’s spaniel.",
+          "copyright": "Victoria and Albert Museum, London, via Frederick Warne \u0026 Co. Ltd."
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/30/multimedia/30sp-museums-beatrix-01-pmvl/30sp-museums-beatrix-01-pmvl-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Beatrix Potter at 15, with Spot, her family’s spaniel.",
+          "copyright": "Victoria and Albert Museum, London, via Frederick Warne \u0026 Co. Ltd."
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/30/multimedia/30sp-museums-beatrix-01-pmvl/30sp-museums-beatrix-01-pmvl-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Beatrix Potter at 15, with Spot, her family’s spaniel.",
+          "copyright": "Victoria and Albert Museum, London, via Frederick Warne \u0026 Co. Ltd."
+        }
+      ],
+      "short_url": "https://nyti.ms/3AutcXz"
+    },
+    {
+      "section": "travel",
+      "subsection": "",
+      "title": "Bears, Binoculars and Bucket-List Birds: A 15-Day Tour in Ecuador",
+      "abstract": "A customized itinerary allowed a group of birders to observe hundreds of species across a range of elevations, all while staying at comfortable eco-lodges.",
+      "url": "https://www.nytimes.com/2023/04/26/travel/birding-in-ecuador.html",
+      "uri": "nyt://article/b5ab77c8-6854-5d5a-830c-446affe601aa",
+      "byline": "By Dorothy Spears and Alexis Rockman",
+      "item_type": "Article",
+      "updated_date": "2023-04-26T05:00:24-04:00",
+      "created_date": "2023-04-26T05:00:24-04:00",
+      "published_date": "2023-04-26T05:00:24-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Birds",
+        "Birdwatching",
+        "Travel and Vacations",
+        "Hikes and Hiking",
+        "Forests and Forestry",
+        "Logging Industry"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [
+        "Ecuador",
+        "Yasuni National Park (Ecuador)",
+        "Andes Mountains",
+        "Amazon Jungle"
+      ],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/travel/26travel-ecuador-bird1-illo/26travel-ecuador-bird1-illo-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 2048,
+          "width": 1373,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Birds spotted at the various lodges, including hoatzin (bottom left) harpy eagle (front and low-center), paradise tanager (above eagle), chestnut-fronted macaw, (flying off to the right), and gray-breasted mountain toucan (flying off to the left).",
+          "copyright": ""
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/travel/26travel-ecuador-bird1-illo/26travel-ecuador-bird1-illo-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Birds spotted at the various lodges, including hoatzin (bottom left) harpy eagle (front and low-center), paradise tanager (above eagle), chestnut-fronted macaw, (flying off to the right), and gray-breasted mountain toucan (flying off to the left).",
+          "copyright": ""
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/travel/26travel-ecuador-bird1-illo/26travel-ecuador-bird1-illo-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Birds spotted at the various lodges, including hoatzin (bottom left) harpy eagle (front and low-center), paradise tanager (above eagle), chestnut-fronted macaw, (flying off to the right), and gray-breasted mountain toucan (flying off to the left).",
+          "copyright": ""
+        }
+      ],
+      "short_url": "https://nyti.ms/41CxRmr"
+    },
+    {
+      "section": "espanol",
+      "subsection": "",
+      "title": "La COVID-19 podría aumentar el riesgo de diabetes de tipo 2, según investigadores",
+      "abstract": "Un estudio reveló que los hombres y las personas que sufrieron la enfermedad de forma grave tenían más probabilidades de desarrollar la afección en el plazo de un año. Pero los datos no prueban que el coronavirus provoque diabetes.",
+      "url": "https://www.nytimes.com/es/2023/04/26/espanol/covid-diabetes.html",
+      "uri": "nyt://article/038686f0-9818-556f-86da-9e77d8f4b12e",
+      "byline": "By Roni Caryn Rabin",
+      "item_type": "Article",
+      "updated_date": "2023-04-26T05:00:20-04:00",
+      "created_date": "2023-04-26T05:00:20-04:00",
+      "published_date": "2023-04-26T05:00:20-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Diabetes",
+        "Coronavirus (2019-nCoV)",
+        "Research",
+        "Men and Boys",
+        "Disease Rates"
+      ],
+      "org_facet": [
+        "JAMA Network Open"
+      ],
+      "per_facet": [],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/18/multimedia/18diabetes-vjtl-esp/18diabetes-vjtl-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1364,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Un paciente de covid en la Unidad de Cuidados Intensivos de un hospital en Surrey, Columbia Británica. Un nuevo estudio apunta a un mayor riesgo de diabetes entre los hombres y aquellos con una enfermedad grave.",
+          "copyright": "Jonathan Hayward/The Canadian Press, vìa Associated Press"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/18/multimedia/18diabetes-vjtl-esp/18diabetes-vjtl-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Un paciente de covid en la Unidad de Cuidados Intensivos de un hospital en Surrey, Columbia Británica. Un nuevo estudio apunta a un mayor riesgo de diabetes entre los hombres y aquellos con una enfermedad grave.",
+          "copyright": "Jonathan Hayward/The Canadian Press, vìa Associated Press"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/18/multimedia/18diabetes-vjtl-esp/18diabetes-vjtl-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Un paciente de covid en la Unidad de Cuidados Intensivos de un hospital en Surrey, Columbia Británica. Un nuevo estudio apunta a un mayor riesgo de diabetes entre los hombres y aquellos con una enfermedad grave.",
+          "copyright": "Jonathan Hayward/The Canadian Press, vìa Associated Press"
+        }
+      ],
+      "short_url": "https://nyti.ms/3Lcfxcu"
+    },
+    {
+      "section": "science",
+      "subsection": "",
+      "title": "What was lost in the Hakuto-R moon lander crash.",
+      "abstract": "The Ispace mission had planned to carry a number of customer payloads to the moon’s surface.",
+      "url": "https://www.nytimes.com/2023/04/25/science/hakuto-r-moon-lander.html",
+      "uri": "nyt://article/ecfc2514-ff7c-5875-8f17-c3700a4a011c",
+      "byline": "By Daniel Victor",
+      "item_type": "Article",
+      "updated_date": "2023-04-25T20:29:31-04:00",
+      "created_date": "2023-04-25T15:38:57-04:00",
+      "published_date": "2023-04-25T15:38:57-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Private Spaceflight",
+        "Space and Astronomy",
+        "Moon",
+        "Robots and Robotics"
+      ],
+      "org_facet": [
+        "ispace Inc",
+        "Japan Aerospace Exploration Agency"
+      ],
+      "per_facet": [],
+      "geo_facet": [
+        "United Arab Emirates"
+      ],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/science/25moon-landing-hakuto-lander/25moon-landing-hakuto-lander-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1280,
+          "width": 1920,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "An artist’s impression of the United Arab Emirate’s Rashid rover, which was supposed to deploy to the moon.",
+          "copyright": "Mohammed Bin Rashid Space Center"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/science/25moon-landing-hakuto-lander/25moon-landing-hakuto-lander-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "An artist’s impression of the United Arab Emirate’s Rashid rover, which was supposed to deploy to the moon.",
+          "copyright": "Mohammed Bin Rashid Space Center"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/science/25moon-landing-hakuto-lander/25moon-landing-hakuto-lander-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "An artist’s impression of the United Arab Emirate’s Rashid rover, which was supposed to deploy to the moon.",
+          "copyright": "Mohammed Bin Rashid Space Center"
+        }
+      ],
+      "short_url": "https://nyti.ms/3AzO5R3"
+    },
+    {
+      "section": "business",
+      "subsection": "",
+      "title": "F.D.A. Approves Drug for Rare Form of A.L.S.",
+      "abstract": "The drug, which will be sold as Qalsody by the pharmaceutical company Biogen, targets a genetic cause of a devastating neurological illness.",
+      "url": "https://www.nytimes.com/2023/04/25/business/biogen-fda-als-drug.html",
+      "uri": "nyt://article/e540bf4c-c18e-59b2-9042-c112cb59a77e",
+      "byline": "By Rebecca Robbins",
+      "item_type": "Article",
+      "updated_date": "2023-04-26T00:04:22-04:00",
+      "created_date": "2023-04-25T13:15:53-04:00",
+      "published_date": "2023-04-25T13:15:53-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Drugs (Pharmaceuticals)",
+        "Genetics and Heredity",
+        "Amyotrophic Lateral Sclerosis"
+      ],
+      "org_facet": [
+        "Biogen Inc",
+        "Food and Drug Administration"
+      ],
+      "per_facet": [],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/multimedia/25biogen-als-print/25FDA-HFO-cvhl-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1365,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The approval of Biogen’s A.L.S. drug reflects the F.D.A.’s push to be more flexible in approving treatments for people with devastating illnesses and few options.",
+          "copyright": "Cody O'Loughlin for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/multimedia/25biogen-als-print/25FDA-HFO-cvhl-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The approval of Biogen’s A.L.S. drug reflects the F.D.A.’s push to be more flexible in approving treatments for people with devastating illnesses and few options.",
+          "copyright": "Cody O'Loughlin for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/26/multimedia/25biogen-als-print/25FDA-HFO-cvhl-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The approval of Biogen’s A.L.S. drug reflects the F.D.A.’s push to be more flexible in approving treatments for people with devastating illnesses and few options.",
+          "copyright": "Cody O'Loughlin for The New York Times"
+        }
+      ],
+      "short_url": "https://nyti.ms/3LtyQ2B"
+    },
+    {
+      "section": "climate",
+      "subsection": "",
+      "title": "Here Are the Places Most at Risk From Record-Shattering Heat",
+      "abstract": "It’s the regions of the world that haven’t yet experienced an off-the-charts heat wave that we should worry about, a new scientific study argues.",
+      "url": "https://www.nytimes.com/2023/04/25/climate/extreme-heat-waves.html",
+      "uri": "nyt://article/2d711300-b182-52c2-9a08-57e40c5297be",
+      "byline": "By Raymond Zhong",
+      "item_type": "Article",
+      "updated_date": "2023-04-26T11:51:40-04:00",
+      "created_date": "2023-04-25T11:00:08-04:00",
+      "published_date": "2023-04-25T11:00:08-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Heat and Heat Waves",
+        "Global Warming",
+        "Research"
+      ],
+      "org_facet": [
+        "Nature Communications (Journal)"
+      ],
+      "per_facet": [],
+      "geo_facet": [
+        "Pacific Northwestern States (US)"
+      ],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/science/25cli-heatwaves/25cli-heatwaves-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1365,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The receding waters of the Jialing River in Chongqing, China, during a heat wave last August.",
+          "copyright": "Mark Schiefelbein/Associated Press"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/science/25cli-heatwaves/25cli-heatwaves-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The receding waters of the Jialing River in Chongqing, China, during a heat wave last August.",
+          "copyright": "Mark Schiefelbein/Associated Press"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/science/25cli-heatwaves/25cli-heatwaves-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The receding waters of the Jialing River in Chongqing, China, during a heat wave last August.",
+          "copyright": "Mark Schiefelbein/Associated Press"
+        }
+      ],
+      "short_url": "https://nyti.ms/41ZaRgT"
+    },
+    {
+      "section": "arts",
+      "subsection": "design",
+      "title": "Dragonflies, Beetles, Cicadas — What’s Not to Love?",
+      "abstract": "An entomologist at the American Museum of Natural History is helping choose the insects for a new permanent gallery. It’s a task she loves.",
+      "url": "https://www.nytimes.com/2023/04/25/arts/design/jessica-ware-insects-american-museum-natural-history.html",
+      "uri": "nyt://article/d4092966-f5dd-53df-b275-c872d6e819ba",
+      "byline": "By Alina Tugend",
+      "item_type": "Article",
+      "updated_date": "2023-04-26T16:21:41-04:00",
+      "created_date": "2023-04-25T05:00:40-04:00",
+      "published_date": "2023-04-25T05:00:40-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Insects",
+        "Museums",
+        "Black People"
+      ],
+      "org_facet": [
+        "American Museum of Natural History"
+      ],
+      "per_facet": [
+        "Ware, Jessica (Entomologist)"
+      ],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/30/multimedia/30SP-MUSEUMS-AMNH-tmjz/30SP-MUSEUMS-AMNH-tmjz-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 2048,
+          "width": 1367,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Jessica Ware is an entomologist and associate curator for the American Museum of Natural History.",
+          "copyright": "Hiroko Masuike/The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/30/multimedia/30SP-MUSEUMS-AMNH-tmjz/30SP-MUSEUMS-AMNH-tmjz-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Jessica Ware is an entomologist and associate curator for the American Museum of Natural History.",
+          "copyright": "Hiroko Masuike/The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/30/multimedia/30SP-MUSEUMS-AMNH-tmjz/30SP-MUSEUMS-AMNH-tmjz-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Jessica Ware is an entomologist and associate curator for the American Museum of Natural History.",
+          "copyright": "Hiroko Masuike/The New York Times"
+        }
+      ],
+      "short_url": "https://nyti.ms/3oALWSt"
+    },
+    {
+      "section": "health",
+      "subsection": "",
+      "title": "Can Africa Get Close to Vaccine Independence? Here’s What It Will Take.",
+      "abstract": "Leaders on the continent have vowed that if there is another pandemic, they won’t be shut out of the vaccine market.",
+      "url": "https://www.nytimes.com/2023/04/25/health/africa-vaccine-independence.html",
+      "uri": "nyt://article/4b1a629b-442d-5f00-9ef4-8a99f32763e1",
+      "byline": "By Stephanie Nolen",
+      "item_type": "Article",
+      "updated_date": "2023-04-25T14:08:18-04:00",
+      "created_date": "2023-04-25T03:00:10-04:00",
+      "published_date": "2023-04-25T03:00:10-04:00",
+      "material_type_facet": "",
+      "kicker": "Global Health",
+      "des_facet": [
+        "Drugs (Pharmaceuticals)",
+        "Vaccination and Immunization",
+        "Coronavirus (2019-nCoV)",
+        "Factories and Manufacturing",
+        "Supply Chain",
+        "International Trade and World Market",
+        "Biotechnology and Bioengineering"
+      ],
+      "org_facet": [
+        "Africa Centers for Disease Control and Prevention"
+      ],
+      "per_facet": [],
+      "geo_facet": [
+        "Africa"
+      ],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/multimedia/00vaccine-production-01-mwvf/00vaccine-production-01-mwvf-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1365,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Inside the labs of Afrigen Biologics and Vaccines, a Cape Town biotechnology company that has ambitions to be a major producer of new mRNA vaccines.",
+          "copyright": "Sydelle Willow Smith for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/multimedia/00vaccine-production-01-mwvf/00vaccine-production-01-mwvf-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Inside the labs of Afrigen Biologics and Vaccines, a Cape Town biotechnology company that has ambitions to be a major producer of new mRNA vaccines.",
+          "copyright": "Sydelle Willow Smith for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/multimedia/00vaccine-production-01-mwvf/00vaccine-production-01-mwvf-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Inside the labs of Afrigen Biologics and Vaccines, a Cape Town biotechnology company that has ambitions to be a major producer of new mRNA vaccines.",
+          "copyright": "Sydelle Willow Smith for The New York Times"
+        }
+      ],
+      "short_url": "https://nyti.ms/3L6XfcF"
+    },
+    {
+      "section": "climate",
+      "subsection": "",
+      "title": "Many Young Voters Bitter Over Biden’s Support of Willow Oil Drilling",
+      "abstract": "Despite his aggressive moves to try to slash greenhouse gas emissions, President Biden has angered young climate voters upset by a drilling project in Alaska.",
+      "url": "https://www.nytimes.com/2023/04/24/climate/willow-biden-climate-voters.html",
+      "uri": "nyt://article/5447958e-b579-5c8a-96ce-81ab5b3fbf15",
+      "byline": "By Lisa Friedman",
+      "item_type": "Article",
+      "updated_date": "2023-04-25T09:53:06-04:00",
+      "created_date": "2023-04-24T18:14:18-04:00",
+      "published_date": "2023-04-24T18:14:18-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Oil (Petroleum) and Gasoline",
+        "Drilling and Boring",
+        "Youth",
+        "Voting and Voters",
+        "Global Warming",
+        "Polls and Public Opinion",
+        "Greenhouse Gas Emissions"
+      ],
+      "org_facet": [],
+      "per_facet": [
+        "Biden, Joseph R Jr"
+      ],
+      "geo_facet": [
+        "Alaska"
+      ],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/multimedia/25cli-willowfallout-01-wzpg/25cli-willowfallout-01-wzpg-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1365,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "A ConocoPhillips drilling site on the North Slope of Alaska. The Willow project, authorized by the Biden administration last month, allowed ConocoPhillips to expand its drilling operations in the area.",
+          "copyright": "Erin Schaff/The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/multimedia/25cli-willowfallout-01-wzpg/25cli-willowfallout-01-wzpg-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "A ConocoPhillips drilling site on the North Slope of Alaska. The Willow project, authorized by the Biden administration last month, allowed ConocoPhillips to expand its drilling operations in the area.",
+          "copyright": "Erin Schaff/The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/multimedia/25cli-willowfallout-01-wzpg/25cli-willowfallout-01-wzpg-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "A ConocoPhillips drilling site on the North Slope of Alaska. The Willow project, authorized by the Biden administration last month, allowed ConocoPhillips to expand its drilling operations in the area.",
+          "copyright": "Erin Schaff/The New York Times"
+        }
+      ],
+      "short_url": "https://nyti.ms/3L8nM9A"
+    },
+    {
+      "section": "health",
+      "subsection": "",
+      "title": "She Redefined Trauma. Then Trauma Redefined Her.",
+      "abstract": "Dr. Judith Herman, who helped launch the field of trauma studies, has returned to publishing after a long, mysterious ordeal.",
+      "url": "https://www.nytimes.com/2023/04/24/health/judith-herman-trauma.html",
+      "uri": "nyt://article/2de2e725-cfe6-52b6-b99c-fd2306d6e346",
+      "byline": "By Ellen Barry",
+      "item_type": "Article",
+      "updated_date": "2023-04-25T20:16:37-04:00",
+      "created_date": "2023-04-24T11:30:11-04:00",
+      "published_date": "2023-04-24T11:30:11-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Books and Literature",
+        "Psychiatry and Psychiatrists",
+        "Post-Traumatic Stress Disorder",
+        "Mental Health and Disorders",
+        "Psychology and Psychologists",
+        "Sex Crimes",
+        "Child Abuse and Neglect",
+        "Content Type: Personal Profile",
+        "your-feed-healthcare",
+        "internal-sub-only"
+      ],
+      "org_facet": [],
+      "per_facet": [
+        "Herman, Judith L (1942- )",
+        "van der Kolk, Bessel"
+      ],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/21/multimedia/00SCI-HERMAN-promo/00SCI-HERMAN-01b-thwg-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 2048,
+          "width": 1536,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Kayana Szymczak for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/21/multimedia/00SCI-HERMAN-promo/00SCI-HERMAN-promo-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Kayana Szymczak for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/21/multimedia/00SCI-HERMAN-promo/00SCI-HERMAN-promo-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Kayana Szymczak for The New York Times"
+        }
+      ],
+      "short_url": "https://nyti.ms/3mZQvFI"
+    },
+    {
+      "section": "science",
+      "subsection": "",
+      "title": "Northern Lights Are Seen in Places Where They Normally Aren’t",
+      "abstract": "The aurora borealis shone over an unusually wide area of North America and Europe. It was driven by a “big blob of plasma” from the sun, a scientist said.",
+      "url": "https://www.nytimes.com/2023/04/24/science/northern-lights-aurora-borealis.html",
+      "uri": "nyt://article/40b6de27-53a5-5307-afd4-66984f9a4d67",
+      "byline": "By Livia Albeck-Ripka and Derrick Bryson Taylor",
+      "item_type": "Article",
+      "updated_date": "2023-04-25T06:45:28-04:00",
+      "created_date": "2023-04-24T05:14:05-04:00",
+      "published_date": "2023-04-24T05:14:05-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Aurora Borealis",
+        "Earth",
+        "Sun"
+      ],
+      "org_facet": [
+        "National Oceanic and Atmospheric Administration"
+      ],
+      "per_facet": [],
+      "geo_facet": [
+        "Canada",
+        "United States",
+        "Europe",
+        "Great Britain"
+      ],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/24/science/24xp-aurora2/24xp-aurora2-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1365,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The northern lights appear above Big Creek State Park outside Polk City, Iowa, on Sunday.",
+          "copyright": "Kelsey Kremer/The Register, via USA Today Network"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/24/science/24xp-aurora2/24xp-aurora2-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The northern lights appear above Big Creek State Park outside Polk City, Iowa, on Sunday.",
+          "copyright": "Kelsey Kremer/The Register, via USA Today Network"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/24/science/24xp-aurora2/24xp-aurora2-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The northern lights appear above Big Creek State Park outside Polk City, Iowa, on Sunday.",
+          "copyright": "Kelsey Kremer/The Register, via USA Today Network"
+        }
+      ],
+      "short_url": "https://nyti.ms/3Al9n54"
+    },
+    {
+      "section": "world",
+      "subsection": "europe",
+      "title": "Chinese Censorship Is Quietly Rewriting the Covid-19 Story",
+      "abstract": "Under government pressure, Chinese scientists have retracted studies and withheld or deleted data. The censorship has stymied efforts to understand the virus.",
+      "url": "https://www.nytimes.com/2023/04/23/world/europe/chinese-censorship-covid.html",
+      "uri": "nyt://article/34bfe307-c422-5986-b939-52f93161d252",
+      "byline": "By Mara Hvistendahl and Benjamin Mueller",
+      "item_type": "Article",
+      "updated_date": "2023-04-24T07:09:53-04:00",
+      "created_date": "2023-04-23T05:00:21-04:00",
+      "published_date": "2023-04-23T05:00:21-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Coronavirus (2019-nCoV)",
+        "Censorship",
+        "Research",
+        "Science and Technology",
+        "Academic and Scientific Journals"
+      ],
+      "org_facet": [
+        "Chinese Center for Disease Control and Prevention",
+        "Clinical Infectious Diseases (Journal)",
+        "World Health Organization"
+      ],
+      "per_facet": [],
+      "geo_facet": [
+        "China",
+        "Wuhan (China)"
+      ],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/11/multimedia/00covid-censorship-04-hqpm/00covid-censorship-04-hqpm-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1365,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The shuttered Huanan market in Wuhan in 2021. Scientists say China has kept a tight rein on data from the market, where the first large cluster of coronavirus cases was found.",
+          "copyright": "Gilles Sabrie for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/11/multimedia/00covid-censorship-04-hqpm/00covid-censorship-04-hqpm-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The shuttered Huanan market in Wuhan in 2021. Scientists say China has kept a tight rein on data from the market, where the first large cluster of coronavirus cases was found.",
+          "copyright": "Gilles Sabrie for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/11/multimedia/00covid-censorship-04-hqpm/00covid-censorship-04-hqpm-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The shuttered Huanan market in Wuhan in 2021. Scientists say China has kept a tight rein on data from the market, where the first large cluster of coronavirus cases was found.",
+          "copyright": "Gilles Sabrie for The New York Times"
+        }
+      ],
+      "short_url": "https://nyti.ms/3L87CNI"
+    },
+    {
+      "section": "espanol",
+      "subsection": "",
+      "title": "¿La IA puede ser considerada inteligente aunque no tenga cuerpo?",
+      "abstract": "El avance de la inteligencia artificial ha reavivado el histórico debate filosófico de la relación entre la mente y el cuerpo.",
+      "url": "https://www.nytimes.com/es/2023/04/23/espanol/inteligencia-cuerpo-mente.html",
+      "uri": "nyt://article/00876aa2-7d60-5c48-9148-3374862f3d8b",
+      "byline": "By Oliver Whang",
+      "item_type": "Article",
+      "updated_date": "2023-04-23T11:20:45-04:00",
+      "created_date": "2023-04-23T05:00:15-04:00",
+      "published_date": "2023-04-23T05:00:15-04:00",
+      "material_type_facet": "",
+      "kicker": "Mente",
+      "des_facet": [
+        "your-feed-science",
+        "Artificial Intelligence",
+        "Robots and Robotics",
+        "Research",
+        "ChatGPT",
+        "audio-neutral-informative",
+        "audio-neutral-immersive"
+      ],
+      "org_facet": [
+        "Embodied Inc"
+      ],
+      "per_facet": [],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/11/multimedia/23sci-mind-embodiment-promo-esp/11SCI-MIND-embodiment-promo-hkmq-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1365,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Alex Welsh para The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/11/multimedia/23sci-mind-embodiment-promo-esp/11SCI-MIND-embodiment-promo-hkmq-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Alex Welsh para The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/11/multimedia/23sci-mind-embodiment-promo-esp/11SCI-MIND-embodiment-promo-hkmq-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Alex Welsh para The New York Times"
+        }
+      ],
+      "short_url": "https://nyti.ms/3KSt6h6"
+    },
+    {
+      "section": "climate",
+      "subsection": "",
+      "title": "E.P.A. to Propose First Controls on Greenhouse Gases From Power Plants",
+      "abstract": "If the regulation is implemented, it will be the first time the federal government has limited carbon emissions from existing power plants, which generate 25 percent of U.S. greenhouse gases.",
+      "url": "https://www.nytimes.com/2023/04/22/climate/epa-power-plants-pollution.html",
+      "uri": "nyt://article/4b4bf9a6-7b81-5cfc-bca3-7adb57071f0a",
+      "byline": "By Coral Davenport and Lisa Friedman",
+      "item_type": "Article",
+      "updated_date": "2023-04-23T15:11:22-04:00",
+      "created_date": "2023-04-22T11:07:00-04:00",
+      "published_date": "2023-04-22T11:07:00-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Global Warming",
+        "Greenhouse Gas Emissions",
+        "Electric Light and Power",
+        "Coal",
+        "Oil (Petroleum) and Gasoline",
+        "Factories and Manufacturing",
+        "Carbon Dioxide",
+        "Carbon Capture and Sequestration",
+        "Regulation and Deregulation of Industry",
+        "Inflation Reduction Act of 2022",
+        "United States Politics and Government"
+      ],
+      "org_facet": [
+        "Environmental Protection Agency"
+      ],
+      "per_facet": [
+        "Biden, Joseph R Jr"
+      ],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/05/02/multimedia/22-cli-EPA-emissions-sub/22-cli-EPA-emissions-sub-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1365,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "If the proposed regulation is implemented, coal and gas-fired power plants, like the Plant Bowen power station in Georgia, would have to cut their carbon dioxide emissions by 2040",
+          "copyright": "Kendrick Brinson for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/05/02/multimedia/22-cli-EPA-emissions-sub/22-cli-EPA-emissions-sub-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "If the proposed regulation is implemented, coal and gas-fired power plants, like the Plant Bowen power station in Georgia, would have to cut their carbon dioxide emissions by 2040",
+          "copyright": "Kendrick Brinson for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/05/02/multimedia/22-cli-EPA-emissions-sub/22-cli-EPA-emissions-sub-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "If the proposed regulation is implemented, coal and gas-fired power plants, like the Plant Bowen power station in Georgia, would have to cut their carbon dioxide emissions by 2040",
+          "copyright": "Kendrick Brinson for The New York Times"
+        }
+      ],
+      "short_url": "https://nyti.ms/3N5JXQf"
+    },
+    {
+      "section": "science",
+      "subsection": "",
+      "title": "Carnivorous Plants Use a Smelly Trick to Catch Their Prey",
+      "abstract": "A study suggests that pitcher plants tailor the smells they produce to  woo particular kinds of insects.",
+      "url": "https://www.nytimes.com/2023/04/22/science/pitcher-plants-insects-sents.html",
+      "uri": "nyt://article/6aa037c0-27e8-5b0b-a4cc-6a43092bbb9b",
+      "byline": "By Veronique Greenwood",
+      "item_type": "Article",
+      "updated_date": "2023-04-23T13:15:16-04:00",
+      "created_date": "2023-04-22T08:22:47-04:00",
+      "published_date": "2023-04-22T08:22:47-04:00",
+      "material_type_facet": "",
+      "kicker": "Trilobites",
+      "des_facet": [
+        "Flowers and Plants",
+        "Insects",
+        "Smells and Odors",
+        "Research",
+        "your-feed-science"
+      ],
+      "org_facet": [
+        "PLoS One (Journal)"
+      ],
+      "per_facet": [],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/21/science/00TB-PITCHERPLANTS/00TB-PITCHERPLANTS-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 2048,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Sarracenia X leucophylla.",
+          "copyright": "Laurence Gaume"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/21/science/00TB-PITCHERPLANTS/00TB-PITCHERPLANTS-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Sarracenia X leucophylla.",
+          "copyright": "Laurence Gaume"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/21/science/00TB-PITCHERPLANTS/00TB-PITCHERPLANTS-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Sarracenia X leucophylla.",
+          "copyright": "Laurence Gaume"
+        }
+      ],
+      "short_url": "https://nyti.ms/3VdK6n7"
+    },
+    {
+      "section": "health",
+      "subsection": "",
+      "title": "Many States Are Trying to Restrict Gender Treatments for Adults, Too",
+      "abstract": "Missouri has imposed sweeping rules to limit health care for trans adults. Other states have banned Medicaid coverage or introduced bills outlawing care for young adults.",
+      "url": "https://www.nytimes.com/2023/04/22/health/transgender-adults-treatment-bans.html",
+      "uri": "nyt://article/56bfe123-2f7c-566f-98ce-01a5931fbd76",
+      "byline": "By Azeen Ghorayshi",
+      "item_type": "Article",
+      "updated_date": "2023-04-23T22:30:28-04:00",
+      "created_date": "2023-04-22T05:00:22-04:00",
+      "published_date": "2023-04-22T05:00:22-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Transgender",
+        "Discrimination",
+        "State Legislatures",
+        "States (US)",
+        "Law and Legislation",
+        "Health Insurance and Managed Care",
+        "Medicaid",
+        "Mental Health and Disorders",
+        "United States Politics and Government",
+        "your-feed-healthcare"
+      ],
+      "org_facet": [
+        "Republican Party"
+      ],
+      "per_facet": [],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/22/multimedia/22TRANS-ADULTS-01-cphw/22TRANS-ADULTS-01-cphw-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1363,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Aro Royston works for a U.S. defense contractor in St. Louis and has taken testosterone for eight years. “I’ve worked on defense programs to protect my nation,“ he said. “And my nation can’t protect me?”",
+          "copyright": "Michael B. Thomas for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/22/multimedia/22TRANS-ADULTS-01-cphw/22TRANS-ADULTS-01-cphw-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Aro Royston works for a U.S. defense contractor in St. Louis and has taken testosterone for eight years. “I’ve worked on defense programs to protect my nation,“ he said. “And my nation can’t protect me?”",
+          "copyright": "Michael B. Thomas for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/22/multimedia/22TRANS-ADULTS-01-cphw/22TRANS-ADULTS-01-cphw-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Aro Royston works for a U.S. defense contractor in St. Louis and has taken testosterone for eight years. “I’ve worked on defense programs to protect my nation,“ he said. “And my nation can’t protect me?”",
+          "copyright": "Michael B. Thomas for The New York Times"
+        }
+      ],
+      "short_url": "https://nyti.ms/3LjrWwK"
+    },
+    {
+      "section": "health",
+      "subsection": "",
+      "title": "They May Be Just Acquaintances. They’re Important to You Anyway.",
+      "abstract": "The people at the dog park, the bank teller, the regular waiter — these casual relationships may be “weak ties,” but they’re also a key to well-being.",
+      "url": "https://www.nytimes.com/2023/04/22/health/seniors-acquaintances-happiness.html",
+      "uri": "nyt://article/de93a200-17fa-539e-a1ef-ef7d16b82fc9",
+      "byline": "By Paula Span",
+      "item_type": "Article",
+      "updated_date": "2023-04-24T23:13:10-04:00",
+      "created_date": "2023-04-22T05:00:20-04:00",
+      "published_date": "2023-04-22T05:00:20-04:00",
+      "material_type_facet": "",
+      "kicker": "the new old age",
+      "des_facet": [
+        "Dogs",
+        "Friendship",
+        "Happiness",
+        "Sociology",
+        "Conversation",
+        "Loneliness",
+        "Elderly",
+        "Psychology and Psychologists"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/multimedia/22SCI-SPAN-01-vwpq/22SCI-SPAN-01-vwpq-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 1365,
+          "width": 2048,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "From left, Pattie Marsh, Lee Geanoules, Lam Gong and Victoria Tirondola at Brookdale Park in Bloomfield, N.J., first began chatting about their dogs last spring.",
+          "copyright": "Bryan Anselm for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/multimedia/22SCI-SPAN-01-vwpq/22SCI-SPAN-01-vwpq-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 400,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "From left, Pattie Marsh, Lee Geanoules, Lam Gong and Victoria Tirondola at Brookdale Park in Bloomfield, N.J., first began chatting about their dogs last spring.",
+          "copyright": "Bryan Anselm for The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/25/multimedia/22SCI-SPAN-01-vwpq/22SCI-SPAN-01-vwpq-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "From left, Pattie Marsh, Lee Geanoules, Lam Gong and Victoria Tirondola at Brookdale Park in Bloomfield, N.J., first began chatting about their dogs last spring.",
+          "copyright": "Bryan Anselm for The New York Times"
+        }
+      ],
+      "short_url": "https://nyti.ms/40w3v3z"
+    },
+    {
+      "section": "climate",
+      "subsection": "",
+      "title": "7 Inspiring Reads for Earth Day",
+      "abstract": "We picked some of our favorite articles from the Times’s Climate Desk.",
+      "url": "https://www.nytimes.com/2023/04/21/climate/earth-day-reads.html",
+      "uri": "nyt://article/374e6699-757a-5709-ac2e-982d65ccc5a0",
+      "byline": "By The New York Times",
+      "item_type": "Article",
+      "updated_date": "2023-04-21T13:47:41-04:00",
+      "created_date": "2023-04-21T13:03:29-04:00",
+      "published_date": "2023-04-21T13:03:29-04:00",
+      "material_type_facet": "",
+      "kicker": "",
+      "des_facet": [
+        "Earth Day",
+        "Global Warming",
+        "Greenhouse Gas Emissions"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "multimedia": [
+        {
+          "url": "https://static01.nyt.com/images/2023/04/21/climate/21cli-7things-promo/21cli-7things-promo-superJumbo.jpg",
+          "format": "Super Jumbo",
+          "height": 718,
+          "width": 1079,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Niki Chan Wylie for The New York Times; Rachelle Baker; Chang W. Lee/The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/21/climate/21cli-7things-promo/21cli-7things-promo-threeByTwoSmallAt2X.jpg",
+          "format": "threeByTwoSmallAt2X",
+          "height": 399,
+          "width": 600,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Niki Chan Wylie for The New York Times; Rachelle Baker; Chang W. Lee/The New York Times"
+        },
+        {
+          "url": "https://static01.nyt.com/images/2023/04/21/climate/21cli-7things-promo/21cli-7things-promo-thumbLarge.jpg",
+          "format": "Large Thumbnail",
+          "height": 150,
+          "width": 150,
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Niki Chan Wylie for The New York Times; Rachelle Baker; Chang W. Lee/The New York Times"
+        }
+      ],
+      "short_url": "https://nyti.ms/3KPr5Cw"
+    }
+  ]
+}
