@@ -21,13 +21,11 @@ object ApiMockResponsesFactory {
         )
 
         it["/${TOPICS_REQUEST_BASE_URL}arts.json?api-key=$API_KEY"] = createSuccessMockResponse(
-            topArtsFileName,
-            PAGE_LOAD_DELAY
+            topArtsFileName
         )
 
         it["/${TOPICS_REQUEST_BASE_URL}science.json?api-key=$API_KEY"] = createSuccessMockResponse(
-            topScienceFileName,
-            PAGE_LOAD_DELAY
+            topScienceFileName
         )
     }
 

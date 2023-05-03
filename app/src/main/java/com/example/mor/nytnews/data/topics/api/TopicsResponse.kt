@@ -5,10 +5,10 @@ data class TopicsResponse(
     val section: String,
     val last_updated: String,
     val num_results: Int,
-    val results: List<Topic>
+    val results: List<TopicResponse>
 )
 
-data class Topic(
+data class TopicResponse(
     val section: String,
     val subsection: String,
     val title: String,
@@ -26,11 +26,11 @@ data class Topic(
     val org_facet: List<String>,
     val per_facet: List<String>,
     val geo_facet: List<String>,
-    val multimedia: List<Multimedia>?,
+    val multimedia: List<MultimediaResponse>?,
     val short_url: String
 )
 
-data class Multimedia(
+data class MultimediaResponse(
     val url: String,
     val format: String,
     val height: Int,

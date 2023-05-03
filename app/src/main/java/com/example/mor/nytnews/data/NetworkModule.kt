@@ -26,7 +26,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(baseUrl: String): Retrofit {
+    fun provideRetrofit(baseUrl: String = BASE_URL): Retrofit {
         val logger = HttpLoggingInterceptor()
         logger.level = HttpLoggingInterceptor.Level.BASIC
 

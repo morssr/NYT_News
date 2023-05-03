@@ -70,4 +70,15 @@ class TopicsApiTest {
             assert(!response.isSuccessful)
         }
     }
+
+    @Test
+    fun `test get home topics last update success`() {
+        runBlocking {
+            val response = service.getTopicLastUpdate("home")
+            assert(response.isSuccessful)
+            assert(response.body() != null)
+            assert(response.body()!!.status == "OK")
+            assert(response.body()!!.section == "home")
+        }
+    }
 }
