@@ -13,11 +13,17 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 object NetworkModule {
+
+    @Singleton
+    @Provides
+    @RetrofitRemoteBaseUrl
+    fun provideBaseUrlForRetrofitRemote(): String = BASE_URL
 
     @Provides
     @Singleton
@@ -26,7 +32,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(baseUrl: String = BASE_URL): Retrofit {
+    fun provideRetrofit(@RetrofitRemoteBaseUrl baseUrl: String = BASE_URL): Retrofit {
         val logger = HttpLoggingInterceptor()
         logger.level = HttpLoggingInterceptor.Level.BASIC
 
@@ -47,3 +53,7 @@ object NetworkModule {
             .build()
     }
 }
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class RetrofitRemoteBaseUrl

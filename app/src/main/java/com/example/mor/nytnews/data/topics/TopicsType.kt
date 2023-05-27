@@ -1,14 +1,19 @@
 package com.example.mor.nytnews.data.topics
 
 enum class TopicsType(val topicName: String) {
-    ARTS("arts"),
-    AUTOMOBILES("automobiles"),
-    BOOKS("books"),
-    BUSINESS("business"),
-    FASHION("fashion"),
-    FOOD("food"),
-    HEALTH("health"),
     HOME("home"),
+    POLITICS("politics"),
+    BOOKS("books"),
+    HEALTH("health"),
+    TECHNOLOGY("technology"),
+    AUTOMOBILES("automobiles"),
+    ARTS("arts"),
+    SCIENCE("science"),
+    FASHION("fashion"),
+    SPORTS("sports"),
+    BUSINESS("business"),
+    FOOD("food"),
+    TRAVEL("travel"),
     INSIDER("insider"),
     MAGAZINE("magazine"),
     MOVIES("movies"),
@@ -16,15 +21,20 @@ enum class TopicsType(val topicName: String) {
     NYREGION("nyregion"),
     OBITUARIES("obituaries"),
     OPINION("opinion"),
-    POLITICS("politics"),
     REALESTATE("realestate"),
-    SCIENCE("science"),
-    SPORTS("sports"),
     SUNDAYREVIEW("sundayreview"),
-    TECHNOLOGY("technology"),
     THEATER("theater"),
     TMAGAZINE("t-magazine"),
-    TRAVEL("travel"),
     UPSHOT("upshot"),
     WORLD("world");
+
+    companion object {
+        val allTopics = values().toList()
+
+        fun listFromString(string: String) = string.split(",")
+            .map { it.trim() }
+            .map { valueOf(it) }
+    }
 }
+
+fun List<TopicsType>.toTopicsString() = joinToString { it.name }

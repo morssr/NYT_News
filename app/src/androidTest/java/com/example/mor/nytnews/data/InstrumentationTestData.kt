@@ -6,6 +6,7 @@ import java.util.Date
 val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
     add(
         StoryEntity(
+            id = "100000007954708",
             section = "home",
             subsection = "politics",
             title = "House Republicans, Grasping for Votes, Alter Debt Limit Plan",
@@ -22,6 +23,7 @@ val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
 
     add(
         StoryEntity(
+            id = "100002340007954708",
             section = "home",
             subsection = "politics",
             title = "After a Hellish Start and a Honeymoon, McCarthy Faces His First Big Test",
@@ -38,6 +40,7 @@ val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
 
     add(
         StoryEntity(
+            id = "100000002347954708",
             section = "home",
             subsection = "technology",
             title = "U.K. Blocks Microsoft’s 69 Billion Bid for Activision, a Blow for Tech Deals",
@@ -54,6 +57,7 @@ val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
 
     add(
         StoryEntity(
+            id = "10007954708",
             section = "arts",
             subsection = "music",
             title = "Harry Belafonte, Folk Hero",
@@ -70,6 +74,7 @@ val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
 
     add(
         StoryEntity(
+            id = "100000032407954708",
             section = "arts",
             subsection = "television",
             title = "Fatal Attraction’ Review: Here’s Why She Did It",
@@ -86,6 +91,7 @@ val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
 
     add(
         StoryEntity(
+            id = "10er0000007954708",
             section = "science",
             subsection = "",
             title = "Sign Up for the Science Times Newsletter",
@@ -102,6 +108,7 @@ val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
 
     add(
         StoryEntity(
+            id = "1000000079324df54708",
             section = "science",
             subsection = "",
             title = "Climate Change’s Fingerprints Turn Up in Parched East Africa",

@@ -41,6 +41,14 @@ class TopicsRepositoryImplTest {
         scope = testCoroutineScope,
         produceFile = { context.preferencesDataStoreFile(TOPICS_LAST_UPDATE_PREFERENCES_FILE_NAME) }
     )
+
+    // initialize topics last update preferences
+    private val topicsPref = PreferenceDataStoreFactory.create(
+        corruptionHandler = null,
+        migrations = emptyList(),
+        scope = testCoroutineScope,
+        produceFile = { context.preferencesDataStoreFile(TOPICS_PREFERENCES_FILE_NAME) }
+    )
     private lateinit var mockWebServer: MockWebServer
 
     private lateinit var topicsRepository: TopicsRepository
@@ -61,7 +69,10 @@ class TopicsRepositoryImplTest {
 
         // initialize topics repository
         topicsRepository = TopicsRepositoryImpl(
-            api = api, dao = db.topStoriesDao(), topicsLastUpdatePreferences = lastUpdatePref
+            api = api,
+            dao = db.topStoriesDao(),
+            topicsLastUpdatePreferences = lastUpdatePref,
+            topicsPreferences = topicsPref
         )
     }
 
@@ -70,6 +81,7 @@ class TopicsRepositoryImplTest {
         db.close()
         testCoroutineScope.runTest {
             lastUpdatePref.edit { it.clear() }
+            topicsPref.edit { it.clear() }
         }
         mockWebServer.stopServer()
         testCoroutineScope.cancel()

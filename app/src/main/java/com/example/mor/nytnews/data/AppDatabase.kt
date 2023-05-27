@@ -7,6 +7,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.mor.nytnews.data.bookmarks.cache.BookmarkedStoryEntity
+import com.example.mor.nytnews.data.bookmarks.cache.BookmarksDao
 import com.example.mor.nytnews.data.topics.cache.StoryEntity
 import com.example.mor.nytnews.data.topics.cache.TopStoriesDao
 import com.example.mor.nytnews.data.utils.db.coverters.DateTypeConverter
@@ -16,13 +18,14 @@ const val FLAG_USE_IN_MEMORY_DB = false
 
 @TypeConverters(DateTypeConverter::class)
 @Database(
-    entities = [StoryEntity::class],
+    entities = [StoryEntity::class, BookmarkedStoryEntity::class],
     version = 1,
     exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun topStoriesDao(): TopStoriesDao
+    abstract fun bookmarksDao(): BookmarksDao
 
     companion object {
         private const val TAG = "AppDatabase"

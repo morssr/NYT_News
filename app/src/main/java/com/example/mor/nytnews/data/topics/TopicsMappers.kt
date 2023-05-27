@@ -10,6 +10,7 @@ import com.example.mor.nytnews.utilities.api.parseDateFromString
 
 // Map StoryEntity to Story
 fun StoryEntity.toStory() = Story(
+    id = id,
     subsection = subsection,
     title = title,
     abstract = abstract,
@@ -24,6 +25,7 @@ fun List<StoryEntity>.toStoryList() = map { it.toStory() }
 
 // Map TopicResponse to StoryEntity
 fun TopicResponse.toStoryEntity(section: String) = StoryEntity(
+    id = uri,
     section = section.lowercase(),
     subsection = subsection,
     title = title,

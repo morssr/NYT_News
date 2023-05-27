@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import com.example.mor.nytnews.data.AppDatabase
 import com.example.mor.nytnews.data.topics.TOPICS_LAST_UPDATE_PREFERENCES_FILE_NAME
+import com.example.mor.nytnews.data.topics.TOPICS_PREFERENCES_FILE_NAME
 import com.example.mor.nytnews.data.topics.TopicsRepository
 import com.example.mor.nytnews.data.topics.TopicsRepositoryImpl
 import com.example.mor.nytnews.data.topics.api.TopicsService
@@ -23,6 +24,14 @@ import javax.inject.Qualifier
 @Module
 @InstallIn(ActivityRetainedComponent::class)
 object TopicsModule {
+
+    @TopicsPreferences
+    @Provides
+    @ActivityRetainedScoped
+    fun provideTopicsPreferences(@ApplicationContext context: Context): DataStore<Preferences> =
+        PreferenceDataStoreFactory.create {
+            context.preferencesDataStoreFile(TOPICS_PREFERENCES_FILE_NAME)
+        }
 
     @TopicsLastUpdatePref
     @Provides
@@ -47,10 +56,16 @@ object TopicsModule {
     fun provideTopicsRepository(
         topicsService: TopicsService,
         topicDao: TopStoriesDao,
-        @TopicsLastUpdatePref topicsLastUpdatePref: DataStore<Preferences>
-    ): TopicsRepository = TopicsRepositoryImpl(topicsService, topicDao, topicsLastUpdatePref)
+        @TopicsLastUpdatePref topicsLastUpdatePref: DataStore<Preferences>,
+        @TopicsPreferences topicsPreferences: DataStore<Preferences>
+    ): TopicsRepository =
+        TopicsRepositoryImpl(topicsService, topicDao, topicsLastUpdatePref, topicsPreferences)
 }
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class TopicsLastUpdatePref
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class TopicsPreferences

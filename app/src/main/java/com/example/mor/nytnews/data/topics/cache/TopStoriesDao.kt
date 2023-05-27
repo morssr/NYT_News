@@ -9,6 +9,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TopStoriesDao {
 
+    @Query("SELECT * FROM stories WHERE id = :id")
+    fun getStoryById(id: String): StoryEntity
+
     @Query("SELECT * FROM stories")
     fun getTopStories(): List<StoryEntity>
 
