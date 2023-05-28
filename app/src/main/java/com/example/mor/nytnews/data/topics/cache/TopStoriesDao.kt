@@ -18,17 +18,17 @@ interface TopStoriesDao {
     @Query("SELECT * FROM stories")
     fun getTopStoriesStream(): Flow<List<StoryEntity>>
 
-    @Query("SELECT * FROM stories WHERE section = :section")
-    fun getTopStoriesBySection(section: String): List<StoryEntity>
+    @Query("SELECT * FROM stories WHERE topic = :topic")
+    fun getTopStoriesByTopic(topic: String): List<StoryEntity>
 
-    @Query("SELECT * FROM stories WHERE section = :section")
-    fun getTopStoriesBySectionStream(section: String): Flow<List<StoryEntity>>
+    @Query("SELECT * FROM stories WHERE topic = :topic")
+    fun getTopStoriesBySectionTopic(topic: String): Flow<List<StoryEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrReplace(stories: List<StoryEntity>)
 
-    @Query("DELETE FROM stories WHERE section = :section")
-    suspend fun deleteAllBySection(section: String)
+    @Query("DELETE FROM stories WHERE topic = :topic")
+    suspend fun deleteAllByTopic(topic: String)
 
     @Query("DELETE FROM stories")
     suspend fun deleteAllTopStories()

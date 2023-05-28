@@ -24,10 +24,10 @@ fun StoryEntity.toStory() = Story(
 fun List<StoryEntity>.toStoryList() = map { it.toStory() }
 
 // Map TopicResponse to StoryEntity
-fun TopicResponse.toStoryEntity(section: String) = StoryEntity(
+fun TopicResponse.toStoryEntity(topic: String) = StoryEntity(
     id = uri,
-    section = section.lowercase(),
-    subsection = subsection,
+    topic = topic.lowercase(),
+    subsection = section,
     title = title,
     abstract = abstract,
     byline = byline,
@@ -40,8 +40,8 @@ fun TopicResponse.toStoryEntity(section: String) = StoryEntity(
 )
 
 // Map List<TopicResponse> to List<StoryEntity>
-fun TopicsResponse.toStoryEntityList(): List<StoryEntity> {
-    return results.map { it.toStoryEntity(section) }
+fun TopicsResponse.toStoryEntityList(topic: TopicsType): List<StoryEntity> {
+    return results.map { it.toStoryEntity(topic.topicName) }
 }
 
 // Map LastTopicUpdateResponse to LastTopicUpdateData

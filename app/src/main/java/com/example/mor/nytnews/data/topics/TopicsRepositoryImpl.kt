@@ -44,7 +44,7 @@ class TopicsRepositoryImpl @Inject constructor(
             "getStoriesByTopic: called with topic: ${topic.topicName} and remoteSync: $remoteSync"
         )
         if (!remoteSync) {
-            return Response.Success(dao.getTopStoriesBySection(topic.topicName).toStoryList())
+            return Response.Success(dao.getTopStoriesByTopic(topic.topicName).toStoryList())
         }
 
         val response = api.getTopics(topic.topicName)
@@ -57,15 +57,15 @@ class TopicsRepositoryImpl @Inject constructor(
             response.body() ?: return Response.Failure(Exception("Response body is null"))
 
         // delete all stories from the table
-        dao.deleteAllBySection(topic.topicName)
+        dao.deleteAllByTopic(topic.topicName)
         // insert new stories to the table
-        val storiesEntities = topicResponse.toStoryEntityList()
+        val storiesEntities = topicResponse.toStoryEntityList(topic)
         dao.insertOrReplace(storiesEntities)
 
         saveLastSuccessfulRequestTimestamp(topic = topic, timestamp = System.currentTimeMillis())
         saveLastServerUpdateTimestamp(topic, parseDateFromString(topicResponse.last_updated).time)
 
-        val stories = dao.getTopStoriesBySection(topic.topicName).toStoryList()
+        val stories = dao.getTopStoriesByTopic(topic.topicName).toStoryList()
         return Response.Success(stories)
     }
 
@@ -76,7 +76,7 @@ class TopicsRepositoryImpl @Inject constructor(
         Log.d(TAG, "getStoriesByTopicStream: called with topic: $topic and remoteSync: $remoteSync")
         return flow {
             if (!remoteSync) {
-                val cachedStoriesFlow = dao.getTopStoriesBySectionStream(topic.topicName)
+                val cachedStoriesFlow = dao.getTopStoriesBySectionTopic(topic.topicName)
                 emitAll(cachedStoriesFlow.map { Response.Success(it.toStoryList()) })
                 Log.v(TAG, "getStoriesByTopicStream: emitting cached stories")
                 return@flow
@@ -99,12 +99,15 @@ class TopicsRepositoryImpl @Inject constructor(
             )
 
             // delete all stories from the table
-            dao.deleteAllBySection(topic.topicName)
+            dao.deleteAllByTopic(topic.topicName)
             // insert new stories to the table
-            val storiesEntities = topicResponse.toStoryEntityList()
+            val storiesEntities = topicResponse.toStoryEntityList(topic)
             dao.insertOrReplace(storiesEntities)
 
-            saveLastSuccessfulRequestTimestamp(topic = topic, timestamp = System.currentTimeMillis())
+            saveLastSuccessfulRequestTimestamp(
+                topic = topic,
+                timestamp = System.currentTimeMillis()
+            )
 
             // update last update timestamp for the topic
             saveLastServerUpdateTimestamp(
@@ -112,7 +115,7 @@ class TopicsRepositoryImpl @Inject constructor(
                 parseDateFromString(topicResponse.last_updated).time
             )
 
-            val storiesFlow = dao.getTopStoriesBySectionStream(topic.topicName)
+            val storiesFlow = dao.getTopStoriesBySectionTopic(topic.topicName)
             emitAll(storiesFlow.map { Response.Success(it.toStoryList()) })
         }
     }

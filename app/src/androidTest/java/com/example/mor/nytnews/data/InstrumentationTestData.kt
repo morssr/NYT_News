@@ -7,7 +7,7 @@ val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
     add(
         StoryEntity(
             id = "100000007954708",
-            section = "home",
+            topic = "home",
             subsection = "politics",
             title = "House Republicans, Grasping for Votes, Alter Debt Limit Plan",
             abstract = "After a late-night haggling session, it was still not clear whether Speaker Kevin McCarthy could pass his fiscal plan, which would tie a yearlong debt ceiling increase to spending cuts and policy changes.",
@@ -24,7 +24,7 @@ val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
     add(
         StoryEntity(
             id = "100002340007954708",
-            section = "home",
+            topic = "home",
             subsection = "politics",
             title = "After a Hellish Start and a Honeymoon, McCarthy Faces His First Big Test",
             abstract = "The Republican speaker has stuck to partisan bills that have kept his party united. That ends with a tough vote to raise the debt limit in exchange for spending cuts.",
@@ -41,7 +41,7 @@ val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
     add(
         StoryEntity(
             id = "100000002347954708",
-            section = "home",
+            topic = "home",
             subsection = "technology",
             title = "U.K. Blocks Microsoft’s 69 Billion Bid for Activision, a Blow for Tech Deals",
             abstract = "The decision barring the takeover of a big video game publisher is a major victory for proponents of regulating tech giants, which have faced obstacles in the United States.",
@@ -58,7 +58,7 @@ val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
     add(
         StoryEntity(
             id = "10007954708",
-            section = "arts",
+            topic = "arts",
             subsection = "music",
             title = "Harry Belafonte, Folk Hero",
             abstract = "Cool and charismatic, Belafonte channeled his stardom into activism. He was a true people person, who knew how to reach, teach and challenge us.",
@@ -75,7 +75,7 @@ val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
     add(
         StoryEntity(
             id = "100000032407954708",
-            section = "arts",
+            topic = "arts",
             subsection = "television",
             title = "Fatal Attraction’ Review: Here’s Why She Did It",
             abstract = "A somber, psychology-heavy series tries to take the “erotic thriller” out of the erotic thriller.",
@@ -92,7 +92,7 @@ val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
     add(
         StoryEntity(
             id = "10er0000007954708",
-            section = "science",
+            topic = "science",
             subsection = "",
             title = "Sign Up for the Science Times Newsletter",
             abstract = "Every week, we’ll bring you stories that capture the wonders of the human body, nature and the cosmos.",
@@ -109,7 +109,7 @@ val dummyTopStoriesEntities = arrayListOf<StoryEntity>().apply {
     add(
         StoryEntity(
             id = "1000000079324df54708",
-            section = "science",
+            topic = "science",
             subsection = "",
             title = "Climate Change’s Fingerprints Turn Up in Parched East Africa",
             abstract = "Droughts like the one that has ravaged Ethiopia, Kenya and Somalia are now 100 times as likely as in the preindustrial era, a new study has found.",

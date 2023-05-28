@@ -9,7 +9,7 @@ import java.util.Date
 data class StoryEntity(
     @PrimaryKey
     val id: String,
-    val section: String,
+    val topic: String,
     @ColumnInfo(defaultValue = "")
     val subsection: String,
     val title: String,
