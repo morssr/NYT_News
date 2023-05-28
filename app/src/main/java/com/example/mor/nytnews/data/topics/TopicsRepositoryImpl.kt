@@ -1,11 +1,11 @@
 package com.example.mor.nytnews.data.topics
 
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import co.touchlab.kermit.Logger
 import com.example.mor.nytnews.data.topics.api.TopicsService
 import com.example.mor.nytnews.data.topics.cache.Story
 import com.example.mor.nytnews.data.topics.cache.TopStoriesDao
@@ -16,22 +16,24 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import java.util.Date
 import javax.inject.Inject
 
 private const val TAG = "TopicsRepositoryImpl"
 private const val TOPICS_LAST_UPDATE_KEY_SUFFIX = "_time"
 
-//TODO: inject logger and use it instead of default Logger
 class TopicsRepositoryImpl @Inject constructor(
     private val api: TopicsService,
     private val dao: TopStoriesDao,
     private val topicsLastUpdatePreferences: DataStore<Preferences>,
     private val topicsPreferences: DataStore<Preferences>,
-
+    logger: Logger
 ) : TopicsRepository {
 
+    private val log = logger.withTag(TAG)
+
     override suspend fun getStoryById(id: String): Story {
-        Log.d(TAG, "getStoryById: called with id: $id")
+        log.d { "getStoryById(): called with id: $id" }
         return dao.getStoryById(id).toStory()
     }
 
@@ -39,11 +41,11 @@ class TopicsRepositoryImpl @Inject constructor(
         topic: TopicsType,
         remoteSync: Boolean
     ): Response<List<Story>> {
-        Log.d(
-            TAG,
-            "getStoriesByTopic: called with topic: ${topic.topicName} and remoteSync: $remoteSync"
-        )
+        log.d {
+            "getStoriesByTopic(): called with topic: ${topic.topicName} and remoteSync: $remoteSync"
+        }
         if (!remoteSync) {
+            log.d { "remote sync is false, emit from local cached stories" }
             return Response.Success(dao.getTopStoriesByTopic(topic.topicName).toStoryList())
         }
 
@@ -73,19 +75,19 @@ class TopicsRepositoryImpl @Inject constructor(
         topic: TopicsType,
         remoteSync: Boolean
     ): Flow<Response<List<Story>>> {
-        Log.d(TAG, "getStoriesByTopicStream: called with topic: $topic and remoteSync: $remoteSync")
+        log.d { "getStoriesByTopicStream(): called with topic: $topic and remoteSync: $remoteSync" }
         return flow {
             if (!remoteSync) {
+                log.d { "remote sync is false, emit from local cached stories" }
                 val cachedStoriesFlow = dao.getTopStoriesBySectionTopic(topic.topicName)
                 emitAll(cachedStoriesFlow.map { Response.Success(it.toStoryList()) })
-                Log.v(TAG, "getStoriesByTopicStream: emitting cached stories")
                 return@flow
             }
 
             val response = api.getTopics(topic.topicName)
             if (!response.isSuccessful) {
                 emit(Response.Failure(Exception(response.message())))
-                Log.v(TAG, "getStoriesByTopicStream: response is not successful")
+                log.d { "response is not successful" }
                 return@flow
             }
 
@@ -93,13 +95,13 @@ class TopicsRepositoryImpl @Inject constructor(
                 response.body()
                     ?: return@flow emit(Response.Failure(Exception("Response body is null")))
 
-            Log.v(
-                TAG,
-                "getStoriesByTopicStream: response is successful with results size: ${topicResponse.results.size}"
-            )
+            log.d {
+                "response is successful with results size: ${topicResponse.results.size}"
+            }
 
             // delete all stories from the table
             dao.deleteAllByTopic(topic.topicName)
+            log.v { "all $topic stories are deleted" }
             // insert new stories to the table
             val storiesEntities = topicResponse.toStoryEntityList(topic)
             dao.insertOrReplace(storiesEntities)
@@ -125,20 +127,18 @@ class TopicsRepositoryImpl @Inject constructor(
         topic: TopicsType,
         minDurationMinute: Int
     ): Boolean {
-        Log.d(TAG, "isTopicUpdateAvailable: called with topic: ${topic.topicName}")
+        log.d { "isTopicUpdateAvailable(): called with topic: ${topic.topicName}" }
 
         // get the last successful request timestamp
         val lastSuccessfulRequestTimestamp = topicsLastUpdatePreferences.data.map { preferences ->
             preferences[longPreferencesKey(topic.topicName + TOPICS_LAST_UPDATE_KEY_SUFFIX)] ?: 0L
         }.first()
 
-        // get the last server content update timestamp
-        val lastServerUpdateTimestamp = topicsLastUpdatePreferences.data.map { preferences ->
-            preferences[longPreferencesKey(topic.topicName)] ?: 0L
-        }.first()
+        log.v { "last topic successful remote request time ${Date(lastSuccessfulRequestTimestamp)}" }
 
         // if the last successful request timestamp is 0, it means that the topic was never updated
         if (lastSuccessfulRequestTimestamp == 0L) {
+            log.d { "last successful request is 0. update is required." }
             return true
         }
 
@@ -147,14 +147,15 @@ class TopicsRepositoryImpl @Inject constructor(
         val currentTime = System.currentTimeMillis()
         val timePassedFromLastUpdate = currentTime - lastSuccessfulRequestTimestamp
         val timePassedFromLastUpdateInMinutes = timePassedFromLastUpdate / 1000 / 60
-        Log.d(TAG, "isTopicUpdateAvailable: timePassedFromLastUpdateInMinutes: $timePassedFromLastUpdateInMinutes")
 
         if (timePassedFromLastUpdateInMinutes < minDurationMinute) {
+            log.d { "time passed from last update is less than the minimum duration" }
             return false
         }
 
         val response = api.getTopics(topic.topicName)
         if (!response.isSuccessful) {
+            log.d { "request for last topic: $topic update is not successful" }
             return false
         }
 
@@ -163,15 +164,26 @@ class TopicsRepositoryImpl @Inject constructor(
         //extract the last server update timestamp from the response
         val lastUpdateTimestampFromResponse = parseDateFromString(topicResponse.last_updated).time
 
+        log.v { "last topic remote update ${Date(lastUpdateTimestampFromResponse)}" }
+
+        // get the last server content update timestamp
+        val lastServerUpdateTimestamp = topicsLastUpdatePreferences.data.map { preferences ->
+            preferences[longPreferencesKey(topic.topicName)] ?: 0L
+        }.first()
+
+        log.v { "last local topic remote update ${Date(lastServerUpdateTimestamp)}" }
+
         // check if the last update timestamp from the response is greater than the last server update timestamp
         val isUpdateAvailable = lastUpdateTimestampFromResponse > lastServerUpdateTimestamp
 
         // if there is no update, save the last successful request timestamp
         if (!isUpdateAvailable) {
+            log.d { "no update available for topic: $topic" }
             saveLastSuccessfulRequestTimestamp(topic = topic)
             return false
         }
 
+        log.d { "update is available for topic: $topic" }
         return true
     }
 
@@ -181,6 +193,7 @@ class TopicsRepositoryImpl @Inject constructor(
      * @param timestamp the new timestamp
      */
     private suspend fun saveLastServerUpdateTimestamp(topic: TopicsType, timestamp: Long) {
+        log.d { "saveLastServerUpdateTimestamp() called with: topic = $topic, timestamp = $timestamp | time: ${Date(timestamp)}" }
         topicsLastUpdatePreferences.edit {
             it[longPreferencesKey(topic.topicName)] = timestamp
         }
@@ -191,10 +204,9 @@ class TopicsRepositoryImpl @Inject constructor(
         keySuffix: String = TOPICS_LAST_UPDATE_KEY_SUFFIX,
         timestamp: Long = System.currentTimeMillis()
     ) {
-        Log.d(
-            TAG,
-            "saveLastSuccessfulRequestTimestamp() called with: topic = $topic, keySuffix = $keySuffix, timestamp = $timestamp"
-        )
+        log.d {
+            "saveLastSuccessfulRequestTimestamp() called with: topic = $topic, keySuffix = $keySuffix, timestamp = $timestamp | time: ${Date(timestamp)}"
+        }
         topicsLastUpdatePreferences.edit {
             it[longPreferencesKey(topic.topicName + keySuffix)] = timestamp
         }
@@ -202,7 +214,7 @@ class TopicsRepositoryImpl @Inject constructor(
 
     // get the list of topics that the user chose as favorite
     override fun getMyTopicsListStream(): Flow<List<TopicsType>> {
-        Log.d(TAG, "getMyTopicsList: called")
+        log.d { "getMyTopicsList: called" }
         return topicsPreferences.data.map { preferences ->
             preferences[stringPreferencesKey(FAVORITE_TOPICS_PREFERENCES_KEY)]
                 ?: defaultTopics.joinToString(separator = ",") { it.topicName }
@@ -215,7 +227,7 @@ class TopicsRepositoryImpl @Inject constructor(
 
     // update the list of topics that the user chose as favorite
     override suspend fun updateMyTopicsList(topicsList: List<TopicsType>) {
-        Log.d(TAG, "updateMyTopicsList: called with topicsList: $topicsList")
+        log.d { "updateMyTopicsList: called with topicsList: $topicsList" }
         val topicsString = topicsList.joinToString(separator = ",") { it.topicName }
         topicsPreferences.edit {
             it[stringPreferencesKey(FAVORITE_TOPICS_PREFERENCES_KEY)] = topicsString

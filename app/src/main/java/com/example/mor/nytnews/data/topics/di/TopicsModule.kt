@@ -5,6 +5,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
+import co.touchlab.kermit.Logger
+import com.example.mor.nytnews.MainLogger
 import com.example.mor.nytnews.data.AppDatabase
 import com.example.mor.nytnews.data.topics.TOPICS_LAST_UPDATE_PREFERENCES_FILE_NAME
 import com.example.mor.nytnews.data.topics.TOPICS_PREFERENCES_FILE_NAME
@@ -57,9 +59,16 @@ object TopicsModule {
         topicsService: TopicsService,
         topicDao: TopStoriesDao,
         @TopicsLastUpdatePref topicsLastUpdatePref: DataStore<Preferences>,
-        @TopicsPreferences topicsPreferences: DataStore<Preferences>
+        @TopicsPreferences topicsPreferences: DataStore<Preferences>,
+        @MainLogger logger: Logger
     ): TopicsRepository =
-        TopicsRepositoryImpl(topicsService, topicDao, topicsLastUpdatePref, topicsPreferences)
+        TopicsRepositoryImpl(
+            topicsService,
+            topicDao,
+            topicsLastUpdatePref,
+            topicsPreferences,
+            logger
+        )
 }
 
 @Qualifier

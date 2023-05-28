@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
+import co.touchlab.kermit.Logger
 import com.example.mor.nytnews.data.AppDatabase
 import com.example.mor.nytnews.data.NetworkModule
 import com.example.mor.nytnews.data.TestDispatcherRule
@@ -72,7 +73,8 @@ class TopicsRepositoryImplTest {
             api = api,
             dao = db.topStoriesDao(),
             topicsLastUpdatePreferences = lastUpdatePref,
-            topicsPreferences = topicsPref
+            topicsPreferences = topicsPref,
+            logger = Logger
         )
     }
 

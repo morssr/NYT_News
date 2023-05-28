@@ -1,10 +1,11 @@
 package com.example.mor.nytnews.ui.topics
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import com.example.mor.nytnews.IoDispatcher
+import com.example.mor.nytnews.MainLogger
 import com.example.mor.nytnews.data.bookmarks.cache.BookmarkedStory
 import com.example.mor.nytnews.data.bookmarks.cache.BookmarksRepository
 import com.example.mor.nytnews.data.bookmarks.cache.toBookmarkedStory
@@ -44,8 +45,11 @@ class TopicsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val topicsRepository: TopicsRepository,
     private val bookmarksRepository: BookmarksRepository,
+    @MainLogger logger: Logger,
     @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
+
+    private val log = logger.withTag(TAG)
 
     private val _uiState = MutableStateFlow(TopicsUiState(
         topics = savedStateHandle.get<String>(KEY_TOPICS)?.let {
@@ -57,6 +61,7 @@ class TopicsViewModel @Inject constructor(
     private val currentTopic = MutableStateFlow(TopicsType.HOME)
 
     init {
+        log.v { "init called with dispatcher: $dispatcher" }
         topicsRepository.getMyTopicsListStream()
             .onEach { topicsList -> savedStateHandle[KEY_TOPICS] = topicsList.toTopicsString() }
             .onEach { topics -> _uiState.update { it.copy(topics = topics) } }
@@ -67,34 +72,34 @@ class TopicsViewModel @Inject constructor(
             ).launchIn(viewModelScope)
 
         currentTopic
-            .onEach { Log.d(TAG, "current topic changed to $it") }
+            .onEach { log.d { "current topic changed to $it" } }
             .debounce(350)
             .onEach { topic ->
-                Log.d(TAG, "debounce finished and $topic is about to be loaded")
+                log.v { "debounce finished and $topic is about to be loaded" }
                 val isCurrentFeedStateEmpty = _uiState.value.feedsStates[topic] == null
                 if (isCurrentFeedStateEmpty) {
-                    Log.d(TAG, "current feed state is empty, update to loading in progress")
+                    log.d { "current feed state is empty, update to loading in progress" }
                     _uiState.update { oldState -> updateToLoadingProgress(oldState, topic) }
                 }
             }
             .flatMapLatest { topic ->
                 val isUpdateRequired = topicsRepository.isTopicUpdateAvailable(topic, 30)
                 if (isUpdateRequired) {
-                    Log.d(TAG, "update is required for topic $topic. Load from remote")
+                    log.d { "update is required for topic $topic. Load from remote" }
                 } else {
-                    Log.d(TAG, "update is not required for topic $topic. Load from cache")
+                    log.d { "update is not required for topic $topic. Load from cache" }
                 }
                 topicsRepository.getStoriesByTopicStream(topic, isUpdateRequired)
                     .combine(bookmarksRepository.getBookmarksStream()) { response, bookmarks ->
-                        Log.d(TAG, "combine flows stories with bookmarked called")
+                        log.v { "combine flows stories with bookmarked called" }
                         createFeedUiState(response, bookmarks)
                     }
-                    .onEach { Log.d(TAG, "new feed state is ready to emit $it") }
+                    .onEach { log.v { "new feed state is ready to emit $it" } }
                     //map topic with the new feed state for further update
                     .map { topic to it }
 
             }.onEach { it: Pair<TopicsType, FeedUiState> ->
-                Log.e(TAG, "feed state update: topic: ${it.first} state:${it.second}")
+                log.d { "feed state update called for topic: ${it.first}" }
                 _uiState.update { uiState -> updatedFeedStateByTopic(uiState, it.first, it.second) }
             }
             .flowOn(dispatcher)
@@ -102,31 +107,40 @@ class TopicsViewModel @Inject constructor(
     }
 
     fun updateTopics(topics: List<TopicsType>) {
-        Log.d(TAG, "updateTopic() called with: topics = $topics")
+        log.d { "updateTopic() called with: topics = $topics" }
         viewModelScope.launch(dispatcher) {
             topicsRepository.updateMyTopicsList(topics)
         }
     }
 
     fun refreshCurrentTopic(topic: TopicsType) {
-        Log.d(TAG, "refreshCurrentTopic() called with: topic = $topic")
+        log.d { "refreshCurrentTopic() called with: topic = $topic" }
         currentTopic.value = topic
     }
 
     private fun createFeedUiState(
         response: Response<List<Story>>,
         bookmarks: List<BookmarkedStory>
-    ) = FeedUiState(
-        updateState = FeedUpdateState.Idle,
-        error = if (response is Response.Failure) response.error.message else null,
-        stories = if (response is Response.Success) {
-            response.data.map { story ->
-                val bookmarked = bookmarks.any { it.id == story.id }
-                story.toStoryUI(bookmarked = bookmarked)
-            }
-        } else {
-            emptyList()
-        })
+    ): FeedUiState {
+        log.d { "createFeedUiState() called" }
+        log.v { "response: $response" }
+        log.v { "bookmarks: $bookmarks" }
+
+        return FeedUiState(
+            updateState = FeedUpdateState.Idle,
+            error = if (response is Response.Failure) {
+                log.e { "error loading feed: ${response.error.message}" }
+                response.error.message
+            } else null,
+            stories = if (response is Response.Success) {
+                response.data.map { story ->
+                    val bookmarked = bookmarks.any { it.id == story.id }
+                    story.toStoryUI(bookmarked = bookmarked)
+                }
+            } else {
+                emptyList()
+            })
+    }
 
     private fun updateToLoadingProgress(
         oldState: TopicsUiState,
@@ -151,7 +165,7 @@ class TopicsViewModel @Inject constructor(
     }
 
     fun updateBookmark(id: String, bookmarked: Boolean) {
-        Log.d(TAG, "updateBookmark() called with: id = $id, bookmarked = $bookmarked")
+        log.d { "updateBookmark() called with: id = $id, bookmarked = $bookmarked" }
         viewModelScope.launch(dispatcher) {
             val story = topicsRepository.getStoryById(id)
             if (bookmarked) {

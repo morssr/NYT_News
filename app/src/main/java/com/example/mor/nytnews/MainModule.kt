@@ -1,5 +1,9 @@
 package com.example.mor.nytnews
 
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.Severity
+import co.touchlab.kermit.StaticConfig
+import co.touchlab.kermit.platformLogWriter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,6 +15,16 @@ import javax.inject.Qualifier
 @Module
 @InstallIn(SingletonComponent::class)
 object MainModule {
+
+    @MainLogger
+    @Provides
+    //TODO: Change severity on demand (e.g. for production)
+    fun providesBaseLogger(): Logger = Logger(
+        config = StaticConfig(
+            minSeverity = Severity.Verbose,
+            logWriterList = listOf(platformLogWriter())
+        ), "NYT"
+    )
 
     @DefaultDispatcher
     @Provides
@@ -36,3 +50,7 @@ annotation class IoDispatcher
 @Retention(AnnotationRetention.BINARY)
 @Qualifier
 annotation class MainDispatcher
+
+@Retention(AnnotationRetention.BINARY)
+@Qualifier
+annotation class MainLogger
