@@ -3,39 +3,21 @@ package com.example.mor.nytnews
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+import com.example.mor.nytnews.ui.NytApp
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
-import com.example.mor.nytnews.ui.topics.TopicsScreen
 import dagger.hilt.android.AndroidEntryPoint
 
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             NYTNewsTheme {
-                // A surface container using the 'background' color from the theme
-                TopicsScreen()
+                NytApp(windowSizeClass = calculateWindowSizeClass(activity = this))
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NYTNewsTheme {
-        Greeting("Android")
     }
 }
