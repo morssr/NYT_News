@@ -34,9 +34,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -44,7 +42,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -52,6 +49,7 @@ import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.mor.nytnews.R
+import com.example.mor.nytnews.ui.common.ExpandableText
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
 
 @Composable
@@ -111,9 +109,6 @@ fun StoryItem(
     onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
     onStoryClick: (StoryUI) -> Unit = {}
 ) {
-    var expanded by remember { mutableStateOf(false) }
-    var abstractOverflow by remember { mutableStateOf(false) }
-
     ElevatedCard(
         modifier = modifier
             .fillMaxWidth()
@@ -122,8 +117,8 @@ fun StoryItem(
                 onStoryClick(story)
             },
     ) {
-        ConstraintLayout {
-            val (image, title, abstract, favorite, expandable) = createRefs()
+        ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+            val (image, title, abstract, favorite) = createRefs()
 
             AsyncImage(
                 modifier = Modifier
@@ -157,51 +152,26 @@ fun StoryItem(
                 style = MaterialTheme.typography.titleLarge
             )
 
-            if (expanded) {
-                Text(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .paddingFromBaseline(24.dp)
-                        .constrainAs(abstract) {
-                            top.linkTo(title.bottom)
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
-                            bottom.linkTo(favorite.top)
-                        },
-                    text = story.abstract
-                )
-            } else {
-                Text(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .paddingFromBaseline(24.dp)
-                        .constrainAs(abstract) {
-                            top.linkTo(title.bottom)
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
-                            bottom.linkTo(favorite.top)
-                        },
-                    text = story.abstract,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                    onTextLayout = { result ->
-                        if (result.hasVisualOverflow) {
-                            abstractOverflow = true
-                        }
-                    }
-                )
-            }
+            ExpandableText(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .paddingFromBaseline(24.dp)
+                    .constrainAs(abstract) {
+                        top.linkTo(title.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(favorite.top)
+                    },
+                collapsedMaxLine = 2,
+                text = story.abstract
+            )
 
             FilledIconToggleButton(
                 modifier = Modifier
                     .padding(end = 12.dp)
                     .padding(top = 16.dp)
                     .constrainAs(favorite) {
-                        if (abstractOverflow) {
-                            bottom.linkTo(expandable.top)
-                        } else {
-                            bottom.linkTo(parent.bottom, margin = 16.dp)
-                        }
+                        bottom.linkTo(parent.bottom, margin = 16.dp)
                         end.linkTo(parent.end)
                     },
                 checked = story.favorite,
@@ -215,20 +185,6 @@ fun StoryItem(
                         contentDescription = "remove from favorites"
                     )
                 }
-            }
-
-            if (abstractOverflow) {
-                ExpandableToggleArea(modifier = Modifier
-                    .constrainAs(expandable) {
-                        bottom.linkTo(parent.bottom)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    }
-                    .fillMaxWidth()
-                    .height(36.dp),
-                    expanded = expanded,
-                    onClick = { expanded = !expanded }
-                )
             }
         }
     }

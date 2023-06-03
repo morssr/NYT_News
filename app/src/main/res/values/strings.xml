@@ -9,5 +9,6 @@
     <string name="search">Search</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="delete">delete</string>
+    <string name="expandable_text_more">… more</string>
 
 </resources>
