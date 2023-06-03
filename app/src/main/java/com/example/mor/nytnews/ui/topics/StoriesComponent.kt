@@ -70,7 +70,7 @@ fun StoriesComponent(
     ) {
 
         if (feedUpdateState == FeedUpdateState.InProgress) {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), color = Color.Red)
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         }
 
         if (feedUpdateState == FeedUpdateState.Available) {
