@@ -1,4 +1,5 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class,
+@file:OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class,
     ExperimentalMaterial3Api::class
 )
 
@@ -7,20 +8,15 @@ package com.example.mor.nytnews.ui.topics
 import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.outlined.Edit
@@ -29,13 +25,10 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabPosition
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -48,8 +41,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -57,6 +48,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.mor.nytnews.data.topics.TopicsType
 import com.example.mor.nytnews.data.topics.defaultTopics
+import com.example.mor.nytnews.ui.common.CustomRoundBorderTabIndicator
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
 import kotlinx.coroutines.launch
 
@@ -113,7 +105,6 @@ private fun TopicScreenComponent(
     }
 
     Column {
-
         if (showTopicsSelectionDialog) {
             TopicsSelectionDialog(
                 onDismiss = { updated, topics ->
@@ -140,38 +131,22 @@ private fun TopicScreenComponent(
                 selectedTabIndex = pagerState.currentPage,
                 edgePadding = 8.dp,
                 indicator = { tabPositions ->
-                    CustomIndicator(
+                    CustomRoundBorderTabIndicator(
                         tabPositions,
                         pagerState.currentPage
                     )
                 },
-                divider = {}) {
+                divider = {}
+            ) {
                 topicsType.forEachIndexed { index, topicsType ->
                     val selected = index == pagerState.currentPage
                     Tab(
                         selected = selected,
                         text = {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(horizontal = 4.dp, vertical = 6.dp)
-                                    .clip(RoundedCornerShape(24.dp))
-                                    .then(
-                                        if (selected) {
-                                            Modifier.background(MaterialTheme.colorScheme.primaryContainer)
-                                        } else {
-                                            Modifier.background(Color.Transparent)
-                                        }
-                                    ),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = topicsType.name,
-                                    modifier = Modifier.padding(horizontal = 8.dp)
-                                )
-                            }
-
-
+                            Text(
+                                text = topicsType.name,
+                                modifier = Modifier.padding(horizontal = 8.dp)
+                            )
                         },
                         //                icon = { Icon(item.icon,  "")},
                         onClick = { coroutineScope.launch { pagerState.animateScrollToPage(index) } },
@@ -193,22 +168,6 @@ private fun TopicScreenComponent(
             )
         }
     }
-}
-
-@Composable
-private fun CustomIndicator(
-    tabPositions: List<TabPosition>,
-    currentPageIndex: Int
-) {
-    Box(
-        modifier = Modifier
-            .tabIndicatorOffset(tabPositions[currentPageIndex])
-            .height(2.dp)
-            .clip(RoundedCornerShape(8.dp)) // clip modifier not working
-            .padding(horizontal = 28.dp)
-            .background(color = MaterialTheme.colorScheme.primary)
-
-    )
 }
 
 @OptIn(ExperimentalLayoutApi::class)
