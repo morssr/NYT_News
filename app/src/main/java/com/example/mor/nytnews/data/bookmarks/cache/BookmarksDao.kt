@@ -12,7 +12,7 @@ interface BookmarksDao {
     @Query("SELECT * FROM bookmarks")
     suspend fun getBookmarks(): List<BookmarkedStoryEntity>
 
-    @Query("SELECT * FROM bookmarks")
+    @Query("SELECT * FROM bookmarks ORDER BY bookmarked_date DESC")
     fun getBookmarksStream(): Flow<List<BookmarkedStoryEntity>>
 
     @Query("SELECT * FROM bookmarks WHERE id = :id")

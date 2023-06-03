@@ -4,6 +4,7 @@ import java.util.Date
 
 data class BookmarkedStory(
     val id: String,
+    val topic: String,
     val subsection: String,
     val title: String,
     val abstract: String,

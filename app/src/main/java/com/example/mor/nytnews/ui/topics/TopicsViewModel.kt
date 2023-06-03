@@ -171,7 +171,7 @@ class TopicsViewModel @Inject constructor(
             if (bookmarked) {
                 bookmarksRepository.deleteBookmarkById(story.id)
             } else {
-                bookmarksRepository.saveBookmarks(listOf(story.toBookmarkedStory()))
+                bookmarksRepository.saveBookmarks(listOf(story.toBookmarkedStory(currentTopic.value)))
             }
         }
     }

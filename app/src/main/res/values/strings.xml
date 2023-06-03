@@ -8,5 +8,6 @@
     <string name="topics">Topics</string>
     <string name="search">Search</string>
     <string name="bookmarks">Bookmarks</string>
+    <string name="delete">delete</string>
 
 </resources>

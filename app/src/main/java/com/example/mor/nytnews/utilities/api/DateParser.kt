@@ -22,3 +22,13 @@ fun parseDateFromString(dateString: String): Date {
         Date()
     }
 }
+
+fun parseDateToShortString(date: Date): String {
+    return try {
+        val format = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
+        format.format(date)
+    } catch (e: Exception) {
+        Log.e(TAG, "parseDate: parse date is failed, current date is returned", e)
+        ""
+    }
+}

@@ -9,6 +9,7 @@ import java.util.Date
 data class BookmarkedStoryEntity(
     @PrimaryKey
     val id: String,
+    val topic: String,
     @ColumnInfo(defaultValue = "")
     val subsection: String,
     val title: String,

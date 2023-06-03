@@ -1,11 +1,13 @@
 package com.example.mor.nytnews.data.bookmarks.cache
 
+import com.example.mor.nytnews.data.topics.TopicsType
 import com.example.mor.nytnews.data.topics.cache.Story
 import java.util.Date
 
 //map BookmarkedStoryEntity to BookmarkedStory
 fun BookmarkedStoryEntity.toBookmarkedStory() = BookmarkedStory(
     id = id,
+    topic = topic,
     subsection = subsection,
     title = title,
     abstract = abstract,
@@ -22,6 +24,7 @@ fun List<BookmarkedStoryEntity>.toBookmarkedStoryList() = map { it.toBookmarkedS
 //map BookmarkedStory to BookmarkedStoryEntity
 fun BookmarkedStory.toBookmarkedStoryEntity() = BookmarkedStoryEntity(
     id = id,
+    topic = topic,
     subsection = subsection,
     title = title,
     abstract = abstract,
@@ -36,8 +39,9 @@ fun BookmarkedStory.toBookmarkedStoryEntity() = BookmarkedStoryEntity(
 fun List<BookmarkedStory>.toBookmarkedStoryEntityList() = map { it.toBookmarkedStoryEntity() }
 
 //map Story to BookmarkedStory
-fun Story.toBookmarkedStory() = BookmarkedStory(
+fun Story.toBookmarkedStory(topic: TopicsType) = BookmarkedStory(
     id = id,
+    topic = topic.topicName,
     subsection = subsection,
     title = title,
     abstract = abstract,
