@@ -9,6 +9,10 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.mor.nytnews.data.bookmarks.cache.BookmarkedStoryEntity
 import com.example.mor.nytnews.data.bookmarks.cache.BookmarksDao
+import com.example.mor.nytnews.data.search.cache.SearchDao
+import com.example.mor.nytnews.data.search.cache.SearchEntity
+import com.example.mor.nytnews.data.search.cache.SearchRemoteKeysDao
+import com.example.mor.nytnews.data.search.cache.SearchRemoteKeysEntity
 import com.example.mor.nytnews.data.topics.cache.StoryEntity
 import com.example.mor.nytnews.data.topics.cache.TopStoriesDao
 import com.example.mor.nytnews.data.utils.db.coverters.DateTypeConverter
@@ -18,7 +22,12 @@ const val FLAG_USE_IN_MEMORY_DB = false
 
 @TypeConverters(DateTypeConverter::class)
 @Database(
-    entities = [StoryEntity::class, BookmarkedStoryEntity::class],
+    entities = [
+        StoryEntity::class,
+        BookmarkedStoryEntity::class,
+        SearchEntity::class,
+        SearchRemoteKeysEntity::class
+    ],
     version = 1,
     exportSchema = true
 )
@@ -26,6 +35,8 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun topStoriesDao(): TopStoriesDao
     abstract fun bookmarksDao(): BookmarksDao
+    abstract fun searchDao(): SearchDao
+    abstract fun searchRemoteKeysDao(): SearchRemoteKeysDao
 
     companion object {
         private const val TAG = "AppDatabase"

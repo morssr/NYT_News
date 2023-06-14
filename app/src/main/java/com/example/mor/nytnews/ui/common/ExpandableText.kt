@@ -50,6 +50,10 @@ fun ExpandableText(
                 if (isExpanded) {
                     withStyle(style = textSpanStyle) { append(text) }
                 } else {
+                    //TODO : fix this
+                    // java.lang.StringIndexOutOfBoundsException: length=0; index=109
+                    // at java.lang.String.substring(String.java:2060)
+                    // at com.example.mor.nytnews.ui.common.ExpandableTextKt.ExpandableText-8r3B23s(ExpandableText.kt:54)
                     val adjustText =
                         text.substring(startIndex = 0, endIndex = lastCharIndex)
                             .dropLast(showMoreText.length)
