@@ -15,6 +15,7 @@
     <string name="interests">Interests</string>
     <string name="no_results_found_message">Oops, no results found…</string>
     <string name="something_went_wrong_message">Oops, something went wrong…</string>
+    <string name="too_many_requests_error_message">Too many requests in short period, wait a few minutes and try again</string>
     <string name="retry">Retry</string>
     <string name="check_your_internet_connection_message">Check your internet connection and try again</string>
     <string name="search_for_something_message">Search for something…</string>

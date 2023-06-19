@@ -55,24 +55,20 @@ class SearchRemoteMediator(
 
                     if (lastRemoteKey == null) {
                         log.v { "load: LoadType.APPEND. last item is null. return end of pagination true" }
-                        return MediatorResult.Success(
-                            endOfPaginationReached = true
-                        )
+                        return MediatorResult.Success(endOfPaginationReached = true)
                     }
                     log.v { "load: LoadType.APPEND. last item is not null. return next key: ${lastRemoteKey.nextKey}" }
                     lastRemoteKey.nextKey
                 }
             }
 
-            log.i { "load: service request next page: $page with query $query" }
+            log.d { "load: service request next page: $page with query $query" }
 
             val apiResponse = searchService.getSearchResults(query, page ?: STARTING_PAGE_INDEX)
 
             if (!apiResponse.isSuccessful) {
-                log.e { "load: apiResponse is not successful. return error" }
-                return MediatorResult.Error(
-                    IOException("Error loading search results ${apiResponse.code()} ${apiResponse.message()}")
-                )
+                log.e { "load: apiResponse is not successful response code: ${apiResponse.code()}. return error" }
+                return MediatorResult.Error(HttpException(apiResponse))
             }
 
             val searchResults = apiResponse.body()?.response?.docs
@@ -129,17 +125,34 @@ class SearchRemoteMediator(
     /**
      * get the remote key for the last item retrieved
      */
+    //TODO FIX last item is null
     private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, SearchEntity>): SearchRemoteKeysEntity? {
         log.v { "getRemoteKeyForLastItem: paging state anchor pos: ${state.anchorPosition} | page size: ${state.pages.size}" }
-
         // Get the last page that was retrieved, that contained items.
         // From that last page, get the last item
-        return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
+        return state.pages.lastOrNull()?.lastOrNull()
             ?.let {
                 // Get the remote keys of the last item retrieved
                 val keys = appDatabase.searchRemoteKeysDao().remoteKeysSearchId(it.id)
-                log.v { "getRemoteKeyForLastItem: the last key from the last page. entity: $it | keys: $keys" }
+                log.v { "getRemoteKeyForLastItem: the last key from the last page. entity id: ${it.id} | keys: $keys" }
                 keys
             }
     }
+//    /**
+//     * get the remote key for the last item retrieved
+//     */
+//    //TODO check if this is the correct way to get the last item,
+//    // if the bug of the last item being null is returned consider using "state.pages.last().last()"
+//    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, SearchEntity>): SearchRemoteKeysEntity? {
+//        log.v { "getRemoteKeyForLastItem: paging state anchor pos: ${state.anchorPosition} | page size: ${state.pages.size}" }
+//        // Get the last page that was retrieved, that contained items.
+//        // From that last page, get the last item
+//        return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
+//            ?.let {
+//                // Get the remote keys of the last item retrieved
+//                val keys = appDatabase.searchRemoteKeysDao().remoteKeysSearchId(it.id)
+//                log.v { "getRemoteKeyForLastItem: the last key from the last page. entity id: ${it.id} | keys: $keys" }
+//                keys
+//            }
+//    }
 }

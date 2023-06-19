@@ -1,16 +1,13 @@
 package com.example.mor.nytnews.ui.search
 
 import android.content.res.Resources.NotFoundException
-import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,10 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -29,6 +22,7 @@ import androidx.compose.material.icons.outlined.BookmarkAdd
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.BookmarkRemove
 import androidx.compose.material.icons.rounded.Mic
+import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -39,7 +33,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,7 +45,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -67,7 +59,7 @@ import coil.request.ImageRequest
 import com.example.mor.nytnews.R
 import com.example.mor.nytnews.ui.common.ExpandableText
 import com.example.mor.nytnews.ui.common.LottieAnimationElement
-import java.io.IOException
+import retrofit2.HttpException
 
 private const val TAG = "SearchScreen"
 
@@ -87,11 +79,11 @@ fun SearchRoute(
         lastSearchItems = lastSearchItems.value,
         recommendedSearchItems = recommendedItems.value,
         interestsSearchItems = interestsItems.value,
-        showSearchIdleContent = listOf(
-            lastSearchItems,
-            recommendedItems,
-            interestsItems
-        ).any { it.value.isNotEmpty() },
+        showStartSearchAnimation = listOf(
+            lastSearchItems.value,
+            recommendedItems.value,
+            interestsItems.value
+        ).any { it.isEmpty() },
         onSearchClick = { query -> viewModel.search(query) },
         onBookmarkClick = { storyId, isBookmarked ->
 //                viewModel.onBookmarkClick(storyId, isBookmarked)
@@ -107,7 +99,7 @@ fun SearchScreen(
     lastSearchItems: List<SearchUiModel> = emptyList(),
     recommendedSearchItems: List<SearchUiModel> = emptyList(),
     interestsSearchItems: List<SearchUiModel> = emptyList(),
-    showSearchIdleContent: Boolean = true,
+    showStartSearchAnimation: Boolean = true,
     onSearchClick: (String) -> Unit = {},
     onSearchItemClick: (String) -> Unit = {},
     onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
@@ -158,6 +150,7 @@ fun SearchScreen(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
+
                 when (searchItems.loadState.refresh) {
                     is LoadState.Loading -> {
                         LottieAnimationElement(animationPath = R.raw.lottie_searching_in_progress_animation)
@@ -183,7 +176,7 @@ fun SearchScreen(
                                             verticalArrangement = Arrangement.Center,
                                             horizontalAlignment = Alignment.CenterHorizontally
                                         ) {
-                                            Text(text = stringResource(R.string.check_your_internet_connection_message),)
+                                            Text(text = stringResource(R.string.check_your_internet_connection_message))
                                             Button(
                                                 onClick = { searchItems.retry() },
                                                 modifier = Modifier.padding(top = 16.dp)
@@ -206,15 +199,17 @@ fun SearchScreen(
 
                             items(count = searchItems.itemCount) {
                                 val story = searchItems[it]
-                                SearchStoryItem(
-                                    modifier = Modifier,
-                                    story = story!!,
-                                    onBookmarkClick = onBookmarkClick
-                                )
+                                story?.let { storyItem: SearchUiModel ->
+                                    SearchStoryItem(
+                                        modifier = Modifier,
+                                        story = storyItem,
+                                        onBookmarkClick = onBookmarkClick
+                                    )
+                                }
                             }
 
                             item {
-                                SearchPagingListStateHandler(
+                                FooterPagingListStateHandler(
                                     state = searchItems.loadState,
                                     onRetryClick = { searchItems.retry() }
                                 )
@@ -226,25 +221,28 @@ fun SearchScreen(
             }
         }
 
+        Spacer(modifier = Modifier.height(8.dp))
+
         Column(
             modifier = Modifier
                 .weight(1f)
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState()),
         ) {
 
             //if search is not active show idle content
-            if (showSearchIdleContent) {
+            if (showStartSearchAnimation) {
+                LottieAnimationElement(
+                    modifier = Modifier.weight(1f),
+                    animationPath = R.raw.lottie_search_animation,
+                    title = stringResource(R.string.search_for_something_message),
+                )
+
+            } else {
                 SearchIdleContent(
                     lastSearchItems,
                     onSearchItemClick,
                     recommendedSearchItems,
                     interestsSearchItems
-                )
-            } else {
-                LottieAnimationElement(
-                    modifier = Modifier.weight(1f),
-                    animationPath = R.raw.lottie_search_animation,
-                    title = stringResource(R.string.search_for_something_message),
                 )
             }
         }
@@ -282,87 +280,50 @@ private fun SearchIdleContent(
         searchUiItems = interestsSearchItems,
         onSearchItemClick = onSearchItemClick,
     )
+
+    Spacer(modifier = Modifier.height(16.dp))
 }
 
 @Composable
-private fun HorizontalSearchItemsListElement(
-    modifier: Modifier = Modifier,
-    title: String,
-    searchUiItems: List<SearchUiModel> = emptyList(),
-    lazyListState: LazyListState = rememberLazyListState(),
-    onSearchItemClick: (String) -> Unit = {},
-) {
-    Column(modifier = modifier) {
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            text = title,
-            style = MaterialTheme.typography.labelLarge
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        LazyRow(
-            state = lazyListState,
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp)
-        ) {
-
-            items(searchUiItems) { it ->
-                SmallSearchStoryItem(
-                    story = it,
-                    onStoryClick = { onSearchItemClick(it.id) }
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun SearchPagingListStateHandler(
+private fun FooterPagingListStateHandler(
     state: CombinedLoadStates,
     onRetryClick: () -> Unit = {},
 ) {
     Box {
-        if (state.refresh is LoadState.Error) {
-            val e = state.refresh as LoadState.Error
-            when (e.error) {
-                is IOException -> {
-                    Log.i(TAG, "SearchPagingListStateHandler: IOException: ${e.error.message}")
+        val appendState = state.append
+        if (appendState is LoadState.Loading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        } else if (appendState is LoadState.Error) {
+            val message = when (val error = appendState.error) {
+                is HttpException -> {
+                    when (error.code()) {
+                        404 -> stringResource(R.string.no_results_found_message)
+                        429 -> stringResource(R.string.too_many_requests_error_message)
+                        else -> stringResource(R.string.something_went_wrong_message)
+                    }
                 }
 
-                is NotFoundException -> {
-                    Log.i(
-                        TAG,
-                        "SearchPagingListStateHandler: NotFoundException: ${e.error.message}"
+                else -> stringResource(R.string.something_went_wrong_message)
+            }
+
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .align(Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = message)
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Button(onClick = onRetryClick) {
+                    Text(text = stringResource(id = R.string.retry))
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Icon(
+                        imageVector = Icons.Rounded.Refresh,
+                        contentDescription = stringResource(id = R.string.retry)
                     )
                 }
-
-                else -> {
-                    Log.i(TAG, "SearchPagingListStateHandler: ${e.error.message}")
-                }
-            }
-            TextButton(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .align(Alignment.Center),
-                onClick = onRetryClick
-            ) {
-                Text(text = "Retry")
-            }
-        }
-
-        if (state.append is LoadState.Loading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-
-        } else if (state.append is LoadState.Error) {
-            TextButton(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .align(Alignment.Center),
-                onClick = onRetryClick
-            ) {
-                Text(text = stringResource(id = R.string.retry))
             }
         }
     }
@@ -452,46 +413,6 @@ fun SearchStoryItem(
                     )
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun SmallSearchStoryItem(
-    modifier: Modifier = Modifier,
-    story: SearchUiModel,
-    onStoryClick: (SearchUiModel) -> Unit = {}
-) {
-    ElevatedCard(
-        modifier = modifier
-            .width(300.dp)
-            .animateContentSize(animationSpec = tween(50))
-            .clickable {
-                onStoryClick(story)
-            },
-    ) {
-        Column(modifier = Modifier) {
-            AsyncImage(
-                modifier = Modifier.aspectRatio(16f / 9f),
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(story.imageUrl)
-                    .crossfade(true)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .build(),
-                contentScale = ContentScale.Crop,
-                contentDescription = null
-            )
-
-            Text(
-                modifier = Modifier
-                    .paddingFromBaseline(top = 24.dp, bottom = 8.dp)
-                    .padding(horizontal = 16.dp),
-                text = story.title,
-                minLines = 2,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.titleMedium
-            )
         }
     }
 }
