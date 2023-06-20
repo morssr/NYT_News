@@ -39,7 +39,7 @@ fun ExpandableText(
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     var clickable by remember { mutableStateOf(false) }
-    var lastCharIndex by remember { mutableStateOf(0) }
+    var lastCharIndex by remember() { mutableStateOf(0) }
 
     val textSpanStyle = style.toSpanStyle().copy(color = color)
     Box(
@@ -74,7 +74,7 @@ fun ExpandableText(
             onTextLayout = { textLayoutResult ->
                 if (!isExpanded && textLayoutResult.hasVisualOverflow) {
                     clickable = true
-                    lastCharIndex = textLayoutResult.getLineEnd(collapsedMaxLine - 1)
+                    lastCharIndex = textLayoutResult.getLineEnd(collapsedMaxLine - 1, true)
                 }
             },
             style = style,
