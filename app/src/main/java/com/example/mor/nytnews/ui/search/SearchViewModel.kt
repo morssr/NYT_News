@@ -38,10 +38,6 @@ class SearchViewModel @Inject constructor(
                 log.v { "searchResults change: filter not blank/empty $query" }
                 query.isNotBlank()
             }
-            .filter { query ->
-                log.v { "searchResults change: filter short query, less than 3 $query" }
-                query.length > 2
-            }
             .flatMapLatest { query ->
                 searchRepository.searchStoriesPagingSource(query).flow
                     .map { pagingData ->
