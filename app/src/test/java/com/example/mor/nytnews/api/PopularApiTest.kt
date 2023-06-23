@@ -3,7 +3,7 @@ package com.example.mor.nytnews.api
 import com.example.mor.nytnews.data.NetworkModule
 import com.example.mor.nytnews.data.popular.api.PopularPeriod
 import com.example.mor.nytnews.data.popular.api.PopularService
-import com.example.mor.nytnews.data.popular.api.PopularType
+import com.example.mor.nytnews.data.popular.PopularType
 import com.example.mor.nytnews.utilities.server.ApiMockResponsesFactory
 import com.example.mor.nytnews.utilities.server.MockWebServer
 import kotlinx.coroutines.runBlocking
@@ -21,7 +21,6 @@ class PopularApiTest {
         mockWebServer.startServer()
 
         val serverBaseUrl = mockWebServer.getServerBaseUrl()
-        println("serverBaseUrl: $serverBaseUrl")
 
         service = NetworkModule.provideRetrofit(serverBaseUrl)
             .create(PopularService::class.java)
@@ -62,6 +61,4 @@ class PopularApiTest {
             assert(response.body()!!.status == "OK")
         }
     }
-
-
 }

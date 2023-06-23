@@ -9,6 +9,8 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.mor.nytnews.data.bookmarks.cache.BookmarkedStoryEntity
 import com.example.mor.nytnews.data.bookmarks.cache.BookmarksDao
+import com.example.mor.nytnews.data.popular.cache.PopularDao
+import com.example.mor.nytnews.data.popular.cache.PopularEntity
 import com.example.mor.nytnews.data.search.cache.SearchDao
 import com.example.mor.nytnews.data.search.cache.SearchEntity
 import com.example.mor.nytnews.data.search.cache.SearchRemoteKeysDao
@@ -16,17 +18,19 @@ import com.example.mor.nytnews.data.search.cache.SearchRemoteKeysEntity
 import com.example.mor.nytnews.data.topics.cache.StoryEntity
 import com.example.mor.nytnews.data.topics.cache.TopStoriesDao
 import com.example.mor.nytnews.data.utils.db.coverters.DateTypeConverter
+import com.example.mor.nytnews.data.utils.db.coverters.PopularTypeConverter
 import com.example.mor.nytnews.utilities.printThreadInfo
 
 const val FLAG_USE_IN_MEMORY_DB = false
 
-@TypeConverters(DateTypeConverter::class)
+@TypeConverters(DateTypeConverter::class, PopularTypeConverter::class)
 @Database(
     entities = [
         StoryEntity::class,
         BookmarkedStoryEntity::class,
         SearchEntity::class,
-        SearchRemoteKeysEntity::class
+        SearchRemoteKeysEntity::class,
+        PopularEntity::class
     ],
     version = 1,
     exportSchema = true
@@ -37,6 +41,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun bookmarksDao(): BookmarksDao
     abstract fun searchDao(): SearchDao
     abstract fun searchRemoteKeysDao(): SearchRemoteKeysDao
+    abstract fun popularDao(): PopularDao
 
     companion object {
         private const val TAG = "AppDatabase"
