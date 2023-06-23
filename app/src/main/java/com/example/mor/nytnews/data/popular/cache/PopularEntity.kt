@@ -3,7 +3,7 @@ package com.example.mor.nytnews.data.popular.cache
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.mor.nytnews.data.popular.PopularType
+import com.example.mor.nytnews.data.popular.common.PopularType
 import java.util.Date
 
 @Entity(tableName = "popular")

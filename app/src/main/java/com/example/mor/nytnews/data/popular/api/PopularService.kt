@@ -2,7 +2,7 @@ package com.example.mor.nytnews.data.popular.api
 
 import com.example.mor.nytnews.data.API_KEY
 import com.example.mor.nytnews.data.POPULAR_REQUEST_BASE_URL
-import com.example.mor.nytnews.data.popular.PopularType
+import com.example.mor.nytnews.data.popular.common.PopularType
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -4,6 +4,8 @@ import co.touchlab.kermit.Logger
 import com.example.mor.nytnews.data.popular.api.PopularPeriod
 import com.example.mor.nytnews.data.popular.api.PopularService
 import com.example.mor.nytnews.data.popular.cache.PopularDao
+import com.example.mor.nytnews.data.popular.common.PopularModel
+import com.example.mor.nytnews.data.popular.common.PopularType
 import com.example.mor.nytnews.utilities.Response
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

@@ -3,6 +3,8 @@ package com.example.mor.nytnews.data.popular
 import com.example.mor.nytnews.data.popular.api.PopularResponse
 import com.example.mor.nytnews.data.popular.api.Result
 import com.example.mor.nytnews.data.popular.cache.PopularEntity
+import com.example.mor.nytnews.data.popular.common.PopularModel
+import com.example.mor.nytnews.data.popular.common.PopularType
 import com.example.mor.nytnews.utilities.api.parseDateFromYearString
 
 fun PopularEntity.toPopularModel(): PopularModel {

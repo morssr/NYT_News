@@ -1,4 +1,4 @@
-package com.example.mor.nytnews.data.popular
+package com.example.mor.nytnews.data.popular.common
 
 enum class PopularType(private val type: String) {
     MOST_EMAILED("emailed"),

@@ -7,6 +7,7 @@ import com.example.mor.nytnews.data.AppDatabase
 import com.example.mor.nytnews.data.NetworkModule
 import com.example.mor.nytnews.data.popular.api.PopularPeriod
 import com.example.mor.nytnews.data.popular.api.PopularService
+import com.example.mor.nytnews.data.popular.common.PopularType
 import com.example.mor.nytnews.utilities.Response
 import com.example.mor.nytnews.utilities.server.ApiMockResponsesFactory
 import com.example.mor.nytnews.utilities.server.MockWebServer

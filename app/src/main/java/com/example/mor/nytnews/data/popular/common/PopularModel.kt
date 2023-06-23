@@ -1,4 +1,4 @@
-package com.example.mor.nytnews.data.popular
+package com.example.mor.nytnews.data.popular.common
 
 import java.util.Date
 

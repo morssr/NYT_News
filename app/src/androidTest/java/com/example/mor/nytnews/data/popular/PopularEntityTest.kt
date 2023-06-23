@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.mor.nytnews.data.AppDatabase
 import com.example.mor.nytnews.data.popular.cache.PopularDao
 import com.example.mor.nytnews.data.popular.cache.PopularEntity
+import com.example.mor.nytnews.data.popular.common.PopularType
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest

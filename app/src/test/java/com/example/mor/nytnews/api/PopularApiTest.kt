@@ -3,7 +3,7 @@ package com.example.mor.nytnews.api
 import com.example.mor.nytnews.data.NetworkModule
 import com.example.mor.nytnews.data.popular.api.PopularPeriod
 import com.example.mor.nytnews.data.popular.api.PopularService
-import com.example.mor.nytnews.data.popular.PopularType
+import com.example.mor.nytnews.data.popular.common.PopularType
 import com.example.mor.nytnews.utilities.server.ApiMockResponsesFactory
 import com.example.mor.nytnews.utilities.server.MockWebServer
 import kotlinx.coroutines.runBlocking

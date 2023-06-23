@@ -1,6 +1,8 @@
 package com.example.mor.nytnews.data.popular
 
 import com.example.mor.nytnews.data.popular.api.PopularPeriod
+import com.example.mor.nytnews.data.popular.common.PopularModel
+import com.example.mor.nytnews.data.popular.common.PopularType
 import com.example.mor.nytnews.utilities.Response
 import kotlinx.coroutines.flow.Flow
 

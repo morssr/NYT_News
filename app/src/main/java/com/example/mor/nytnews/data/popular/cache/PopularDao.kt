@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.mor.nytnews.data.popular.PopularType
+import com.example.mor.nytnews.data.popular.common.PopularType
 import kotlinx.coroutines.flow.Flow
 
 @Dao
