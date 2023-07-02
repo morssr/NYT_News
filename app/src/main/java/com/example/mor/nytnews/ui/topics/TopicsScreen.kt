@@ -1,5 +1,4 @@
 @file:OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class,
     ExperimentalMaterial3Api::class
 )
 
@@ -9,6 +8,7 @@ import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -26,10 +26,13 @@ import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -41,13 +44,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.mor.nytnews.R
 import com.example.mor.nytnews.data.topics.TopicsType
 import com.example.mor.nytnews.data.topics.defaultTopics
+import com.example.mor.nytnews.ui.common.CustomCollapsingToolbarContainer
 import com.example.mor.nytnews.ui.common.CustomRoundBorderTabIndicator
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
 import kotlinx.coroutines.launch
@@ -67,6 +74,7 @@ fun TopicsScreen(
         modifier = modifier,
         topicsType = uiState.topics,
         storiesList = uiState.feedsStates.map { it.key to it.value.stories }.toMap(),
+        popularsList = uiState.populars,
         onPageChange = { page ->
             Log.d("Page change", "Page changed to $page")
             viewModel.refreshCurrentTopic(uiState.topics[page])
@@ -83,6 +91,7 @@ private fun TopicScreenComponent(
     modifier: Modifier = Modifier,
     topicsType: List<TopicsType>,
     storiesList: Map<TopicsType, List<StoryUI>>,
+    popularsList: List<PopularUi> = emptyList(),
     feedUpdateStates: Map<TopicsType, FeedUpdateState> = emptyMap(),
     onPageChange: (Int) -> Unit = {},
     onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
@@ -104,68 +113,106 @@ private fun TopicScreenComponent(
         }
     }
 
-    Column {
-        if (showTopicsSelectionDialog) {
-            TopicsSelectionDialog(
-                onDismiss = { updated, topics ->
-                    if (updated) {
-                        coroutineScope.launch { pagerState.animateScrollToPage(0) }
-                    }
-                    onTopicsChooserDialogDismiss(topics)
-                    showTopicsSelectionDialog = false
-                },
-                selectedTopics = topicsType
-            )
-        }
+    val scrollBehavior =
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
-        Row(modifier = Modifier.animateContentSize()) {
-            Surface {
-                if (pagerState.currentPage < 3) {
-                    IconButton(onClick = { showTopicsSelectionDialog = true }) {
-                        Icon(Icons.Outlined.Edit, contentDescription = "Edit topics")
+    var showPopulars by remember { mutableStateOf(false) }
+
+    if (popularsList.isNotEmpty()) {
+        showPopulars = true
+    }
+    BoxWithConstraints() {
+        Scaffold(
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            topBar = {
+                CustomCollapsingToolbarContainer(
+                    initialHeight = maxHeight * 0.4f,
+                    scrollBehavior = scrollBehavior,
+                    alphaAnimation = true,
+                )
+                {
+                    if (showPopulars) {
+                        PopularBarComponent(
+                            modifier = Modifier,
+                            populars = popularsList,
+                        )
                     }
                 }
             }
-
-            ScrollableTabRow(
-                selectedTabIndex = pagerState.currentPage,
-                edgePadding = 8.dp,
-                indicator = { tabPositions ->
-                    CustomRoundBorderTabIndicator(
-                        tabPositions,
-                        pagerState.currentPage
+        ) {
+            Column(modifier = Modifier.padding(it)) {
+                if (showTopicsSelectionDialog) {
+                    TopicsSelectionDialog(
+                        onDismiss = { updated, topics ->
+                            if (updated) {
+                                coroutineScope.launch { pagerState.animateScrollToPage(0) }
+                            }
+                            onTopicsChooserDialogDismiss(topics)
+                            showTopicsSelectionDialog = false
+                        },
+                        selectedTopics = topicsType
                     )
-                },
-                divider = {}
-            ) {
-                topicsType.forEachIndexed { index, topicsType ->
-                    val selected = index == pagerState.currentPage
-                    Tab(
-                        selected = selected,
-                        text = {
-                            Text(
-                                text = topicsType.name,
-                                modifier = Modifier.padding(horizontal = 8.dp)
+                }
+
+                Row(modifier = Modifier.animateContentSize()) {
+                    Surface {
+                        if (pagerState.currentPage < 3) {
+                            IconButton(onClick = { showTopicsSelectionDialog = true }) {
+                                Icon(
+                                    Icons.Outlined.Edit,
+                                    contentDescription = stringResource(R.string.edit_topics_content_description)
+                                )
+                            }
+                        }
+                    }
+
+                    ScrollableTabRow(
+                        selectedTabIndex = pagerState.currentPage,
+                        edgePadding = 8.dp,
+                        indicator = { tabPositions ->
+                            CustomRoundBorderTabIndicator(
+                                tabPositions,
+                                pagerState.currentPage
                             )
                         },
-                        //                icon = { Icon(item.icon,  "")},
-                        onClick = { coroutineScope.launch { pagerState.animateScrollToPage(index) } },
+                        divider = {}
+                    ) {
+                        topicsType.forEachIndexed { index, topicsType ->
+                            val selected = index == pagerState.currentPage
+                            Tab(
+                                selected = selected,
+                                text = {
+                                    Text(
+                                        text = topicsType.name,
+                                        modifier = Modifier.padding(horizontal = 8.dp)
+                                    )
+                                },
+                                //                icon = { Icon(item.icon,  "")},
+                                onClick = {
+                                    coroutineScope.launch {
+                                        pagerState.animateScrollToPage(
+                                            index
+                                        )
+                                    }
+                                },
+                            )
+                        }
+                    }
+                }
+
+                HorizontalPager(
+                    pageCount = topicsType.size,
+                    state = pagerState,
+                    beyondBoundsPageCount = 1
+                ) {
+                    StoriesComponent(
+                        modifier = modifier.weight(1f),
+                        stories = storiesList[topicsType[it]] ?: emptyList(),
+                        feedUpdateState = feedUpdateStates[topicsType[it]] ?: FeedUpdateState.Idle,
+                        onBookmarkClick = onBookmarkClick
                     )
                 }
             }
-        }
-
-        HorizontalPager(
-            pageCount = topicsType.size,
-            state = pagerState,
-            beyondBoundsPageCount = 1
-        ) {
-            StoriesComponent(
-                modifier = modifier.weight(1f),
-                stories = storiesList[topicsType[it]] ?: emptyList(),
-                feedUpdateState = feedUpdateStates[topicsType[it]] ?: FeedUpdateState.Idle,
-                onBookmarkClick = onBookmarkClick
-            )
         }
     }
 }

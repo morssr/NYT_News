@@ -20,10 +20,15 @@ import javax.inject.Singleton
 @Module
 object NetworkModule {
 
+    @RetrofitRemoteBaseUrl
     @Singleton
     @Provides
-    @RetrofitRemoteBaseUrl
     fun provideBaseUrlForRetrofitRemote(): String = BASE_URL
+
+    @OfflineTestMockServerBaseUrl
+    @Singleton
+    @Provides
+    fun provideBaseUrlForOfflineMockServer(mockWebServer: MockWebServer): String = mockWebServer.getServerBaseUrl()
 
     @Provides
     @Singleton
@@ -57,3 +62,7 @@ object NetworkModule {
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class RetrofitRemoteBaseUrl
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class OfflineTestMockServerBaseUrl

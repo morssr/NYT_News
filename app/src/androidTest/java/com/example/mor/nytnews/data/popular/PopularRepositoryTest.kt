@@ -8,7 +8,6 @@ import com.example.mor.nytnews.data.NetworkModule
 import com.example.mor.nytnews.data.popular.api.PopularPeriod
 import com.example.mor.nytnews.data.popular.api.PopularService
 import com.example.mor.nytnews.data.popular.common.PopularType
-import com.example.mor.nytnews.utilities.Response
 import com.example.mor.nytnews.utilities.server.ApiMockResponsesFactory
 import com.example.mor.nytnews.utilities.server.MockWebServer
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -57,43 +56,25 @@ class PopularRepositoryTest {
 
     @Test
     fun getMostViewedArticlesFromApi_RemoteSyncOn_CheckIsNotEmpty() = runTest {
-        val viewedResponse = popularRepository.getPopularsByTypeStream(
+        val popularsResponse = popularRepository.getPopularsByTypeStream(
             PopularType.MOST_VIEWED,
             PopularPeriod.DAY,
             true
         )
 
-        when (viewedResponse) {
-            is Response.Success -> {
-                val viewedArticles = viewedResponse.data.first()
-                assert(viewedArticles.isNotEmpty())
-            }
-
-            is Response.Failure -> {
-                println("getMostViewedArticlesFromApi: ${viewedResponse.error.message}")
-                assert(false) { "${viewedResponse.error.message}" }
-            }
-        }
+        val viewedArticles = popularsResponse.first()
+        assert(viewedArticles.isNotEmpty())
     }
 
     @Test
     fun getMostViewedArticlesFromApi_RemoteSyncOff_CheckIsEmpty() = runTest {
-        val viewedResponse = popularRepository.getPopularsByTypeStream(
+        val popularsResponse = popularRepository.getPopularsByTypeStream(
             PopularType.MOST_VIEWED,
             PopularPeriod.DAY,
             false
         )
 
-        when (viewedResponse) {
-            is Response.Success -> {
-                val viewedArticles = viewedResponse.data.first()
-                assert(viewedArticles.isEmpty())
-            }
-
-            is Response.Failure -> {
-                println("getMostViewedArticlesFromApi: ${viewedResponse.error.message}")
-                assert(false) { "${viewedResponse.error.message}" }
-            }
-        }
+        val viewedArticles = popularsResponse.first()
+        assert(viewedArticles.isEmpty())
     }
 }

@@ -20,5 +20,7 @@
     <string name="check_your_internet_connection_message">Check your internet connection and try again</string>
     <string name="search_for_something_message">Search for something…</string>
     <string name="loading">Loading</string>
+    <string name="popular_article_image_content_description">popular article image</string>
+    <string name="edit_topics_content_description">Edit topics</string>
 
 </resources>

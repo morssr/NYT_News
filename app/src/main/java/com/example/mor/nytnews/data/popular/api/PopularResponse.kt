@@ -13,10 +13,10 @@ data class Result(
     val title: String,
     val abstract: String,
     val byline: String,
-    val media: List<Media>,
+    val media: List<Media>?,
     val published_date: String,
     val section: String,
-    val subsection: String,
+    val subsection: String?,
     val uri: String,
     val url: String
 )

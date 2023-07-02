@@ -9,6 +9,9 @@ import com.example.mor.nytnews.MainLogger
 import com.example.mor.nytnews.data.bookmarks.cache.BookmarkedStory
 import com.example.mor.nytnews.data.bookmarks.cache.BookmarksRepository
 import com.example.mor.nytnews.data.bookmarks.cache.toBookmarkedStory
+import com.example.mor.nytnews.data.popular.PopularRepository
+import com.example.mor.nytnews.data.popular.api.PopularPeriod
+import com.example.mor.nytnews.data.popular.common.PopularType
 import com.example.mor.nytnews.data.topics.TopicsRepository
 import com.example.mor.nytnews.data.topics.TopicsType
 import com.example.mor.nytnews.data.topics.cache.Story
@@ -24,6 +27,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
@@ -45,6 +49,7 @@ class TopicsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val topicsRepository: TopicsRepository,
     private val bookmarksRepository: BookmarksRepository,
+    private val popularRepository: PopularRepository,
     @MainLogger logger: Logger,
     @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
@@ -102,6 +107,17 @@ class TopicsViewModel @Inject constructor(
                 log.d { "feed state update called for topic: ${it.first}" }
                 _uiState.update { uiState -> updatedFeedStateByTopic(uiState, it.first, it.second) }
             }
+            .flowOn(dispatcher)
+            .launchIn(viewModelScope)
+
+        popularRepository.getPopularsByTypeStream(
+            type = PopularType.MOST_VIEWED,
+            period = PopularPeriod.DAY,
+            remoteSync = true
+        )
+            .map { it.toPopularUiList() }
+            .onEach { _uiState.update { uiState -> uiState.copy(populars = it) } }
+            .catch { throwable -> log.e { "get most popular stream returns error: $throwable" } }
             .flowOn(dispatcher)
             .launchIn(viewModelScope)
     }
@@ -178,9 +194,10 @@ class TopicsViewModel @Inject constructor(
 }
 
 data class TopicsUiState(
+    val currentStableTopic: TopicsType = TopicsType.HOME,
     val topics: List<TopicsType> = listOf(TopicsType.HOME),
     val feedsStates: Map<TopicsType, FeedUiState> = emptyMap(),
-    val currentStableTopic: TopicsType = TopicsType.HOME,
+    val populars: List<PopularUi> = emptyList(),
     val isLoading: Boolean = false,
     val error: String? = null
 )
