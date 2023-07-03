@@ -1,6 +1,4 @@
-@file:OptIn(
-    ExperimentalMaterial3Api::class
-)
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.example.mor.nytnews.ui.topics
 
