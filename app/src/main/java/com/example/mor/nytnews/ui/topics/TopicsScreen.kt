@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -121,19 +122,23 @@ private fun TopicScreenComponent(
     if (popularsList.isNotEmpty()) {
         showPopulars = true
     }
+
     BoxWithConstraints() {
+        // 40% of the screen height
+        val collapsingToolbarHeight = maxHeight * 0.4f
+
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
                 CustomCollapsingToolbarContainer(
-                    initialHeight = maxHeight * 0.4f,
+                    initialHeight = collapsingToolbarHeight,
                     scrollBehavior = scrollBehavior,
                     alphaAnimation = true,
                 )
                 {
                     if (showPopulars) {
                         PopularBarComponent(
-                            modifier = Modifier,
+                            modifier = Modifier.requiredHeight(collapsingToolbarHeight),
                             populars = popularsList,
                         )
                     }
