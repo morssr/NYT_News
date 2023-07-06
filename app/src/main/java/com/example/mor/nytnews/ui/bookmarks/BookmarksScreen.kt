@@ -49,7 +49,8 @@ private const val TAG = "BookmarksScreen"
 @Composable
 fun BookmarksRoute(
     modifier: Modifier = Modifier,
-    viewModel: BookmarksViewModel = hiltViewModel()
+    viewModel: BookmarksViewModel = hiltViewModel(),
+    onStoryClick: (story: BookmarkUi) -> Unit = {},
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -58,6 +59,7 @@ fun BookmarksRoute(
     ) {
         BookmarksScreen(
             stories = uiState.value.bookmarks,
+            onStoryClick = onStoryClick,
             onStoryDelete = { viewModel.deleteBookmark(it) },
         )
     }
@@ -68,7 +70,7 @@ fun BookmarksScreen(
     modifier: Modifier = Modifier,
     stories: List<BookmarkUi>,
     lazyListState: LazyListState = rememberLazyListState(),
-    onStoryClick: (id: String) -> Unit = {},
+    onStoryClick: (story: BookmarkUi) -> Unit = {},
     onStoryDelete: (id: String) -> Unit = {},
 ) {
 
@@ -109,7 +111,7 @@ fun SwipeToDeleteBookmarkItem(
     modifier: Modifier = Modifier,
     bookmarked: BookmarkUi,
     dismissState: DismissState = rememberDismissState(),
-    onStoryClick: (id: String) -> Unit = {},
+    onStoryClick: (story: BookmarkUi) -> Unit = {},
 ) {
     SwipeToDismiss(
         modifier = modifier,
@@ -120,7 +122,7 @@ fun SwipeToDeleteBookmarkItem(
                 modifier = modifier
                     .fillMaxWidth()
                     .alpha(if (dismissState.progress <= 0.9) 1f - dismissState.progress else 1f),
-                bookmarked = bookmarked,
+                bookmarkedStory = bookmarked,
                 onStoryClick = onStoryClick
             )
         },
@@ -131,14 +133,14 @@ fun SwipeToDeleteBookmarkItem(
 @Composable
 fun BookmarkItem(
     modifier: Modifier = Modifier,
-    bookmarked: BookmarkUi,
-    onStoryClick: (id: String) -> Unit = {},
+    bookmarkedStory: BookmarkUi,
+    onStoryClick: (story: BookmarkUi) -> Unit = {},
 ) {
     ElevatedCard(
         modifier = modifier
             .fillMaxWidth()
             .animateContentSize(animationSpec = tween(50))
-            .clickable { onStoryClick(bookmarked.id) },
+            .clickable { onStoryClick(bookmarkedStory) },
     ) {
         Column {
             AsyncImage(
@@ -146,7 +148,7 @@ fun BookmarkItem(
                     .fillMaxWidth()
                     .height(200.dp),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(bookmarked.imageUrl)
+                    .data(bookmarkedStory.imageUrl)
                     .crossfade(true)
                     .placeholder(R.drawable.ic_launcher_background)
                     .build(),
@@ -159,7 +161,7 @@ fun BookmarkItem(
                     .padding(horizontal = 16.dp)
                     .paddingFromBaseline(top = 16.dp)
                     .alpha(0.8f),
-                text = bookmarked.subsection.ifEmpty { bookmarked.topic },
+                text = bookmarkedStory.subsection.ifEmpty { bookmarkedStory.topic },
                 color = MaterialTheme.colorScheme.secondary,
                 style = MaterialTheme.typography.labelSmall
             )
@@ -168,7 +170,7 @@ fun BookmarkItem(
                 modifier = Modifier
                     .paddingFromBaseline(top = 24.dp)
                     .padding(horizontal = 16.dp),
-                text = bookmarked.title,
+                text = bookmarkedStory.title,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.titleLarge
             )
@@ -184,7 +186,7 @@ fun BookmarkItem(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                         .paddingFromBaseline(16.dp),
-                    text = bookmarked.byline,
+                    text = bookmarkedStory.byline,
                     style = MaterialTheme.typography.labelSmall
                 )
 
@@ -192,7 +194,7 @@ fun BookmarkItem(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                         .paddingFromBaseline(16.dp),
-                    text = bookmarked.publishedDate,
+                    text = bookmarkedStory.publishedDate,
                     style = MaterialTheme.typography.labelSmall
                 )
 
@@ -203,7 +205,7 @@ fun BookmarkItem(
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 16.dp)
                     .paddingFromBaseline(24.dp),
-                text = bookmarked.abstract
+                text = bookmarkedStory.abstract
             )
         }
     }
@@ -223,7 +225,7 @@ fun BookmarkScreenPreview() {
 fun BookmarkItemPreview() {
     NYTNewsTheme() {
         BookmarkItem(
-            bookmarked = fakeBookmarkUiModel,
+            bookmarkedStory = fakeBookmarkUiModel,
             onStoryClick = {}
         )
     }

@@ -11,6 +11,7 @@ data class PopularUi(
     val byline: String,
     val publishedDate: String,
     val imageUrl: String,
+    val storyUrl: String,
 )
 
 fun PopularModel.toPopularUi(): PopularUi {
@@ -22,6 +23,7 @@ fun PopularModel.toPopularUi(): PopularUi {
         byline = byline,
         publishedDate = publishedDate.toString(),
         imageUrl = imageUrl,
+        storyUrl = storyUrl
     )
 }
 

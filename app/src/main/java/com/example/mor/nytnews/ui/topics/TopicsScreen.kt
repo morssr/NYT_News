@@ -63,7 +63,9 @@ private const val TAG = "TopicsScreen"
 @Composable
 fun TopicsScreen(
     modifier: Modifier = Modifier,
-    viewModel: TopicsViewModel = hiltViewModel()
+    viewModel: TopicsViewModel = hiltViewModel(),
+    onStoryClick: (StoryUI) -> Unit = {},
+    onPopularStoryClick: (PopularUi) -> Unit = {},
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -79,6 +81,8 @@ fun TopicsScreen(
             viewModel.refreshCurrentTopic(uiState.topics[page])
         },
         feedUpdateStates = uiState.feedsStates.map { it.key to it.value.updateState }.toMap(),
+        onStoryClick = onStoryClick,
+        onPopularStoryClick =  onPopularStoryClick,
         onBookmarkClick = { id, bookmarked -> viewModel.updateBookmark(id, bookmarked) },
         onTopicsChooserDialogDismiss = { viewModel.updateTopics(it) }
     )
@@ -93,6 +97,8 @@ private fun TopicScreenComponent(
     popularsList: List<PopularUi> = emptyList(),
     feedUpdateStates: Map<TopicsType, FeedUpdateState> = emptyMap(),
     onPageChange: (Int) -> Unit = {},
+    onStoryClick: (StoryUI) -> Unit = {},
+    onPopularStoryClick: (PopularUi) -> Unit = {},
     onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
     onTopicsChooserDialogDismiss: (List<TopicsType>) -> Unit = {},
 ) {
@@ -137,6 +143,7 @@ private fun TopicScreenComponent(
                     if (showPopulars) {
                         PopularBarComponent(
                             modifier = Modifier.requiredHeight(collapsingToolbarHeight),
+                            onPopularStoryClick = onPopularStoryClick,
                             populars = popularsList,
                         )
                     }
@@ -212,6 +219,7 @@ private fun TopicScreenComponent(
                         modifier = modifier.weight(1f),
                         stories = storiesList[topicsType[it]] ?: emptyList(),
                         feedUpdateState = feedUpdateStates[topicsType[it]] ?: FeedUpdateState.Idle,
+                        onStoryClick = onStoryClick ,
                         onBookmarkClick = onBookmarkClick
                     )
                 }

@@ -19,8 +19,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.mor.nytnews.ui.bookmarks.bookmarksScreen
+import com.example.mor.nytnews.ui.common.NavArgumentsConstants
+import com.example.mor.nytnews.ui.common.webview.WebViewRoute
+import com.example.mor.nytnews.ui.common.webview.articleRoute
+import com.example.mor.nytnews.ui.common.webview.navigateToArticle
 import com.example.mor.nytnews.ui.search.searchScreen
 import com.example.mor.nytnews.ui.theme.Icon
 import com.example.mor.nytnews.ui.topics.topicsRoute
@@ -36,11 +43,13 @@ fun NytApp(
 
     Scaffold(
         bottomBar = {
-            NytBottomBar(
-                destinations = appState.topLevelDestinations,
-                onNavigateToDestination = appState::navigateToTopLevelDestination,
-                currentDestination = appState.currentDestination,
-            )
+            if (appState.currentDestination.isCurrentDestinationTopLevel(appState.topLevelDestinations)) {
+                NytBottomBar(
+                    destinations = appState.topLevelDestinations,
+                    onNavigateToDestination = appState::navigateToTopLevelDestination,
+                    currentDestination = appState.currentDestination,
+                )
+            }
         },
     ) { innerPadding ->
         Box(
@@ -54,9 +63,45 @@ fun NytApp(
                 navController = appState.navController,
                 startDestination = topicsRoute,
             ) {
-                topicsScreen()
-                searchScreen()
-                bookmarksScreen()
+                topicsScreen(
+                    onStoryClick = {
+                        appState.navController.navigateToArticle(
+                            it.storyUrl,
+                            it.title
+                        )
+                    },
+                    onPopularStoryClick = {
+                        appState.navController.navigateToArticle(
+                            it.storyUrl,
+                            it.title
+                        )
+                    }
+                )
+
+                searchScreen(onSearchItemClick = {
+                    appState.navController.navigateToArticle(it.storyUrl, it.title)
+                })
+
+                bookmarksScreen(
+                    onStoryClick = {
+                        appState.navController.navigateToArticle(it.storyUrl, it.title)
+                    }
+                )
+
+                composable(
+                    route = articleRoute,
+                    arguments = listOf(
+                        navArgument(NavArgumentsConstants.URL_KEY) { type = NavType.StringType },
+                        navArgument(NavArgumentsConstants.TITLE_KEY) { type = NavType.StringType },
+                    )
+                ) { backStackEntry ->
+                    val url =
+                        backStackEntry.arguments?.getString(NavArgumentsConstants.URL_KEY) ?: ""
+                    val title =
+                        backStackEntry.arguments?.getString(NavArgumentsConstants.TITLE_KEY) ?: ""
+
+                    WebViewRoute(url = url, title = title, onBackClick = appState::navigateUp)
+                }
             }
         }
     }
@@ -106,3 +151,11 @@ private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLev
         it.route?.contains(destination.name, true) ?: false
     } ?: false
 
+
+private fun NavDestination?.isCurrentDestinationTopLevel(topLevelDestinations: List<TopLevelDestination>): Boolean {
+    return topLevelDestinations.any { topLevelDestination ->
+        this?.hierarchy?.any {
+            it.route?.contains(topLevelDestination.name, true) ?: false
+        } ?: false
+    }
+}

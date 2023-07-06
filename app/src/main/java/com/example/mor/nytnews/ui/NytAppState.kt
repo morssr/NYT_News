@@ -16,7 +16,6 @@ import com.example.mor.nytnews.ui.search.navigateToSearch
 import com.example.mor.nytnews.ui.topics.navigateToTopics
 import kotlinx.coroutines.CoroutineScope
 
-
 @Composable
 fun rememberNytAppState(
     windowSizeClass: WindowSizeClass,
@@ -80,5 +79,9 @@ class NytAppState(
 
     override fun toString(): String {
         return "topLevelDestinations: $topLevelDestinations, windowSizeClass: $windowSizeClass"
+    }
+
+    fun navigateUp() {
+        navController.navigateUp()
     }
 }

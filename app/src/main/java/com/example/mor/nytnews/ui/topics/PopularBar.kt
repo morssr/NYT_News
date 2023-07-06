@@ -43,7 +43,7 @@ private const val TAG = "PopularBar"
 fun PopularBarComponent(
     modifier: Modifier = Modifier,
     populars: List<PopularUi> = emptyList(),
-    onPopularClick: (id: String) -> Unit = {},
+    onPopularStoryClick: (item: PopularUi) -> Unit = {},
 ) {
     val pagerState = rememberPagerState()
 
@@ -94,11 +94,8 @@ fun PopularBarComponent(
                 // Card content
                 populars[pageIndex].let {
                     PopularListItem(
-                        id = it.id,
-                        imageUrl = it.imageUrl,
-                        title = it.title,
-                        onItemClick = onPopularClick
-
+                        popular = it,
+                        onItemClick = onPopularStoryClick
                     )
                 }
             }
@@ -109,16 +106,14 @@ fun PopularBarComponent(
 @Composable
 private fun PopularListItem(
     modifier: Modifier = Modifier,
-    id: String = "",
-    imageUrl: String = "",
-    title: String = "",
-    onItemClick: (id: String) -> Unit = {}
+    popular: PopularUi,
+    onItemClick: (item: PopularUi) -> Unit = {}
 ) {
-    Box(modifier = modifier.clickable { onItemClick(id) }) {
+    Box(modifier = modifier.clickable { onItemClick(popular) }) {
 
         ItemCommonAsyncImage(
             modifier = Modifier.fillMaxSize(),
-            imageUrl = imageUrl,
+            imageUrl = popular.imageUrl,
             contentDescription = stringResource(R.string.popular_article_image_content_description)
         )
 
@@ -151,7 +146,7 @@ private fun PopularListItem(
                         .align(Alignment.Center)
                         .padding(horizontal = 16.dp)
                         .padding(top = 8.dp, bottom = 8.dp),
-                    text = title,
+                    text = popular.title,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     textAlign = TextAlign.Center,
@@ -167,12 +162,19 @@ private fun PopularListItem(
 fun PopularListItemPreview() {
     NYTNewsTheme() {
         PopularListItem(
-            imageUrl = "https://static01.nyt.com/images/2023/06/21/opinion/19Sinykin/19Sinykin-mediumThreeByTwo440-v2.jpg",
-            title = "Max Morath, Pianist Who Staged a One-Man Ragtime Revival, Dies at 96"
+            popular = PopularUi(
+                "234234",
+                PopularType.MOST_VIEWED,
+                "Max Morath, Pianist Who Staged a One-Man Ragtime Revival, Dies at 96",
+                "asdf",
+                "asdf",
+                "asdf",
+                "https://static01.nyt.com/images/2023/06/21/opinion/19Sinykin/19Sinykin-mediumThreeByTwo440-v2.jpg",
+                ""
+            )
         )
     }
 }
-
 
 @Preview
 @Composable
@@ -187,7 +189,8 @@ fun PopularBarPreview() {
                     "asdfhajkhsdj",
                     "asdkflja",
                     Date().toString(),
-                    "https://static01.nyt.com/images/2023/06/21/opinion/19Sinykin/19Sinykin-mediumThreeByTwo440-v2.jpg"
+                    "https://static01.nyt.com/images/2023/06/21/opinion/19Sinykin/19Sinykin-mediumThreeByTwo440-v2.jpg",
+                    ""
                 ),
                 PopularUi(
                     "iioaf",
@@ -196,10 +199,10 @@ fun PopularBarPreview() {
                     "asdfhajkhsdj",
                     "asdkflja",
                     Date().toString(),
-                    "https://static01.nyt.com/images/2023/06/21/opinion/19Sinykin/19Sinykin-mediumThreeByTwo440-v2.jpg"
+                    "https://static01.nyt.com/images/2023/06/21/opinion/19Sinykin/19Sinykin-mediumThreeByTwo440-v2.jpg",
+                    ""
                 ),
             )
         )
     }
-
 }

@@ -35,7 +35,7 @@ fun HorizontalSearchItemsListElement(
     title: String,
     searchUiItems: List<SearchUiModel> = emptyList(),
     lazyListState: LazyListState = rememberLazyListState(),
-    onSearchItemClick: (String) -> Unit = {},
+    onSearchItemClick: (SearchUiModel) -> Unit = {},
 ) {
     Column(modifier = modifier) {
         Spacer(modifier = Modifier.height(16.dp))
@@ -56,7 +56,7 @@ fun HorizontalSearchItemsListElement(
             items(searchUiItems) { it ->
                 SmallSearchStoryItem(
                     story = it,
-                    onStoryClick = { onSearchItemClick(it.id) }
+                    onStoryClick = { onSearchItemClick(it) }
                 )
             }
         }

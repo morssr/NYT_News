@@ -10,4 +10,5 @@ data class SearchModel(
     val leadParagraph: String,
     val publishedDate: Date,
     val imageUrl: String,
+    val storyUrl: String
 )

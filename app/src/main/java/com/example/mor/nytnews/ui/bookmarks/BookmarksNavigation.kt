@@ -11,8 +11,8 @@ fun NavHostController.navigateToBookmarks(navOptions: NavOptions? = null) {
     this.navigate(bookmarksRoute, navOptions)
 }
 
-fun NavGraphBuilder.bookmarksScreen() {
+fun NavGraphBuilder.bookmarksScreen(onStoryClick: (story: BookmarkUi) -> Unit = {}) {
     composable(route = bookmarksRoute) {
-        BookmarksRoute()
+        BookmarksRoute(onStoryClick = onStoryClick)
     }
 }

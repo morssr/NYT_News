@@ -30,8 +30,9 @@ fun SearchEntity.toSearchUiModel(bookmarked: Boolean = false): SearchUiModel {
         abstract = abstract,
         byline = byline,
         publishedDate = publishedDate,
+        bookmarked = bookmarked,
         imageUrl = imageUrl,
-        bookmarked = bookmarked
+        storyUrl = storyUrl
     )
 }
 
@@ -44,6 +45,7 @@ fun SearchEntity.toSearchModel(): SearchModel {
         byline = byline,
         publishedDate = publishedDate,
         imageUrl = imageUrl,
+        storyUrl = storyUrl
     )
 }
 
@@ -58,8 +60,9 @@ fun SearchModel.toSearchUiModel(bookmarked: Boolean): SearchUiModel {
         abstract = abstract,
         byline = byline,
         publishedDate = publishedDate,
+        bookmarked = bookmarked,
         imageUrl = imageUrl,
-        bookmarked = bookmarked
+        storyUrl = storyUrl
     )
 }
 
@@ -76,6 +79,7 @@ fun StoryEntity.toSearchModel(): SearchModel {
         byline = byline,
         publishedDate = publishedDate,
         imageUrl = imageUrl,
+        storyUrl = storyUrl
     )
 }
 

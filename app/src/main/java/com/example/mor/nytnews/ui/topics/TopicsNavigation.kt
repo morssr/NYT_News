@@ -11,8 +11,14 @@ fun NavHostController.navigateToTopics(navOptions: NavOptions? = null) {
     this.navigate(topicsRoute, navOptions)
 }
 
-fun NavGraphBuilder.topicsScreen(onTopicClick: (String) -> Unit = {}) {
+fun NavGraphBuilder.topicsScreen(
+    onStoryClick: (StoryUI) -> Unit = {},
+    onPopularStoryClick: (PopularUi) -> Unit = {}
+) {
     composable(route = topicsRoute) {
-        TopicsScreen()
+        TopicsScreen(
+            onStoryClick = onStoryClick,
+            onPopularStoryClick = onPopularStoryClick
+        )
     }
 }

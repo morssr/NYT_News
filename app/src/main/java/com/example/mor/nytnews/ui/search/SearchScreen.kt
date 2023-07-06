@@ -69,7 +69,8 @@ private const val TAG = "SearchScreen"
 @Composable
 fun SearchRoute(
     modifier: Modifier = Modifier,
-    viewModel: SearchViewModel = hiltViewModel()
+    viewModel: SearchViewModel = hiltViewModel(),
+    onSearchItemClick: (SearchUiModel) -> Unit = {},
 ) {
     val searchItems = viewModel.searchResults.collectAsLazyPagingItems()
     val lastSearchItems = viewModel.lastSearchItems.collectAsStateWithLifecycle()
@@ -88,6 +89,7 @@ fun SearchRoute(
             interestsItems.value
         ).any { it.isEmpty() },
         onSearchClick = { query -> viewModel.search(query) },
+        onSearchItemClick = onSearchItemClick,
         onBookmarkClick = { storyId, isBookmarked ->
 //                viewModel.onBookmarkClick(storyId, isBookmarked)
         }
@@ -104,7 +106,7 @@ fun SearchScreen(
     interestsSearchItems: List<SearchUiModel> = emptyList(),
     showStartSearchAnimation: Boolean = true,
     onSearchClick: (String) -> Unit = {},
-    onSearchItemClick: (String) -> Unit = {},
+    onSearchItemClick: (SearchUiModel) -> Unit = {},
     onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
 ) {
     Column(
@@ -217,6 +219,7 @@ fun SearchScreen(
                                     SearchStoryItem(
                                         modifier = Modifier,
                                         story = storyItem,
+                                        onStoryClick = onSearchItemClick,
                                         onBookmarkClick = onBookmarkClick
                                     )
                                 }
@@ -266,7 +269,7 @@ fun SearchScreen(
 @Composable
 private fun SearchIdleContent(
     lastSearchItems: List<SearchUiModel>,
-    onSearchItemClick: (String) -> Unit,
+    onSearchItemClick: (SearchUiModel) -> Unit,
     recommendedSearchItems: List<SearchUiModel>,
     interestsSearchItems: List<SearchUiModel>
 ) {

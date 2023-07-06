@@ -8,6 +8,7 @@ data class SearchUiModel(
     val abstract: String,
     val byline: String,
     val publishedDate: Date,
+    val bookmarked: Boolean,
     val imageUrl: String,
-    val bookmarked: Boolean
+    val storyUrl: String
 )
