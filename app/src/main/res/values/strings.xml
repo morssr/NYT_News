@@ -23,5 +23,7 @@
     <string name="popular_article_image_content_description">popular article image</string>
     <string name="edit_topics_content_description">Edit topics</string>
     <string name="back">Back</string>
+    <string name="bookmark_added">Added To Bookmarks</string>
+    <string name="undo">Undo</string>
 
 </resources>

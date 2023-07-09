@@ -52,4 +52,7 @@ class SearchRepositoryImpl(
         .getTopStoriesStream()
         .map { it.shuffled().take(10) }
         .map { it.toSearchModels() }
+
+    override suspend fun getStoryById(id: String): SearchModel =
+        db.searchDao().getStoryById(id).toSearchModel()
 }

@@ -1,5 +1,6 @@
 package com.example.mor.nytnews.ui.search
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
@@ -11,8 +12,13 @@ fun NavHostController.navigateToSearch(navOptions: NavOptions? = null) {
     this.navigate(searchRoute, navOptions)
 }
 
-fun NavGraphBuilder.searchScreen(onSearchItemClick: (SearchUiModel) -> Unit = {}) {
+fun NavGraphBuilder.searchScreen(
+    onSearchItemClick: (SearchUiModel) -> Unit = {},
+    snackbarHostState: SnackbarHostState
+) {
     composable(route = searchRoute) {
-        SearchRoute(onSearchItemClick = onSearchItemClick)
+        SearchRoute(
+            snackbarHostState = snackbarHostState,
+            onSearchItemClick = onSearchItemClick)
     }
 }

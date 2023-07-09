@@ -7,6 +7,8 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import co.touchlab.kermit.Logger
 import com.example.mor.nytnews.MainLogger
+import com.example.mor.nytnews.data.bookmarks.cache.BookmarksRepository
+import com.example.mor.nytnews.data.bookmarks.cache.toBookmarkedStory
 import com.example.mor.nytnews.data.search.SearchRepository
 import com.example.mor.nytnews.data.search.toSearchUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +18,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val TAG = "SearchViewModel"
@@ -25,6 +28,7 @@ private const val DEFAULT_SEARCH_QUERY_KEY = ""
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchRepository: SearchRepository,
+    private val bookmarksRepository: BookmarksRepository,
     @MainLogger logger: Logger,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -35,7 +39,7 @@ class SearchViewModel @Inject constructor(
     val searchResults =
         savedStateHandle.getStateFlow(SEARCH_QUERY_KEY, DEFAULT_SEARCH_QUERY_KEY)
             .filter { query ->
-                log.v { "searchResults change: filter not blank/empty $query" }
+                log.v { "searchResults change: filter blank/empty $query" }
                 query.isNotBlank()
             }
             .flatMapLatest { query ->
@@ -76,4 +80,18 @@ class SearchViewModel @Inject constructor(
         savedStateHandle[SEARCH_QUERY_KEY] = query
     }
 
+    fun addToBookmarks(storyId: String) {
+        log.d { "onBookmarkClick called with storyId: $storyId" }
+        viewModelScope.launch {
+            val story = searchRepository.getStoryById(storyId)
+            bookmarksRepository.saveBookmarks(listOf(story.toBookmarkedStory()))
+        }
+    }
+
+    fun removeFromBookmarks(storyId: String) {
+        log.d { "onBookmarkClick called with storyId: $storyId" }
+        viewModelScope.launch {
+            bookmarksRepository.deleteBookmarkById(storyId)
+        }
+    }
 }

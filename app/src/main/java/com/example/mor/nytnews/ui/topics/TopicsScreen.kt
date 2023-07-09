@@ -27,6 +27,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
@@ -82,7 +84,7 @@ fun TopicsScreen(
         },
         feedUpdateStates = uiState.feedsStates.map { it.key to it.value.updateState }.toMap(),
         onStoryClick = onStoryClick,
-        onPopularStoryClick =  onPopularStoryClick,
+        onPopularStoryClick = onPopularStoryClick,
         onBookmarkClick = { id, bookmarked -> viewModel.updateBookmark(id, bookmarked) },
         onTopicsChooserDialogDismiss = { viewModel.updateTopics(it) }
     )
@@ -106,6 +108,7 @@ private fun TopicScreenComponent(
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState()
     var showTopicsSelectionDialog by remember { mutableStateOf(false) }
+    val snackbarHostState = remember { SnackbarHostState() }
 
     val currentOnPageChange by rememberUpdatedState(onPageChange)
 
@@ -133,6 +136,7 @@ private fun TopicScreenComponent(
 
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            snackbarHost = { SnackbarHost(snackbarHostState) },
             topBar = {
                 CustomCollapsingToolbarContainer(
                     initialHeight = collapsingToolbarHeight,
@@ -219,7 +223,7 @@ private fun TopicScreenComponent(
                         modifier = modifier.weight(1f),
                         stories = storiesList[topicsType[it]] ?: emptyList(),
                         feedUpdateState = feedUpdateStates[topicsType[it]] ?: FeedUpdateState.Idle,
-                        onStoryClick = onStoryClick ,
+                        onStoryClick = onStoryClick,
                         onBookmarkClick = onBookmarkClick
                     )
                 }

@@ -10,4 +10,5 @@ interface SearchRepository {
     fun getLastStoriesSearch(): Flow<List<SearchModel>>
     fun getInterestsList(): Flow<List<SearchModel>>
     fun getRecommendedList(): Flow<List<SearchModel>>
+    suspend fun getStoryById(id: String): SearchModel
 }

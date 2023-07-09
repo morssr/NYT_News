@@ -14,6 +14,9 @@ interface SearchDao {
     @Query("SELECT * FROM Search")
     suspend fun getSearchResults(): List<SearchEntity>
 
+    @Query("SELECT * FROM Search WHERE id = :id")
+    suspend fun getStoryById(id: String): SearchEntity
+
     @Query("SELECT * FROM Search")
     fun getSearchResultsStream(): Flow<List<SearchEntity>>
 

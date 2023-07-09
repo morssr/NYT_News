@@ -1,5 +1,6 @@
 package com.example.mor.nytnews.ui.search
 
+import android.content.Context
 import android.content.res.Resources.NotFoundException
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -8,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,22 +23,26 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.BookmarkAdd
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.BookmarkRemove
 import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Button
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledIconToggleButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -62,6 +68,8 @@ import coil.request.ImageRequest
 import com.example.mor.nytnews.R
 import com.example.mor.nytnews.ui.common.ExpandableText
 import com.example.mor.nytnews.ui.common.LottieAnimationElement
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 private const val TAG = "SearchScreen"
@@ -70,6 +78,7 @@ private const val TAG = "SearchScreen"
 fun SearchRoute(
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = hiltViewModel(),
+    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     onSearchItemClick: (SearchUiModel) -> Unit = {},
 ) {
     val searchItems = viewModel.searchResults.collectAsLazyPagingItems()
@@ -77,8 +86,10 @@ fun SearchRoute(
     val interestsItems = viewModel.interestsList.collectAsStateWithLifecycle()
     val recommendedItems = viewModel.recommendedList.collectAsStateWithLifecycle()
 
+
     SearchScreen(
         modifier = modifier.fillMaxSize(),
+        snackbarHostState = snackbarHostState,
         searchItems = searchItems,
         lastSearchItems = lastSearchItems.value,
         recommendedSearchItems = recommendedItems.value,
@@ -90,9 +101,12 @@ fun SearchRoute(
         ).any { it.isEmpty() },
         onSearchClick = { query -> viewModel.search(query) },
         onSearchItemClick = onSearchItemClick,
-        onBookmarkClick = { storyId, isBookmarked ->
-//                viewModel.onBookmarkClick(storyId, isBookmarked)
-        }
+        onAddToBookmarksClick = { storyId ->
+            viewModel.addToBookmarks(storyId)
+        },
+        onUndoAddToBookmarksClick = { storyId ->
+            viewModel.removeFromBookmarks(storyId)
+        },
     )
 }
 
@@ -100,6 +114,7 @@ fun SearchRoute(
 @Composable
 fun SearchScreen(
     modifier: Modifier = Modifier,
+    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     searchItems: LazyPagingItems<SearchUiModel>,
     lastSearchItems: List<SearchUiModel> = emptyList(),
     recommendedSearchItems: List<SearchUiModel> = emptyList(),
@@ -107,7 +122,8 @@ fun SearchScreen(
     showStartSearchAnimation: Boolean = true,
     onSearchClick: (String) -> Unit = {},
     onSearchItemClick: (SearchUiModel) -> Unit = {},
-    onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
+    onAddToBookmarksClick: (id: String) -> Unit = {},
+    onUndoAddToBookmarksClick: (id: String) -> Unit = {},
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -119,6 +135,9 @@ fun SearchScreen(
 
         val imeController = LocalSoftwareKeyboardController.current
         val focusManager = LocalFocusManager.current
+
+        val scope = rememberCoroutineScope()
+        val context = LocalContext.current
 
         SearchBar(
             modifier = Modifier,
@@ -210,6 +229,7 @@ fun SearchScreen(
                         LazyColumn(
                             modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.spacedBy(16.dp),
+                            contentPadding = PaddingValues(8.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
 
@@ -220,7 +240,16 @@ fun SearchScreen(
                                         modifier = Modifier,
                                         story = storyItem,
                                         onStoryClick = onSearchItemClick,
-                                        onBookmarkClick = onBookmarkClick
+                                        onBookmarkClick = { id ->
+                                            onAddToBookmarksClick(id)
+                                            showAddToBookmarksSnackbar(
+                                                scope,
+                                                snackbarHostState,
+                                                context,
+                                                onUndoAddToBookmarksClick,
+                                                id
+                                            )
+                                        }
                                     )
                                 }
                             }
@@ -350,7 +379,7 @@ private fun FooterPagingListStateHandler(
 fun SearchStoryItem(
     modifier: Modifier = Modifier,
     story: SearchUiModel,
-    onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
+    onBookmarkClick: (String) -> Unit = {},
     onStoryClick: (SearchUiModel) -> Unit = {}
 ) {
     ElevatedCard(
@@ -359,7 +388,7 @@ fun SearchStoryItem(
             .animateContentSize(animationSpec = tween(50))
             .clickable {
                 onStoryClick(story)
-            },
+            }, elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (image, title, abstract, favorite) = createRefs()
@@ -410,26 +439,40 @@ fun SearchStoryItem(
                 text = story.abstract
             )
 
-            FilledIconToggleButton(
+            IconButton(
                 modifier = Modifier
                     .padding(end = 12.dp)
                     .padding(top = 16.dp)
                     .constrainAs(favorite) {
-                        bottom.linkTo(parent.bottom, margin = 16.dp)
+                        bottom.linkTo(parent.bottom, margin = 8.dp)
                         end.linkTo(parent.end)
                     },
-                checked = story.bookmarked,
-                onCheckedChange = { onBookmarkClick(story.id, story.bookmarked) }
+                onClick = { onBookmarkClick(story.id) }
             ) {
-                if (story.bookmarked) {
-                    Icon(Icons.Rounded.BookmarkRemove, contentDescription = "add to favorites")
-                } else {
-                    Icon(
-                        Icons.Outlined.BookmarkAdd,
-                        contentDescription = "remove from favorites"
-                    )
-                }
+                Icon(
+                    Icons.Outlined.BookmarkAdd,
+                    contentDescription = "add to bookmarks list"
+                )
             }
+        }
+    }
+}
+
+private fun showAddToBookmarksSnackbar(
+    scope: CoroutineScope,
+    snackbarHostState: SnackbarHostState,
+    context: Context,
+    onUndoAddToBookmarksClick: (id: String) -> Unit,
+    id: String
+) {
+    scope.launch {
+        val snackbarResult = snackbarHostState.showSnackbar(
+            message = context.getString(R.string.bookmark_added),
+            actionLabel = context.getString(R.string.undo),
+        )
+
+        if (snackbarResult == SnackbarResult.ActionPerformed) {
+            onUndoAddToBookmarksClick(id)
         }
     }
 }
