@@ -124,12 +124,6 @@ private fun TopicScreenComponent(
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
-    var showPopulars by remember { mutableStateOf(false) }
-
-    if (popularsList.isNotEmpty()) {
-        showPopulars = true
-    }
-
     BoxWithConstraints() {
         // 40% of the screen height
         val collapsingToolbarHeight = maxHeight * 0.4f
@@ -144,13 +138,15 @@ private fun TopicScreenComponent(
                     alphaAnimation = true,
                 )
                 {
-                    if (showPopulars) {
-                        PopularBarComponent(
-                            modifier = Modifier.requiredHeight(collapsingToolbarHeight),
-                            onPopularStoryClick = onPopularStoryClick,
-                            populars = popularsList,
-                        )
-                    }
+
+                    val showShimmer by remember(key1 = popularsList) { mutableStateOf(popularsList.isEmpty()) }
+
+                    PopularBarComponent(
+                        modifier = Modifier.requiredHeight(collapsingToolbarHeight),
+                        onPopularStoryClick = onPopularStoryClick,
+                        populars = popularsList,
+                        shimmer = showShimmer
+                    )
                 }
             }
         ) {

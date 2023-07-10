@@ -73,8 +73,15 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
     implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.1"
     implementation 'androidx.compose.material:material-icons-extended'
-
+    //UI - Shimmer
+    implementation 'com.valentinilk.shimmer:compose-shimmer:1.0.5'
+    //UI - Coil
     implementation("io.coil-kt:coil-compose:2.3.0")
+    //UI - Lottie
+    def lottieVersion = "6.0.1"
+    implementation "com.airbnb.android:lottie-compose:$lottieVersion"
+
+    //Logger
     implementation("co.touchlab:kermit:2.0.0-RC4")
 
     //UI - Paging
@@ -117,8 +124,6 @@ dependencies {
     //Mock Server
     implementation "com.squareup.okhttp3:mockwebserver:4.9.2"
 
-    def lottieVersion = "6.0.1"
-    implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

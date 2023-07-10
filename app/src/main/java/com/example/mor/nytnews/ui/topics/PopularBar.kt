@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
@@ -34,6 +35,7 @@ import com.example.mor.nytnews.R
 import com.example.mor.nytnews.data.popular.common.PopularType
 import com.example.mor.nytnews.ui.common.ItemCommonAsyncImage
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
+import com.valentinilk.shimmer.shimmer
 import java.util.Date
 import kotlin.math.absoluteValue
 
@@ -43,6 +45,7 @@ private const val TAG = "PopularBar"
 fun PopularBarComponent(
     modifier: Modifier = Modifier,
     populars: List<PopularUi> = emptyList(),
+    shimmer: Boolean = false,
     onPopularStoryClick: (item: PopularUi) -> Unit = {},
 ) {
     val pagerState = rememberPagerState()
@@ -53,7 +56,7 @@ fun PopularBarComponent(
         val popularItemWidth = maxWidth * 0.8f
 
         HorizontalPager(
-            pageCount = populars.size,
+            pageCount = if (!shimmer) populars.size else 10,
             state = pagerState,
             pageSize = PageSize.Fixed(popularItemWidth),
             contentPadding = PaddingValues(16.dp),
@@ -91,12 +94,16 @@ fun PopularBarComponent(
             }
             ) {
 
-                // Card content
-                populars[pageIndex].let {
-                    PopularListItem(
-                        popular = it,
-                        onItemClick = onPopularStoryClick
-                    )
+                if (!shimmer) {
+                    // Card content
+                    populars[pageIndex].let {
+                        PopularListItem(
+                            popular = it,
+                            onItemClick = onPopularStoryClick
+                        )
+                    }
+                } else {
+                    ShimmerPopularListItemScaffold()
                 }
             }
         }
@@ -157,6 +164,57 @@ private fun PopularListItem(
     }
 }
 
+@Composable
+private fun ShimmerPopularListItemScaffold(
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier.shimmer()) {
+
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(Color.LightGray))
+
+        Surface(
+            Modifier
+                .align(Alignment.BottomCenter)
+                .padding(horizontal = 16.dp),
+            CutCornerShape(
+                topStart = 16.dp,
+                topEnd = 16.dp,
+                bottomStart = 4.dp,
+                bottomEnd = 4.dp
+            ),
+            color = Color.Transparent
+        ) {
+            Box(
+                modifier = Modifier
+                    .background(
+                        Brush.radialGradient(
+                            listOf(
+                                MaterialTheme.colorScheme.surface,
+                                Color.Transparent
+                            ), radius = 3000f
+                        )
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 8.dp, bottom = 8.dp),
+                    text = "",
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
 fun PopularListItemPreview() {
@@ -202,7 +260,7 @@ fun PopularBarPreview() {
                     "https://static01.nyt.com/images/2023/06/21/opinion/19Sinykin/19Sinykin-mediumThreeByTwo440-v2.jpg",
                     ""
                 ),
-            )
+            ), shimmer = true
         )
     }
 }
