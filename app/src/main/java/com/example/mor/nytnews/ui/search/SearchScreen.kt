@@ -49,7 +49,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -63,10 +62,9 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.example.mor.nytnews.R
 import com.example.mor.nytnews.ui.common.ExpandableText
+import com.example.mor.nytnews.ui.common.ItemCommonAsyncImage
 import com.example.mor.nytnews.ui.common.LottieAnimationElement
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -393,7 +391,7 @@ fun SearchStoryItem(
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (image, title, abstract, favorite) = createRefs()
 
-            AsyncImage(
+            ItemCommonAsyncImage(
                 modifier = Modifier
                     .constrainAs(image) {
                         top.linkTo(parent.top)
@@ -402,13 +400,8 @@ fun SearchStoryItem(
                         width = Dimension.fillToConstraints
                         height = Dimension.value(180.dp)
                     },
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(story.imageUrl)
-                    .crossfade(true)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .build(),
-                contentScale = ContentScale.Crop,
-                contentDescription = null
+                imageUrl = story.imageUrl,
+                contentDescription = story.title,
             )
 
             Text(

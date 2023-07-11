@@ -1,13 +1,20 @@
 package com.example.mor.nytnews.ui.common
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.example.mor.nytnews.R
+import com.valentinilk.shimmer.shimmer
+
+private const val TAG = "ItemCommonAsyncImage"
 
 @Composable
 fun ItemCommonAsyncImage(
@@ -15,14 +22,29 @@ fun ItemCommonAsyncImage(
     imageUrl: String,
     contentDescription: String = ""
 ) {
-    AsyncImage(
-        modifier = modifier,
+    val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
-            .data(imageUrl.ifEmpty { EmptyImagePlaceholder(Modifier.fillMaxSize()) })
+            .data(imageUrl)
             .crossfade(true)
-            .placeholder(R.drawable.ic_launcher_background)
             .build(),
-        contentScale = ContentScale.Crop,
-        contentDescription = contentDescription
     )
+
+    Box(modifier = modifier) {
+
+        Image(
+            painter = painter,
+            contentDescription = contentDescription,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+
+        if (painter.state is AsyncImagePainter.State.Loading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .shimmer()
+                    .background(Color.LightGray)
+            )
+        }
+    }
 }

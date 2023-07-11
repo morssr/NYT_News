@@ -32,15 +32,11 @@ import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.example.mor.nytnews.R
+import com.example.mor.nytnews.ui.common.ItemCommonAsyncImage
 import com.example.mor.nytnews.ui.common.SwipeToDeleteBackground
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
 
@@ -143,17 +139,12 @@ fun BookmarkItem(
             .clickable { onStoryClick(bookmarkedStory) },
     ) {
         Column {
-            AsyncImage(
+            ItemCommonAsyncImage(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp),
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(bookmarkedStory.imageUrl)
-                    .crossfade(true)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .build(),
-                contentScale = ContentScale.Crop,
-                contentDescription = null
+                imageUrl = bookmarkedStory.imageUrl,
+                contentDescription = bookmarkedStory.title
             )
 
             Text(

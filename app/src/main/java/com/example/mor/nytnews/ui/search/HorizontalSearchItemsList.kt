@@ -21,13 +21,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.example.mor.nytnews.R
+import com.example.mor.nytnews.ui.common.ItemCommonAsyncImage
 
 @Composable
 fun HorizontalSearchItemsListElement(
@@ -78,15 +74,10 @@ fun SmallSearchStoryItem(
             },
     ) {
         Column(modifier = Modifier) {
-            AsyncImage(
+            ItemCommonAsyncImage(
                 modifier = Modifier.aspectRatio(16f / 9f),
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(story.imageUrl)
-                    .crossfade(true)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .build(),
-                contentScale = ContentScale.Crop,
-                contentDescription = null
+                imageUrl = story.imageUrl,
+                contentDescription = story.title
             )
 
             Text(
