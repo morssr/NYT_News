@@ -25,5 +25,6 @@
     <string name="back">Back</string>
     <string name="bookmark_added">Added To Bookmarks</string>
     <string name="undo">Undo</string>
+    <string name="bookmarks_are_empty">Bookmarks are empty</string>
 
 </resources>

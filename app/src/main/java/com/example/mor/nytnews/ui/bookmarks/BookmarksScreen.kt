@@ -32,11 +32,14 @@ import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.mor.nytnews.R
 import com.example.mor.nytnews.ui.common.ItemCommonAsyncImage
+import com.example.mor.nytnews.ui.common.LottieAnimationElement
 import com.example.mor.nytnews.ui.common.SwipeToDeleteBackground
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
 
@@ -70,6 +73,10 @@ fun BookmarksScreen(
     onStoryDelete: (id: String) -> Unit = {},
 ) {
 
+    if (stories.isEmpty()) {
+        BookmarksEmptyScreen()
+        return
+    }
 
     LazyColumn(
         modifier = modifier,
@@ -202,6 +209,15 @@ fun BookmarkItem(
     }
 }
 
+@Composable
+fun BookmarksEmptyScreen(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize()) {
+        LottieAnimationElement(
+            animationPath = R.raw.lottie_bookmarks,
+            title = stringResource(R.string.bookmarks_are_empty)
+        )
+    }
+}
 
 @Preview
 @Composable
