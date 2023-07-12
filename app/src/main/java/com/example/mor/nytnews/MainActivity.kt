@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.mor.nytnews.ui.NytApp
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,6 +14,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        //TODO show splash after content is loaded
+        val splashScreen = installSplashScreen()
+
         super.onCreate(savedInstanceState)
         setContent {
             NYTNewsTheme {

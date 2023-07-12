@@ -148,7 +148,6 @@ private fun TopicScreenComponent(
                         derivedStateOf { appBarState.collapsedFraction > 0.99f }
                     }
 
-                    Log.i(TAG, "TopicScreenComponent:  appBarFullyCollapsed $appBarFullyCollapsed")
                     PopularBarComponent(
                         modifier = Modifier.then(
                             // Hide the toolbar when the collapsing toolbar is fully collapsed.

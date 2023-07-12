@@ -89,6 +89,9 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$paging_version"
     implementation "androidx.paging:paging-compose:$paging_version"
 
+    //UI - Splash Screen
+    implementation "androidx.core:core-splashscreen:1.0.1"
+
 
     //Cache - Room
     def room_version = "2.5.1"
