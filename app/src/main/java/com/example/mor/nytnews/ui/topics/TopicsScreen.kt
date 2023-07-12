@@ -36,6 +36,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -121,8 +122,10 @@ private fun TopicScreenComponent(
         }
     }
 
+    val appBarState = rememberTopAppBarState()
+
     val scrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(appBarState)
 
     BoxWithConstraints() {
         // 40% of the screen height
@@ -138,11 +141,24 @@ private fun TopicScreenComponent(
                     alphaAnimation = true,
                 )
                 {
-
                     val showShimmer by remember(key1 = popularsList) { mutableStateOf(popularsList.isEmpty()) }
 
+                    // returns true when the toolbar is fully collapsed
+                    val appBarFullyCollapsed by remember {
+                        derivedStateOf { appBarState.collapsedFraction > 0.99f }
+                    }
+
+                    Log.i(TAG, "TopicScreenComponent:  appBarFullyCollapsed $appBarFullyCollapsed")
                     PopularBarComponent(
-                        modifier = Modifier.requiredHeight(collapsingToolbarHeight),
+                        modifier = Modifier.then(
+                            // Hide the toolbar when the collapsing toolbar is fully collapsed.
+                            // Workaround to fix the issue of consuming the touch events when collapsed.
+                            if (appBarFullyCollapsed) {
+                                Modifier.requiredHeight(0.dp)
+                            } else {
+                                Modifier.requiredHeight(collapsingToolbarHeight)
+                            }
+                        ),
                         onPopularStoryClick = onPopularStoryClick,
                         populars = popularsList,
                         shimmer = showShimmer
