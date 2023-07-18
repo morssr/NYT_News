@@ -164,8 +164,11 @@ private fun TopicScreenComponent(
                     )
                 }
             }
-        ) {
-            Column(modifier = Modifier.padding(it)) {
+        ) { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .padding(top = innerPadding.calculateTopPadding())
+            ) {
                 if (showTopicsSelectionDialog) {
                     TopicsSelectionDialog(
                         onDismiss = { updated, topics ->
