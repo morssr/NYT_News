@@ -17,19 +17,19 @@ import com.example.mor.nytnews.data.topics.cache.TopStoriesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import javax.inject.Qualifier
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ActivityRetainedComponent::class)
+@InstallIn(SingletonComponent::class)
 object TopicsModule {
 
     @TopicsPreferences
     @Provides
-    @ActivityRetainedScoped
+    @Singleton
     fun provideTopicsPreferences(@ApplicationContext context: Context): DataStore<Preferences> =
         PreferenceDataStoreFactory.create {
             context.preferencesDataStoreFile(TOPICS_PREFERENCES_FILE_NAME)
@@ -37,24 +37,24 @@ object TopicsModule {
 
     @TopicsLastUpdatePref
     @Provides
-    @ActivityRetainedScoped
+    @Singleton
     fun provideTopicsLastUpdatePref(@ApplicationContext context: Context): DataStore<Preferences> =
         PreferenceDataStoreFactory.create {
             context.preferencesDataStoreFile(TOPICS_LAST_UPDATE_PREFERENCES_FILE_NAME)
         }
 
     @Provides
-    @ActivityRetainedScoped
+    @Singleton
     fun provideTopicsService(retrofit: Retrofit): TopicsService =
         retrofit.create(TopicsService::class.java)
 
     @Provides
-    @ActivityRetainedScoped
+    @Singleton
     fun provideTopicsDao(database: AppDatabase): TopStoriesDao =
         database.topStoriesDao()
 
     @Provides
-    @ActivityRetainedScoped
+    @Singleton
     fun provideTopicsRepository(
         topicsService: TopicsService,
         topicDao: TopStoriesDao,
