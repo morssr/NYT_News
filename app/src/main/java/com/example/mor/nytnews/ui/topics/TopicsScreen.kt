@@ -5,12 +5,16 @@ package com.example.mor.nytnews.ui.topics
 import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
@@ -18,6 +22,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -47,6 +52,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -129,7 +135,7 @@ private fun TopicScreenComponent(
 
     BoxWithConstraints() {
         // 40% of the screen height
-        val collapsingToolbarHeight = maxHeight * 0.4f
+        val collapsingToolbarHeight = maxHeight * 0.45f
 
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -141,14 +147,13 @@ private fun TopicScreenComponent(
                     alphaAnimation = true,
                 )
                 {
-                    val showShimmer by remember(key1 = popularsList) { mutableStateOf(popularsList.isEmpty()) }
 
                     // returns true when the toolbar is fully collapsed
                     val appBarFullyCollapsed by remember {
                         derivedStateOf { appBarState.collapsedFraction > 0.99f }
                     }
 
-                    PopularBarComponent(
+                    Column(
                         modifier = Modifier.then(
                             // Hide the toolbar when the collapsing toolbar is fully collapsed.
                             // Workaround to fix the issue of consuming the touch events when collapsed.
@@ -157,11 +162,24 @@ private fun TopicScreenComponent(
                             } else {
                                 Modifier.requiredHeight(collapsingToolbarHeight)
                             }
-                        ),
-                        onPopularStoryClick = onPopularStoryClick,
-                        populars = popularsList,
-                        shimmer = showShimmer
-                    )
+                        )
+                    ) {
+
+                        TopAppBar()
+
+                        val showShimmer by remember(key1 = popularsList) {
+                            mutableStateOf(
+                                popularsList.isEmpty()
+                            )
+                        }
+
+                        PopularBarComponent(
+                            modifier = Modifier.weight(1f),
+                            onPopularStoryClick = onPopularStoryClick,
+                            populars = popularsList,
+                            shimmer = showShimmer
+                        )
+                    }
                 }
             }
         ) { innerPadding ->
@@ -314,6 +332,38 @@ fun TopicsSelectionDialog(
         }
     }
 }
+
+@Composable
+private fun TopAppBar(
+    modifier: Modifier = Modifier,
+    onLogoClick: () -> Unit = {},
+    onSettingsClick: () -> Unit = {},
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = 4.dp, start = 8.dp, end = 8.dp)
+    ) {
+        IconButton(modifier = Modifier.align(Alignment.CenterStart), onClick = onLogoClick) {
+            Image(
+                painter = painterResource(id = R.drawable.splash_logo),
+                contentDescription = "app logo",
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+
+        IconButton(
+            modifier = Modifier.align(Alignment.CenterEnd),
+            onClick = onSettingsClick
+        ) {
+            Icon(
+                imageVector = Icons.Default.Settings,
+                contentDescription = "settings"
+            )
+        }
+    }
+}
+
 
 @Preview
 @Composable

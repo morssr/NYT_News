@@ -59,7 +59,7 @@ fun PopularBarComponent(
             pageCount = if (!shimmer) populars.size else 10,
             state = pagerState,
             pageSize = PageSize.Fixed(popularItemWidth),
-            contentPadding = PaddingValues(16.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         ) { pageIndex ->
             Card(Modifier.graphicsLayer {
                 // Calculate the absolute offset for the current page from the
