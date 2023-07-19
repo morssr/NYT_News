@@ -6,30 +6,22 @@ import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.SnackbarHost
@@ -54,7 +46,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -188,7 +179,7 @@ private fun TopicScreenComponent(
                     .padding(top = innerPadding.calculateTopPadding())
             ) {
                 if (showTopicsSelectionDialog) {
-                    TopicsSelectionDialog(
+                    TopicsInterestsDialog(
                         onDismiss = { updated, topics ->
                             if (updated) {
                                 coroutineScope.launch { pagerState.animateScrollToPage(0) }
@@ -264,75 +255,6 @@ private fun TopicScreenComponent(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-fun TopicsSelectionDialog(
-    selectableTopics: List<TopicsType> = TopicsType.allTopics,
-    selectedTopics: List<TopicsType> = defaultTopics,
-    onDismiss: (updated: Boolean, updatedTopics: List<TopicsType>) -> Unit = { _, _ -> }
-) {
-    var newSelectedTopics by remember { mutableStateOf(selectedTopics) }
-
-    ModalBottomSheet(onDismissRequest = {
-        onDismiss(
-            selectedTopics != newSelectedTopics,
-            newSelectedTopics
-        )
-    }) {
-
-        Text(
-            text = "Your Topics",
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
-            fontWeight = FontWeight.Bold
-        )
-
-        FlowRow(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
-        ) {
-            selectableTopics.forEach {
-
-                val selected by remember(newSelectedTopics) {
-                    mutableStateOf(
-                        newSelectedTopics.contains(it)
-                    )
-                }
-
-                FilterChip(
-                    modifier = Modifier,
-                    selected = selected,
-                    onClick = {
-
-                        if (it == TopicsType.HOME) {
-                            return@FilterChip
-                        }
-
-                        newSelectedTopics = if (selected) {
-                            newSelectedTopics.filter { topic -> topic != it }
-                        } else {
-                            newSelectedTopics + it
-                        }
-                    },
-
-                    label = { Text(it.topicName.uppercase()) },
-                    leadingIcon = if (selected) {
-                        {
-                            Icon(
-                                imageVector = Icons.Filled.Done,
-                                contentDescription = "Selected",
-                                modifier = Modifier.size(FilterChipDefaults.IconSize)
-                            )
-                        }
-                    } else {
-                        null
-                    }
-                )
-            }
-
-        }
-    }
-}
-
 @Composable
 private fun TopAppBar(
     modifier: Modifier = Modifier,
@@ -380,7 +302,7 @@ fun TopicsScreenPreview() {
 @Composable
 fun TopicsDialogSelectionPreview() {
     NYTNewsTheme() {
-        TopicsSelectionDialog(
+        TopicsInterestsDialog(
             selectedTopics = defaultTopics,
             onDismiss = { updated, topics ->
                 Log.d("TAG", "TopicsDialogSelectionPreview: $updated $topics")
