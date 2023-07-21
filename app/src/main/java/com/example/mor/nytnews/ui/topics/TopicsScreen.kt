@@ -55,6 +55,7 @@ import com.example.mor.nytnews.data.topics.TopicsType
 import com.example.mor.nytnews.data.topics.defaultTopics
 import com.example.mor.nytnews.ui.common.CustomCollapsingToolbarContainer
 import com.example.mor.nytnews.ui.common.CustomRoundBorderTabIndicator
+import com.example.mor.nytnews.ui.settings.AppSettingsDialog
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
 import kotlinx.coroutines.launch
 
@@ -106,6 +107,7 @@ private fun TopicScreenComponent(
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState()
     var showTopicsSelectionDialog by remember { mutableStateOf(false) }
+    var showAppSettingsDialog by remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
 
     val currentOnPageChange by rememberUpdatedState(onPageChange)
@@ -125,6 +127,13 @@ private fun TopicScreenComponent(
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(appBarState)
 
     BoxWithConstraints() {
+
+        if (showAppSettingsDialog) {
+            AppSettingsDialog(
+                onDismiss = { showAppSettingsDialog = false },
+            )
+        }
+
         // 40% of the screen height
         val collapsingToolbarHeight = maxHeight * 0.45f
 
@@ -156,7 +165,9 @@ private fun TopicScreenComponent(
                         )
                     ) {
 
-                        TopAppBar()
+                        TopAppBar(
+                            onSettingsClick = { showAppSettingsDialog = true },
+                        )
 
                         val showShimmer by remember(key1 = popularsList) {
                             mutableStateOf(

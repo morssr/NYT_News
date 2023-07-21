@@ -26,5 +26,11 @@
     <string name="bookmark_added">Added To Bookmarks</string>
     <string name="undo">Undo</string>
     <string name="bookmarks_are_empty">Bookmarks are empty</string>
+    <string name="follow_system">System</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="done">Done</string>
+    <string name="theme_modes">Theme modes</string>
+    <string name="dynamic_colors">Dynamic colors</string>
 
 </resources>

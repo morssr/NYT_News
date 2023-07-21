@@ -3,11 +3,16 @@ package com.example.mor.nytnews
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.mor.nytnews.ui.NytApp
+import com.example.mor.nytnews.ui.settings.SettingsViewModel
+import com.example.mor.nytnews.ui.settings.ThemeConfig
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +28,19 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            NYTNewsTheme {
+
+            val settingsViewModel: SettingsViewModel = hiltViewModel()
+            val settingsUiStateState =
+                settingsViewModel.settingsUiState.collectAsStateWithLifecycle()
+
+            NYTNewsTheme(
+                darkTheme = when (settingsUiStateState.value.theme) {
+                    ThemeConfig.FOLLOW_SYSTEM -> isSystemInDarkTheme()
+                    ThemeConfig.DARK -> true
+                    ThemeConfig.LIGHT -> false
+                },
+                dynamicColor = settingsUiStateState.value.dynamicColorsEnabled,
+            ) {
                 NytApp(windowSizeClass = calculateWindowSizeClass(activity = this))
             }
         }
