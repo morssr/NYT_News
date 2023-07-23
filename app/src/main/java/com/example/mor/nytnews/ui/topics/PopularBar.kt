@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -26,8 +26,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
@@ -55,55 +59,75 @@ fun PopularBarComponent(
         // Calculate the item width to be 80% of the maxWidth
         val popularItemWidth = maxWidth * 0.8f
 
-        HorizontalPager(
-            pageCount = if (!shimmer) populars.size else 10,
-            state = pagerState,
-            pageSize = PageSize.Fixed(popularItemWidth),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-        ) { pageIndex ->
-            Card(Modifier.graphicsLayer {
-                // Calculate the absolute offset for the current page from the
-                // scroll position. We use the absolute value which allows us to mirror
-                // any effects for both directions
-                val pageOffset = (
-                        (pagerState.currentPage - pageIndex) + pagerState
-                            .currentPageOffsetFraction
-                        ).absoluteValue
-
-                // animate the alpha, between 50% and 100%
-                alpha = lerp(
-                    start = 0.5f,
-                    stop = 1f,
-                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                )
-
-                // animate the scaleX + scaleY, between 85% and 100%
-                val minScale = 0.85f
-
-                scaleX = lerp(
-                    start = 0.85f,
-                    stop = 1f,
-                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                )
-
-                scaleY = lerp(
-                    start = minScale,
-                    stop = 1f,
-                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                )
-            }
-            ) {
-
-                if (!shimmer) {
-                    // Card content
-                    populars[pageIndex].let {
-                        PopularListItem(
-                            popular = it,
-                            onItemClick = onPopularStoryClick
+        Column {
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(
+                        style = SpanStyle(
+                            color = MaterialTheme.colorScheme.primary,
+                            fontWeight = FontWeight.Bold
                         )
+                    ) {
+                        append("Newest")
                     }
-                } else {
-                    ShimmerPopularListItemScaffold()
+                    append(" ")
+                    append("Reports")
+                },
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier
+                    .padding(top = 4.dp)
+                    .padding(horizontal = 16.dp)
+            )
+            HorizontalPager(
+                pageCount = if (!shimmer) populars.size else 10,
+                state = pagerState,
+                pageSize = PageSize.Fixed(popularItemWidth),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+            ) { pageIndex ->
+                Card(Modifier.graphicsLayer {
+                    // Calculate the absolute offset for the current page from the
+                    // scroll position. We use the absolute value which allows us to mirror
+                    // any effects for both directions
+                    val pageOffset = (
+                            (pagerState.currentPage - pageIndex) + pagerState
+                                .currentPageOffsetFraction
+                            ).absoluteValue
+
+                    // animate the alpha, between 50% and 100%
+                    alpha = lerp(
+                        start = 0.5f,
+                        stop = 1f,
+                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                    )
+
+                    // animate the scaleX + scaleY, between 85% and 100%
+                    val minScale = 0.85f
+
+                    scaleX = lerp(
+                        start = 0.85f,
+                        stop = 1f,
+                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                    )
+
+                    scaleY = lerp(
+                        start = minScale,
+                        stop = 1f,
+                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                    )
+                }
+                ) {
+
+                    if (!shimmer) {
+                        // Card content
+                        populars[pageIndex].let {
+                            PopularListItem(
+                                popular = it,
+                                onItemClick = onPopularStoryClick
+                            )
+                        }
+                    } else {
+                        ShimmerPopularListItemScaffold()
+                    }
                 }
             }
         }
@@ -126,14 +150,8 @@ private fun PopularListItem(
 
         Surface(
             Modifier
-                .align(Alignment.BottomCenter)
-                .padding(horizontal = 16.dp),
-            CutCornerShape(
-                topStart = 16.dp,
-                topEnd = 16.dp,
-                bottomStart = 4.dp,
-                bottomEnd = 4.dp
-            ),
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter),
             color = Color.Transparent
         ) {
             Box(
@@ -170,20 +188,16 @@ private fun ShimmerPopularListItemScaffold(
 ) {
     Box(modifier = modifier.shimmer()) {
 
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .background(Color.LightGray))
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.LightGray)
+        )
 
         Surface(
             Modifier
-                .align(Alignment.BottomCenter)
-                .padding(horizontal = 16.dp),
-            CutCornerShape(
-                topStart = 16.dp,
-                topEnd = 16.dp,
-                bottomStart = 4.dp,
-                bottomEnd = 4.dp
-            ),
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter),
             color = Color.Transparent
         ) {
             Box(
@@ -205,6 +219,7 @@ private fun ShimmerPopularListItemScaffold(
                         .padding(horizontal = 16.dp)
                         .padding(top = 8.dp, bottom = 8.dp),
                     text = "",
+                    minLines = 2,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     textAlign = TextAlign.Center,

@@ -26,9 +26,10 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.outlined.BookmarkAdd
 import androidx.compose.material.icons.rounded.BookmarkRemove
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.FilledIconToggleButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -112,6 +113,8 @@ fun StoryItem(
             .clickable {
                 onStoryClick(story)
             },
+
+        elevation = CardDefaults.cardElevation(0.5.dp),
     ) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (image, title, abstract, favorite) = createRefs()
@@ -131,38 +134,24 @@ fun StoryItem(
 
             Text(
                 modifier = Modifier
-                    .paddingFromBaseline(top = 32.dp)
+                    .padding(top = 8.dp)
                     .padding(horizontal = 16.dp)
                     .constrainAs(title) {
                         top.linkTo(image.bottom)
                         start.linkTo(parent.start)
-                        end.linkTo(parent.end)
+                        end.linkTo(favorite.start, margin = 4.dp)
                         width = Dimension.fillToConstraints
                     },
                 text = story.title,
                 style = MaterialTheme.typography.titleLarge
             )
 
-            ExpandableText(
+            IconToggleButton(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .paddingFromBaseline(24.dp)
-                    .constrainAs(abstract) {
-                        top.linkTo(title.bottom)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        bottom.linkTo(favorite.top)
-                    },
-                collapsedMaxLine = 2,
-                text = story.abstract
-            )
-
-            FilledIconToggleButton(
-                modifier = Modifier
-                    .padding(end = 12.dp)
-                    .padding(top = 16.dp)
+                    .padding(end = 4.dp, top = 4.dp)
                     .constrainAs(favorite) {
-                        bottom.linkTo(parent.bottom, margin = 16.dp)
+                        start.linkTo(title.end)
+                        top.linkTo(image.bottom)
                         end.linkTo(parent.end)
                     },
                 checked = story.favorite,
@@ -177,6 +166,20 @@ fun StoryItem(
                     )
                 }
             }
+
+            ExpandableText(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .paddingFromBaseline(24.dp)
+                    .constrainAs(abstract) {
+                        top.linkTo(title.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom, margin = 16.dp)
+                    },
+                collapsedMaxLine = 3,
+                text = story.abstract
+            )
         }
     }
 }
