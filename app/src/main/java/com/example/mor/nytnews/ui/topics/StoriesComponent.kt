@@ -27,6 +27,7 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.outlined.BookmarkAdd
 import androidx.compose.material.icons.rounded.BookmarkRemove
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton
@@ -95,6 +96,7 @@ private fun StoriesList(
 
         items(stories) { story ->
             StoryItem(story = story, onStoryClick = onStoryClick, onBookmarkClick = onBookmarkClick)
+            Divider(modifier.fillMaxWidth().padding(horizontal = 16.dp))
         }
     }
 }
@@ -114,7 +116,11 @@ fun StoryItem(
                 onStoryClick(story)
             },
 
-        elevation = CardDefaults.cardElevation(0.5.dp),
+        elevation = CardDefaults.cardElevation(),
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = MaterialTheme.colorScheme.background,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        )
     ) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (image, title, abstract, favorite) = createRefs()
@@ -126,7 +132,7 @@ fun StoryItem(
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                         width = Dimension.fillToConstraints
-                        height = Dimension.value(180.dp)
+                        height = Dimension.value(200.dp)
                     },
                 imageUrl = story.imageUrl,
                 contentDescription = story.title,

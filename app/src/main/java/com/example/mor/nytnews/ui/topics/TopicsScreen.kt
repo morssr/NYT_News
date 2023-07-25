@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -16,12 +18,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.SnackbarHost
@@ -46,6 +50,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -54,7 +59,6 @@ import com.example.mor.nytnews.R
 import com.example.mor.nytnews.data.topics.TopicsType
 import com.example.mor.nytnews.data.topics.defaultTopics
 import com.example.mor.nytnews.ui.common.CustomCollapsingToolbarContainer
-import com.example.mor.nytnews.ui.common.CustomRoundBorderTabIndicator
 import com.example.mor.nytnews.ui.settings.AppSettingsDialog
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
 import kotlinx.coroutines.launch
@@ -135,7 +139,7 @@ private fun TopicScreenComponent(
         }
 
         // 40% of the screen height
-        val collapsingToolbarHeight = maxHeight * 0.45f
+        val collapsingToolbarHeight = maxHeight * 0.42f
 
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -202,40 +206,42 @@ private fun TopicScreenComponent(
                     )
                 }
 
-                Row(modifier = Modifier.animateContentSize()) {
-                    Surface {
-                        if (pagerState.currentPage < 3) {
-                            IconButton(onClick = { showTopicsSelectionDialog = true }) {
-                                Icon(
-                                    Icons.Outlined.Edit,
-                                    contentDescription = stringResource(R.string.edit_topics_content_description)
-                                )
-                            }
+                Column(modifier = Modifier.animateContentSize()) {
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(start = 16.dp),
+                            text = "What's In Your Mind?",
+                            style = MaterialTheme.typography.titleLarge
+                        )
+
+                        IconButton(
+                            modifier = Modifier.padding(end = 4.dp),
+                            onClick = { showTopicsSelectionDialog = true }) {
+                            Icon(
+                                Icons.Outlined.Edit,
+                                contentDescription = stringResource(R.string.edit_topics_content_description)
+                            )
                         }
                     }
 
                     ScrollableTabRow(
                         selectedTabIndex = pagerState.currentPage,
                         edgePadding = 8.dp,
-                        indicator = { tabPositions ->
-                            CustomRoundBorderTabIndicator(
-                                tabPositions,
-                                pagerState.currentPage
-                            )
-                        },
+                        containerColor = MaterialTheme.colorScheme.background,
+                        indicator = {},
                         divider = {}
                     ) {
                         topicsType.forEachIndexed { index, topicsType ->
                             val selected = index == pagerState.currentPage
                             Tab(
+                                modifier = Modifier.padding(bottom = 8.dp),
                                 selected = selected,
-                                text = {
-                                    Text(
-                                        text = topicsType.name,
-                                        modifier = Modifier.padding(horizontal = 8.dp)
-                                    )
-                                },
-                                //                icon = { Icon(item.icon,  "")},
                                 onClick = {
                                     coroutineScope.launch {
                                         pagerState.animateScrollToPage(
@@ -243,7 +249,9 @@ private fun TopicScreenComponent(
                                         )
                                     }
                                 },
-                            )
+                            ) {
+                                CustomTabContent(selected, topicsType)
+                            }
                         }
                     }
                 }
@@ -261,6 +269,47 @@ private fun TopicScreenComponent(
                         onBookmarkClick = onBookmarkClick
                     )
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun CustomTabContent(
+    selected: Boolean,
+    topicsType: TopicsType
+) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        shape = RoundedCornerShape(30)
+    ) {
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .then(
+                    if (selected) {
+                        Modifier.background(
+                            MaterialTheme.colorScheme.primary,
+                        )
+                    } else {
+                        Modifier
+                    }
+                ), contentAlignment = Alignment.Center
+        ) {
+            if (selected) {
+                Text(
+                    text = topicsType.name,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier.padding(8.dp)
+                )
+            } else {
+                Text(
+                    text = topicsType.name,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(8.dp)
+                )
             }
         }
     }
@@ -290,7 +339,7 @@ private fun TopAppBar(
             onClick = onSettingsClick
         ) {
             Icon(
-                imageVector = Icons.Default.Settings,
+                imageVector = Icons.Outlined.Settings,
                 contentDescription = "settings"
             )
         }

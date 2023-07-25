@@ -65,7 +65,7 @@ fun PopularBarComponent(
                     withStyle(
                         style = SpanStyle(
                             color = MaterialTheme.colorScheme.primary,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Normal
                         )
                     ) {
                         append("Newest")
@@ -74,6 +74,7 @@ fun PopularBarComponent(
                     append("Reports")
                 },
                 style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .padding(top = 4.dp)
                     .padding(horizontal = 16.dp)
@@ -156,26 +157,17 @@ private fun PopularListItem(
         ) {
             Box(
                 modifier = Modifier
-                    .background(
-                        Brush.radialGradient(
-                            listOf(
-                                MaterialTheme.colorScheme.surface,
-                                Color.Transparent
-                            ), radius = 3000f
-                        )
-                    ),
-                contentAlignment = Alignment.Center
+                    .background(Color.Black.copy(alpha = 0.61f)),
             ) {
                 Text(
                     modifier = Modifier
-                        .align(Alignment.Center)
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 8.dp, bottom = 8.dp),
+                        .padding(horizontal = 16.dp, vertical = 4.dp),
                     text = popular.title,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleMedium
+                    textAlign = TextAlign.Start,
+                    color = Color.White,
+                    style = MaterialTheme.typography.titleSmall
                 )
             }
         }
