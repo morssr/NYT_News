@@ -184,7 +184,8 @@ fun StoryItem(
                         bottom.linkTo(parent.bottom, margin = 16.dp)
                     },
                 collapsedMaxLine = 3,
-                text = story.abstract
+                text = story.abstract,
+                onUnAnnotatedTextClick = { onStoryClick(story) }
             )
         }
     }

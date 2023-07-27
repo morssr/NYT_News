@@ -452,7 +452,8 @@ fun SearchStoryItem(
                         bottom.linkTo(favorite.top)
                     },
                 collapsedMaxLine = 2,
-                text = story.abstract
+                text = story.abstract,
+                onUnAnnotatedTextClick = { onStoryClick(story) }
             )
 
             IconButton(

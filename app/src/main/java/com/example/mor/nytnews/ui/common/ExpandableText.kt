@@ -21,6 +21,11 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import com.example.mor.nytnews.R
 
+
+private const val TAG = "ExpandableText"
+
+private const val ANNOTATED_STRING_TAG = "MORE"
+
 @Composable
 fun ExpandableText(
     modifier: Modifier = Modifier,
@@ -36,7 +41,9 @@ fun ExpandableText(
         color = MaterialTheme.colorScheme.primary,
         background = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.38f),
     ),
+    onUnAnnotatedTextClick: () -> Unit = {}
 ) {
+
     var isExpanded by remember { mutableStateOf(false) }
     var clickable by remember { mutableStateOf(false) }
     var lastCharIndex by remember() { mutableStateOf(0) }
@@ -59,7 +66,7 @@ fun ExpandableText(
                             .dropLast(showMoreText.length)
                             .dropLastWhile { Character.isWhitespace(it) || it == '.' }
                     withStyle(style = textSpanStyle) { append(adjustText) }
-                    pushStringAnnotation(tag = "MORE", annotation = showMoreText)
+                    pushStringAnnotation(tag = ANNOTATED_STRING_TAG, annotation = showMoreText)
                     withStyle(style = showMoreStyle) { append(showMoreText) }
                 }
             } else {
@@ -79,8 +86,14 @@ fun ExpandableText(
             },
             style = style,
             onClick = {
-                annotatedString.getStringAnnotations("MORE", it, it).firstOrNull()
-                    ?.let { isExpanded = !isExpanded }
+                val isMoreInRange =
+                    annotatedString.getStringAnnotations(ANNOTATED_STRING_TAG, it, it).firstOrNull()
+
+                if (isMoreInRange != null) {
+                    isExpanded = !isExpanded
+                } else {
+                    onUnAnnotatedTextClick()
+                }
             })
     }
 }
