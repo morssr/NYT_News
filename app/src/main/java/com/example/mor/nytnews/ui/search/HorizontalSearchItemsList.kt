@@ -4,10 +4,12 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
@@ -18,9 +20,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.mor.nytnews.ui.common.ItemCommonAsyncImage
@@ -38,7 +43,8 @@ fun HorizontalSearchItemsListElement(
         Text(
             modifier = Modifier.padding(horizontal = 16.dp),
             text = title,
-            style = MaterialTheme.typography.labelLarge
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -73,23 +79,32 @@ fun SmallSearchStoryItem(
                 onStoryClick(story)
             },
     ) {
-        Column(modifier = Modifier) {
+        Box(modifier = Modifier) {
             ItemCommonAsyncImage(
-                modifier = Modifier.aspectRatio(16f / 9f),
+                modifier = Modifier.aspectRatio(4f / 3f),
                 imageUrl = story.imageUrl,
                 contentDescription = story.title
             )
 
-            Text(
+            Surface(
                 modifier = Modifier
-                    .paddingFromBaseline(top = 24.dp, bottom = 8.dp)
-                    .padding(horizontal = 16.dp),
-                text = story.title,
-                minLines = 2,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.titleMedium
-            )
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter),
+                color = Color.Black.copy(alpha = 0.61f)
+            ) {
+                Text(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(horizontal = 16.dp)
+                        .paddingFromBaseline(top = 16.dp, bottom = 8.dp),
+                    text = story.title,
+                    minLines = 2,
+                    maxLines = 2,
+                    color = Color.White,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.titleSmall
+                )
+            }
         }
     }
 }

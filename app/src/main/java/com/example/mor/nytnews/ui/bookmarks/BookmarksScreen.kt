@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,6 +21,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DismissDirection
 import androidx.compose.material3.DismissState
 import androidx.compose.material3.DismissValue
@@ -84,6 +86,22 @@ fun BookmarksScreen(
         contentPadding = PaddingValues(8.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+
+        item {
+            Column {
+                Text(
+                    modifier = Modifier
+                        .paddingFromBaseline(top = 32.dp)
+                        .padding(horizontal = 8.dp),
+                    text = stringResource(id = R.string.bookmarks_title),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+        }
+
         items(
             items = stories,
             key = { story -> story.id }
@@ -144,6 +162,7 @@ fun BookmarkItem(
             .fillMaxWidth()
             .animateContentSize(animationSpec = tween(50))
             .clickable { onStoryClick(bookmarkedStory) },
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.5.dp)
     ) {
         Column {
             ItemCommonAsyncImage(

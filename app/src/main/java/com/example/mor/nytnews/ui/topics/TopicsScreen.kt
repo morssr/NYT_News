@@ -215,9 +215,10 @@ private fun TopicScreenComponent(
 
                     ) {
                         Text(
+                            text = stringResource(R.string.what_you_curious_about),
                             modifier = Modifier.padding(start = 16.dp),
-                            text = "What's In Your Mind?",
-                            style = MaterialTheme.typography.titleLarge
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
 
                         IconButton(
@@ -225,6 +226,7 @@ private fun TopicScreenComponent(
                             onClick = { showTopicsSelectionDialog = true }) {
                             Icon(
                                 Icons.Outlined.Edit,
+                                tint = MaterialTheme.colorScheme.onSurface,
                                 contentDescription = stringResource(R.string.edit_topics_content_description)
                             )
                         }
@@ -301,6 +303,7 @@ private fun CustomTabContent(
                 Text(
                     text = topicsType.name,
                     fontWeight = FontWeight.SemiBold,
+                    style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier.padding(8.dp)
                 )
@@ -308,6 +311,8 @@ private fun CustomTabContent(
                 Text(
                     text = topicsType.name,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Light,
                     modifier = Modifier.padding(8.dp)
                 )
             }

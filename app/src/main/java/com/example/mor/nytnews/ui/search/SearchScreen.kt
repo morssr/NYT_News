@@ -27,14 +27,16 @@ import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
@@ -139,7 +141,11 @@ fun SearchScreen(
         val context = LocalContext.current
 
         SearchBar(
-            modifier = Modifier,
+            modifier = Modifier.then(
+                if (!active) Modifier
+                    .padding(horizontal = 24.dp)
+                    .padding(top = 16.dp) else Modifier
+            ),
             query = query,
             onQueryChange = { query = it },
             onSearch = {
@@ -178,7 +184,15 @@ fun SearchScreen(
                 }
 
             },
-            placeholder = { Text(text = stringResource(id = R.string.search)) },
+            placeholder = { Text(text = stringResource(id = R.string.search_placeholder)) },
+            colors = if (active) {
+                SearchBarDefaults.colors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    dividerColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            } else {
+                SearchBarDefaults.colors()
+            },
         ) {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -250,6 +264,10 @@ fun SearchScreen(
                                             )
                                         }
                                     )
+                                    Divider(
+                                        modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 16.dp))
                                 }
                             }
 
@@ -381,13 +399,17 @@ fun SearchStoryItem(
     onBookmarkClick: (String) -> Unit = {},
     onStoryClick: (SearchUiModel) -> Unit = {}
 ) {
-    ElevatedCard(
+    Card(
         modifier = modifier
             .fillMaxWidth()
             .animateContentSize(animationSpec = tween(50))
             .clickable {
                 onStoryClick(story)
-            }, elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            },
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = MaterialTheme.colorScheme.background,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        )
     ) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (image, title, abstract, favorite) = createRefs()

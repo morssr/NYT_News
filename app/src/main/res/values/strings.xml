@@ -7,6 +7,7 @@
     <string name="shortest_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet. </string>
     <string name="topics">Topics</string>
     <string name="search">Search</string>
+    <string name="search_placeholder">What\'s In Your Mind? </string>
     <string name="bookmarks">Bookmarks</string>
     <string name="delete">delete</string>
     <string name="expandable_text_more">… more</string>
@@ -32,5 +33,7 @@
     <string name="done">Done</string>
     <string name="theme_modes">Theme modes</string>
     <string name="dynamic_colors">Dynamic colors</string>
+    <string name="what_you_curious_about">What You Curious About?</string>
+    <string name="bookmarks_title">Stories that made you interested</string>
 
 </resources>
