@@ -7,6 +7,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -20,14 +21,12 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
@@ -59,6 +58,7 @@ import com.example.mor.nytnews.R
 import com.example.mor.nytnews.data.topics.TopicsType
 import com.example.mor.nytnews.data.topics.defaultTopics
 import com.example.mor.nytnews.ui.common.CustomCollapsingToolbarContainer
+import com.example.mor.nytnews.ui.common.CustomScrollableTabRow
 import com.example.mor.nytnews.ui.settings.AppSettingsDialog
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
 import kotlinx.coroutines.launch
@@ -217,7 +217,7 @@ private fun TopicScreenComponent(
                         Text(
                             text = stringResource(R.string.what_you_curious_about),
                             modifier = Modifier.padding(start = 16.dp),
-                            style = MaterialTheme.typography.titleLarge,
+                            style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.onSurface
                         )
 
@@ -225,24 +225,24 @@ private fun TopicScreenComponent(
                             modifier = Modifier.padding(end = 4.dp),
                             onClick = { showTopicsSelectionDialog = true }) {
                             Icon(
-                                Icons.Outlined.Edit,
+                                painter = painterResource(id = R.drawable.tabler_edit_24dp),
                                 tint = MaterialTheme.colorScheme.onSurface,
                                 contentDescription = stringResource(R.string.edit_topics_content_description)
                             )
                         }
                     }
 
-                    ScrollableTabRow(
+                    CustomScrollableTabRow(
                         selectedTabIndex = pagerState.currentPage,
-                        edgePadding = 8.dp,
                         containerColor = MaterialTheme.colorScheme.background,
+                        edgePadding = 8.dp,
                         indicator = {},
                         divider = {}
                     ) {
                         topicsType.forEachIndexed { index, topicsType ->
                             val selected = index == pagerState.currentPage
                             Tab(
-                                modifier = Modifier.padding(bottom = 8.dp),
+                                modifier = Modifier.padding(horizontal = 8.dp),
                                 selected = selected,
                                 onClick = {
                                     coroutineScope.launch {
@@ -264,7 +264,9 @@ private fun TopicScreenComponent(
                     beyondBoundsPageCount = 1
                 ) {
                     StoriesComponent(
-                        modifier = modifier.weight(1f),
+                        modifier = modifier
+                            .weight(1f)
+                            .padding(top = 8.dp),
                         stories = storiesList[topicsType[it]] ?: emptyList(),
                         feedUpdateState = feedUpdateStates[topicsType[it]] ?: FeedUpdateState.Idle,
                         onStoryClick = onStoryClick,
@@ -282,13 +284,13 @@ private fun CustomTabContent(
     topicsType: TopicsType
 ) {
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier,
+        color = MaterialTheme.colorScheme.background,
         shape = RoundedCornerShape(30)
     ) {
 
         Box(
             modifier = Modifier
-                .fillMaxSize()
                 .then(
                     if (selected) {
                         Modifier.background(
@@ -296,6 +298,11 @@ private fun CustomTabContent(
                         )
                     } else {
                         Modifier
+                            .border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                            shape = RoundedCornerShape(30)
+                        )
                     }
                 ), contentAlignment = Alignment.Center
         ) {

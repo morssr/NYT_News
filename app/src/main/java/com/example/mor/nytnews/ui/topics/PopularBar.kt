@@ -65,7 +65,6 @@ fun PopularBarComponent(
                     withStyle(
                         style = SpanStyle(
                             color = MaterialTheme.colorScheme.primary,
-                            fontWeight = FontWeight.Normal
                         )
                     ) {
                         append("Newest")
@@ -74,7 +73,7 @@ fun PopularBarComponent(
                     append("Reports")
                 },
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.SemiBold,
                 modifier = Modifier
                     .padding(top = 4.dp)
                     .padding(horizontal = 16.dp)

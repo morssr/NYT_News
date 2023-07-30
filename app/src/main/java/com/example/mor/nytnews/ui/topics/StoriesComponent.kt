@@ -90,7 +90,7 @@ private fun StoriesList(
 ) {
     LazyColumn(
         modifier = modifier,
-        contentPadding = PaddingValues(8.dp),
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
@@ -149,7 +149,7 @@ fun StoryItem(
                         width = Dimension.fillToConstraints
                     },
                 text = story.title,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleMedium
             )
 
             IconToggleButton(
