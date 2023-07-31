@@ -166,7 +166,7 @@ private fun PopularListItem(
                     overflow = TextOverflow.Ellipsis,
                     textAlign = TextAlign.Start,
                     color = Color.White,
-                    style = MaterialTheme.typography.titleSmall
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
