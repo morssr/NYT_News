@@ -1,5 +1,6 @@
 package com.example.mor.nytnews.ui.theme
 
+import androidx.annotation.DrawableRes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -8,14 +9,15 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 @Immutable
-data class CustomColorsPalette(
+data class CustomThemeAttributes(
     val secondaryBackground: Color = Color.Unspecified,
+    @DrawableRes val appLogoResId: Int = 0,
 )
 
-val LocalCustomColorsPalette = staticCompositionLocalOf { CustomColorsPalette() }
+val LocalCustomThemeAttributes = staticCompositionLocalOf { CustomThemeAttributes() }
 
-val MaterialTheme.customColorsPalette: CustomColorsPalette
+val MaterialTheme.customThemeAttributes: CustomThemeAttributes
     @Composable
     @ReadOnlyComposable
-    get() = LocalCustomColorsPalette.current
+    get() = LocalCustomThemeAttributes.current
 

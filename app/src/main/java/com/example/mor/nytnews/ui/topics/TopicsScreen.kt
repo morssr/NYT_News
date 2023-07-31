@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
@@ -63,6 +62,7 @@ import com.example.mor.nytnews.ui.common.CustomScrollableTabRow
 import com.example.mor.nytnews.ui.settings.AppSettingsDialog
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
 import com.example.mor.nytnews.ui.theme.appScreenGradientBackground
+import com.example.mor.nytnews.ui.theme.customThemeAttributes
 import kotlinx.coroutines.launch
 
 private const val TAG = "TopicsScreen"
@@ -345,9 +345,8 @@ private fun TopAppBar(
     ) {
         IconButton(modifier = Modifier.align(Alignment.CenterStart), onClick = onLogoClick) {
             Image(
-                painter = painterResource(id = R.drawable.splash_logo),
+                painter = painterResource(id = MaterialTheme.customThemeAttributes.appLogoResId),
                 contentDescription = "app logo",
-                modifier = Modifier.fillMaxSize()
             )
         }
 

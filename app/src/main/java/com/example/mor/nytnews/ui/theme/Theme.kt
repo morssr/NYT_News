@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.example.mor.nytnews.R
 
 private val LightColorScheme = lightColorScheme(
     primary = md_theme_light_primary,
@@ -86,12 +87,14 @@ private val DarkColorScheme = darkColorScheme(
     onSurfaceVariant = md_theme_dark_onSurfaceVariant,
 )
 
-val LightCustomColorsPalette = CustomColorsPalette(
-    secondaryBackground = custom_theme_light_secondaryBackground
+val LightCustomThemeAttributes = CustomThemeAttributes(
+    secondaryBackground = custom_theme_light_secondaryBackground,
+    appLogoResId = R.drawable.app_logo_light
 )
 
-val DarkCustomColorsPalette = CustomColorsPalette(
-    secondaryBackground = custom_theme_dark_secondaryBackground
+val DarkCustomThemeAttributes = CustomThemeAttributes(
+    secondaryBackground = custom_theme_dark_secondaryBackground,
+    appLogoResId = R.drawable.app_logo_dark
 )
 
 @Composable
@@ -123,7 +126,7 @@ fun NYTNewsTheme(
     }
 
     CompositionLocalProvider(
-        LocalCustomColorsPalette provides if (darkTheme) DarkCustomColorsPalette else LightCustomColorsPalette
+        LocalCustomThemeAttributes provides if (darkTheme) DarkCustomThemeAttributes else LightCustomThemeAttributes
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
@@ -138,8 +141,8 @@ fun Modifier.appScreenGradientBackground(): Modifier = composed {
         colors =
         listOf(
             MaterialTheme.colorScheme.background,
-            MaterialTheme.customColorsPalette.secondaryBackground.copy(alpha = 0.4f),
-            MaterialTheme.customColorsPalette.secondaryBackground.copy(alpha = 1f),
+            MaterialTheme.customThemeAttributes.secondaryBackground.copy(alpha = 0.4f),
+            MaterialTheme.customThemeAttributes.secondaryBackground.copy(alpha = 1f),
 
             )
     )
