@@ -46,6 +46,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -61,6 +62,7 @@ import com.example.mor.nytnews.ui.common.CustomCollapsingToolbarContainer
 import com.example.mor.nytnews.ui.common.CustomScrollableTabRow
 import com.example.mor.nytnews.ui.settings.AppSettingsDialog
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
+import com.example.mor.nytnews.ui.theme.appScreenGradientBackground
 import kotlinx.coroutines.launch
 
 private const val TAG = "TopicsScreen"
@@ -130,7 +132,9 @@ private fun TopicScreenComponent(
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(appBarState)
 
-    BoxWithConstraints() {
+    BoxWithConstraints(
+        modifier = modifier.appScreenGradientBackground()
+    ) {
 
         if (showAppSettingsDialog) {
             AppSettingsDialog(
@@ -143,6 +147,7 @@ private fun TopicScreenComponent(
 
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            containerColor = Color.Transparent,
             snackbarHost = { SnackbarHost(snackbarHostState) },
             topBar = {
                 CustomCollapsingToolbarContainer(
@@ -234,7 +239,7 @@ private fun TopicScreenComponent(
 
                     CustomScrollableTabRow(
                         selectedTabIndex = pagerState.currentPage,
-                        containerColor = MaterialTheme.colorScheme.background,
+                        containerColor = Color.Transparent,
                         edgePadding = 8.dp,
                         indicator = {},
                         divider = {}
@@ -264,7 +269,7 @@ private fun TopicScreenComponent(
                     beyondBoundsPageCount = 1
                 ) {
                     StoriesComponent(
-                        modifier = modifier
+                        modifier = Modifier
                             .weight(1f)
                             .padding(top = 8.dp),
                         stories = storiesList[topicsType[it]] ?: emptyList(),
@@ -285,7 +290,7 @@ private fun CustomTabContent(
 ) {
     Surface(
         modifier = Modifier,
-        color = MaterialTheme.colorScheme.background,
+        color = Color.Transparent,
         shape = RoundedCornerShape(30)
     ) {
 
@@ -299,10 +304,10 @@ private fun CustomTabContent(
                     } else {
                         Modifier
                             .border(
-                            width = 1.dp,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-                            shape = RoundedCornerShape(30)
-                        )
+                                width = 1.dp,
+                                color = MaterialTheme.colorScheme.outline,
+                                shape = RoundedCornerShape(30)
+                            )
                     }
                 ), contentAlignment = Alignment.Center
         ) {

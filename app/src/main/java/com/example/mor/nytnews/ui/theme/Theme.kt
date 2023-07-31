@@ -2,6 +2,7 @@ package com.example.mor.nytnews.ui.theme
 
 import android.app.Activity
 import android.os.Build
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -9,7 +10,11 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
@@ -81,6 +86,14 @@ private val DarkColorScheme = darkColorScheme(
     onSurfaceVariant = md_theme_dark_onSurfaceVariant,
 )
 
+val LightCustomColorsPalette = CustomColorsPalette(
+    secondaryBackground = custom_theme_light_secondaryBackground
+)
+
+val DarkCustomColorsPalette = CustomColorsPalette(
+    secondaryBackground = custom_theme_dark_secondaryBackground
+)
+
 @Composable
 fun NYTNewsTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -109,9 +122,26 @@ fun NYTNewsTheme(
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
+    CompositionLocalProvider(
+        LocalCustomColorsPalette provides if (darkTheme) DarkCustomColorsPalette else LightCustomColorsPalette
+    ) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
+}
+
+fun Modifier.appScreenGradientBackground(): Modifier = composed {
+    val backgroundBrush = Brush.linearGradient(
+        colors =
+        listOf(
+            MaterialTheme.colorScheme.background,
+            MaterialTheme.customColorsPalette.secondaryBackground.copy(alpha = 0.4f),
+            MaterialTheme.customColorsPalette.secondaryBackground.copy(alpha = 1f),
+
+            )
     )
+    background(backgroundBrush)
 }

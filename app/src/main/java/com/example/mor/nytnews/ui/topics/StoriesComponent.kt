@@ -27,7 +27,6 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.outlined.BookmarkAdd
 import androidx.compose.material.icons.rounded.BookmarkRemove
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton
@@ -96,7 +95,6 @@ private fun StoriesList(
 
         items(stories) { story ->
             StoryItem(story = story, onStoryClick = onStoryClick, onBookmarkClick = onBookmarkClick)
-            Divider(modifier.fillMaxWidth().padding(horizontal = 16.dp))
         }
     }
 }
