@@ -77,7 +77,6 @@ fun TopicsScreen(
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Log.d(TAG, "TopicsScreen: ${uiState.feedsStates}")
     TopicScreenComponent(
         modifier = modifier,
         topicsType = uiState.topics,

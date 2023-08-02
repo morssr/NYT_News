@@ -9,6 +9,9 @@ import co.touchlab.kermit.Logger
 import com.example.mor.nytnews.data.topics.api.TopicsService
 import com.example.mor.nytnews.data.topics.cache.Story
 import com.example.mor.nytnews.data.topics.cache.TopStoriesDao
+import com.example.mor.nytnews.utilities.ApiResponse
+import com.example.mor.nytnews.utilities.BadRequestException
+import com.example.mor.nytnews.utilities.BadResponseException
 import com.example.mor.nytnews.utilities.Response
 import com.example.mor.nytnews.utilities.api.parseDateFromString
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +21,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.util.Date
 import javax.inject.Inject
+import kotlin.jvm.Throws
 
 private const val TAG = "TopicsRepositoryImpl"
 private const val TOPICS_LAST_UPDATE_KEY_SUFFIX = "_time"
@@ -74,59 +78,65 @@ class TopicsRepositoryImpl @Inject constructor(
     override fun getStoriesByTopicStream(
         topic: TopicsType,
         remoteSync: Boolean
-    ): Flow<Response<List<Story>>> {
+    ): Flow<ApiResponse<List<Story>>> {
         log.d { "getStoriesByTopicStream(): called with topic: $topic and remoteSync: $remoteSync" }
         return flow {
+
             if (!remoteSync) {
                 log.d { "remote sync is false, emit from local cached stories" }
                 val cachedStoriesFlow = dao.getTopStoriesBySectionTopic(topic.topicName)
-                emitAll(cachedStoriesFlow.map { Response.Success(it.toStoryList()) })
+                emitAll(cachedStoriesFlow.map { ApiResponse.Success(it.toStoryList()) })
                 return@flow
             }
 
-            val response = api.getTopics(topic.topicName)
-            if (!response.isSuccessful) {
-                emit(Response.Failure(Exception(response.message())))
-                log.d { "response is not successful" }
-                return@flow
+            try {
+                val response = api.getTopics(topic.topicName)
+                if (!response.isSuccessful) {
+                    throw BadRequestException(response.message())
+                }
+
+                val topicResponse =
+                    response.body()
+                        ?: throw BadResponseException("Response body is null")
+
+                log.d {
+                    "response is successful with results size: ${topicResponse.results.size}"
+                }
+
+                // delete all stories from the table
+                dao.deleteAllByTopic(topic.topicName)
+                log.v { "all $topic stories are deleted" }
+                // insert new stories to the table
+                val storiesEntities = topicResponse.toStoryEntityList(topic)
+                dao.insertOrReplace(storiesEntities)
+
+                saveLastSuccessfulRequestTimestamp(
+                    topic = topic,
+                    timestamp = System.currentTimeMillis()
+                )
+
+                // update last update timestamp for the topic
+                saveLastServerUpdateTimestamp(
+                    topic,
+                    parseDateFromString(topicResponse.last_updated).time
+                )
+
+                val storiesFlow = dao.getTopStoriesBySectionTopic(topic.topicName)
+                emitAll(storiesFlow.map { ApiResponse.Success(it.toStoryList()) })
+
+            } catch (e: Exception) {
+                log.e(e) { "getStoriesByTopicStream(): exception occurred" }
+                emit(ApiResponse.Failure(error = e, fallbackData = dao.getTopStoriesByTopic(topic.name).toStoryList()))
             }
-
-            val topicResponse =
-                response.body()
-                    ?: return@flow emit(Response.Failure(Exception("Response body is null")))
-
-            log.d {
-                "response is successful with results size: ${topicResponse.results.size}"
-            }
-
-            // delete all stories from the table
-            dao.deleteAllByTopic(topic.topicName)
-            log.v { "all $topic stories are deleted" }
-            // insert new stories to the table
-            val storiesEntities = topicResponse.toStoryEntityList(topic)
-            dao.insertOrReplace(storiesEntities)
-
-            saveLastSuccessfulRequestTimestamp(
-                topic = topic,
-                timestamp = System.currentTimeMillis()
-            )
-
-            // update last update timestamp for the topic
-            saveLastServerUpdateTimestamp(
-                topic,
-                parseDateFromString(topicResponse.last_updated).time
-            )
-
-            val storiesFlow = dao.getTopStoriesBySectionTopic(topic.topicName)
-            emitAll(storiesFlow.map { Response.Success(it.toStoryList()) })
         }
     }
 
     // check if there is a new update for the topic
+    @Throws
     override suspend fun isTopicUpdateAvailable(
         topic: TopicsType,
         minDurationMinute: Int
-    ): Boolean {
+    ): ApiResponse<Boolean> {
         log.d { "isTopicUpdateAvailable(): called with topic: ${topic.topicName}" }
 
         // get the last successful request timestamp
@@ -134,13 +144,13 @@ class TopicsRepositoryImpl @Inject constructor(
             preferences[longPreferencesKey(topic.topicName + TOPICS_LAST_UPDATE_KEY_SUFFIX)] ?: 0L
         }.first()
 
-        log.v { "last topic successful remote request time ${Date(lastSuccessfulRequestTimestamp)}" }
-
         // if the last successful request timestamp is 0, it means that the topic was never updated
         if (lastSuccessfulRequestTimestamp == 0L) {
             log.d { "last successful request is 0. update is required." }
-            return true
+            return ApiResponse.Success(true)
         }
+
+        log.v { "last topic successful remote request time ${Date(lastSuccessfulRequestTimestamp)}" }
 
         // if the last update timestamp is not 0, check if the time passed from the last update is
         // greater than the minimum duration
@@ -150,16 +160,22 @@ class TopicsRepositoryImpl @Inject constructor(
 
         if (timePassedFromLastUpdateInMinutes < minDurationMinute) {
             log.d { "time passed from last update is less than the minimum duration" }
-            return false
+            return ApiResponse.Success(false)
         }
 
-        val response = api.getTopics(topic.topicName)
+        val response = try {
+            api.getTopics(topic.topicName)
+        } catch (e: Exception) {
+            log.e(e) { "request for last topic: $topic update is not successful" }
+            return ApiResponse.Failure(false, e)
+        }
+
         if (!response.isSuccessful) {
             log.d { "request for last topic: $topic update is not successful" }
-            return false
+            return ApiResponse.Failure(false, BadResponseException(response.message()))
         }
 
-        val topicResponse = response.body() ?: return false
+        val topicResponse = response.body() ?: return ApiResponse.Failure(false, BadResponseException("Response body is null"))
 
         //extract the last server update timestamp from the response
         val lastUpdateTimestampFromResponse = parseDateFromString(topicResponse.last_updated).time
@@ -180,11 +196,11 @@ class TopicsRepositoryImpl @Inject constructor(
         if (!isUpdateAvailable) {
             log.d { "no update available for topic: $topic" }
             saveLastSuccessfulRequestTimestamp(topic = topic)
-            return false
+            return ApiResponse.Success(false)
         }
 
         log.d { "update is available for topic: $topic" }
-        return true
+        return ApiResponse.Success(true)
     }
 
     /**
@@ -233,5 +249,4 @@ class TopicsRepositoryImpl @Inject constructor(
             it[stringPreferencesKey(FAVORITE_TOPICS_PREFERENCES_KEY)] = topicsString
         }
     }
-
 }

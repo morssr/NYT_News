@@ -17,7 +17,11 @@ import com.example.mor.nytnews.data.topics.TopicsType
 import com.example.mor.nytnews.data.topics.cache.Story
 import com.example.mor.nytnews.data.topics.defaultTopics
 import com.example.mor.nytnews.data.topics.toTopicsString
-import com.example.mor.nytnews.utilities.Response
+import com.example.mor.nytnews.ui.common.StateProductionError
+import com.example.mor.nytnews.utilities.ApiResponseException
+import com.example.mor.nytnews.utilities.ApiResponse
+import com.example.mor.nytnews.utilities.BadResponseException
+import com.example.mor.nytnews.utilities.NetworkException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +42,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 private const val TAG = "TopicsViewModel"
@@ -88,22 +93,25 @@ class TopicsViewModel @Inject constructor(
                 }
             }
             .flatMapLatest { topic ->
-                val isUpdateRequired = topicsRepository.isTopicUpdateAvailable(topic, 30)
-                if (isUpdateRequired) {
-                    log.d { "update is required for topic $topic. Load from remote" }
-                } else {
-                    log.d { "update is not required for topic $topic. Load from cache" }
+                val isUpdateRequired = checkIfTopicUpdateRequired(topic).also {
+                    if (it) {
+                        log.d { "update is required for topic $topic. Load from remote" }
+                    } else {
+                        log.d { "update is not required for topic $topic. Load from cache" }
+                    }
                 }
+
                 topicsRepository.getStoriesByTopicStream(topic, isUpdateRequired)
                     .combine(bookmarksRepository.getBookmarksStream()) { response, bookmarks ->
                         log.v { "combine flows stories with bookmarked called" }
                         createFeedUiState(response, bookmarks)
                     }
-                    .onEach { log.v { "new feed state is ready to emit $it" } }
+                    .onEach { log.v { "new $topic feed state is ready to emit" } }
                     //map topic with the new feed state for further update
                     .map { topic to it }
 
-            }.onEach { it: Pair<TopicsType, FeedUiState> ->
+            }
+            .onEach { it: Pair<TopicsType, FeedUiState> ->
                 log.d { "feed state update called for topic: ${it.first}" }
                 _uiState.update { uiState -> updatedFeedStateByTopic(uiState, it.first, it.second) }
             }
@@ -134,28 +142,61 @@ class TopicsViewModel @Inject constructor(
         currentTopic.value = topic
     }
 
+    private suspend fun checkIfTopicUpdateRequired(topic: TopicsType) =
+        when (val response = topicsRepository.isTopicUpdateAvailable(topic, 30)) {
+            is ApiResponse.Success -> {
+                _uiState.update { it.copy(offlineMode = false) }
+                response.data
+            }
+
+            is ApiResponse.Failure -> {
+                log.e { "error while checking if update is required for topic $topic" }
+                if (response.error is ApiResponseException || response.error is UnknownHostException) {
+                    _uiState.update { it.copy(offlineMode = true) }
+                }
+                false
+            }
+        }
+
     private fun createFeedUiState(
-        response: Response<List<Story>>,
+        response: ApiResponse<List<Story>>,
         bookmarks: List<BookmarkedStory>
     ): FeedUiState {
-        log.d { "createFeedUiState() called" }
-        log.v { "response: $response" }
-        log.v { "bookmarks: $bookmarks" }
-
-        return FeedUiState(
-            updateState = FeedUpdateState.Idle,
-            error = if (response is Response.Failure) {
-                log.e { "error loading feed: ${response.error.message}" }
-                response.error.message
-            } else null,
-            stories = if (response is Response.Success) {
-                response.data.map { story ->
+        return when (val response = response) {
+            is ApiResponse.Success -> {
+                log.v { "createFeedUiState() called with: response success. stories list size is ${response.data.size}" }
+                val storiesData = response.data.map { story ->
                     val bookmarked = bookmarks.any { it.id == story.id }
                     story.toStoryUI(bookmarked = bookmarked)
                 }
-            } else {
-                emptyList()
-            })
+                FeedUiState(
+                    updateState = FeedUpdateState.Idle,
+                    stories = storiesData
+                )
+            }
+
+            is ApiResponse.Failure -> {
+                log.w { "createFeedUiState() called with: response failure: ${response.error.message}. cached stories size: ${response.fallbackData?.size}" }
+                val cachedStoriesData = response.fallbackData?.map { story ->
+                    val bookmarked = bookmarks.any { it.id == story.id }
+                    story.toStoryUI(bookmarked = bookmarked)
+                } ?: emptyList()
+
+                val failureUpdateState = FeedUpdateState.Error(
+                    when (response.error) {
+                        is NetworkException,
+                        is UnknownHostException -> StateProductionError.NoInternet
+
+                        is BadResponseException -> StateProductionError.EndpointError
+                        else -> StateProductionError.Unknown
+                    }
+                )
+                FeedUiState(
+                    updateState = failureUpdateState,
+                    stories = cachedStoriesData
+                )
+            }
+        }
     }
 
     private fun updateToLoadingProgress(
@@ -173,12 +214,10 @@ class TopicsViewModel @Inject constructor(
         oldUiState: TopicsUiState,
         topic: TopicsType,
         newFeedState: FeedUiState
-    ): TopicsUiState {
-        return oldUiState.copy(feedsStates = oldUiState.feedsStates.toMutableMap().apply {
-            put(topic, newFeedState)
-        }
-        )
+    ) = oldUiState.copy(feedsStates = oldUiState.feedsStates.toMutableMap().apply {
+        put(topic, newFeedState)
     }
+    )
 
     fun updateBookmark(id: String, bookmarked: Boolean) {
         log.d { "updateBookmark() called with: id = $id, bookmarked = $bookmarked" }
@@ -199,11 +238,10 @@ data class TopicsUiState(
     val feedsStates: Map<TopicsType, FeedUiState> = emptyMap(),
     val populars: List<PopularUi> = emptyList(),
     val isLoading: Boolean = false,
-    val error: String? = null
+    val offlineMode: Boolean = false
 )
 
 data class FeedUiState(
     val stories: List<StoryUI> = emptyList(),
     val updateState: FeedUpdateState = FeedUpdateState.Idle,
-    val error: String? = null
 )
