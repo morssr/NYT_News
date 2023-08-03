@@ -18,8 +18,8 @@ import com.example.mor.nytnews.data.topics.cache.Story
 import com.example.mor.nytnews.data.topics.defaultTopics
 import com.example.mor.nytnews.data.topics.toTopicsString
 import com.example.mor.nytnews.ui.common.StateProductionError
-import com.example.mor.nytnews.utilities.ApiResponseException
 import com.example.mor.nytnews.utilities.ApiResponse
+import com.example.mor.nytnews.utilities.ApiResponseException
 import com.example.mor.nytnews.utilities.BadResponseException
 import com.example.mor.nytnews.utilities.NetworkException
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,6 +27,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -140,6 +141,21 @@ class TopicsViewModel @Inject constructor(
     fun refreshCurrentTopic(topic: TopicsType) {
         log.d { "refreshCurrentTopic() called with: topic = $topic" }
         currentTopic.value = topic
+    }
+
+    // reload current topic to trigger feed state update. *workaround to re-emit the same value with StateFlow *
+    fun reloadCurrentTopic() {
+        log.d { "reloadCurrentTopic() called" }
+        val cachedCurrentTopic = currentTopic.value
+        viewModelScope.launch(dispatcher) {
+            val randomTopic = TopicsType.values().toMutableList().let {
+                it.remove(cachedCurrentTopic)
+                it.random()
+            }
+            currentTopic.update { randomTopic }
+            delay(30)
+            currentTopic.update { cachedCurrentTopic }
+        }
     }
 
     private suspend fun checkIfTopicUpdateRequired(topic: TopicsType) =

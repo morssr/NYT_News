@@ -131,6 +131,33 @@ class TopicsRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun refreshStoriesByTopic(topic: TopicsType): ApiResponse<Unit> {
+        log.d { "refreshStoriesByTopic(): called with topic: ${topic.topicName}" }
+        return try {
+            val response = api.getTopics(topic.topicName)
+            if (!response.isSuccessful) {
+                throw BadRequestException(response.message())
+            }
+
+            val topicResponse =
+                response.body() ?: throw BadResponseException("Response body is null")
+
+            // delete all stories from the table
+            dao.deleteAllByTopic(topic.topicName)
+            // insert new stories to the table
+            val storiesEntities = topicResponse.toStoryEntityList(topic)
+            dao.insertOrReplace(storiesEntities)
+
+            saveLastSuccessfulRequestTimestamp(topic = topic, timestamp = System.currentTimeMillis())
+            saveLastServerUpdateTimestamp(topic, parseDateFromString(topicResponse.last_updated).time)
+
+            ApiResponse.Success(Unit)
+        } catch (e: Exception) {
+            log.e(e) { "refreshStoriesByTopic(): exception occurred" }
+            ApiResponse.Failure(error = e)
+        }
+    }
+
     // check if there is a new update for the topic
     @Throws
     override suspend fun isTopicUpdateAvailable(

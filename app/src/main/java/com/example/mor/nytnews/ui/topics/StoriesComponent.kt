@@ -47,7 +47,13 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.example.mor.nytnews.ui.common.ExpandableText
 import com.example.mor.nytnews.ui.common.ItemCommonAsyncImage
+import com.example.mor.nytnews.ui.common.NetworkUnavailableElement
+import com.example.mor.nytnews.ui.common.StateProductionError
+import com.example.mor.nytnews.ui.common.UnknownErrorElement
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
+
+
+private const val TAG = "StoriesComponent"
 
 @Composable
 fun StoriesComponent(
@@ -56,7 +62,8 @@ fun StoriesComponent(
     feedUpdateState: FeedUpdateState = FeedUpdateState.Idle,
     onUpdateClick: () -> Unit = {},
     onStoryClick: (StoryUI) -> Unit = {},
-    onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> }
+    onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
+    onTryAgainClick: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -64,12 +71,21 @@ fun StoriesComponent(
             .animateContentSize()
     ) {
 
-        if (feedUpdateState == FeedUpdateState.InProgress) {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-        }
+        when (feedUpdateState) {
+            FeedUpdateState.Available -> AvailableUpdateBar(onUpdateClick = onUpdateClick)
+            FeedUpdateState.InProgress -> LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+            is FeedUpdateState.Error -> {
+                when (feedUpdateState.error) {
+                    StateProductionError.NoInternet,
+                    StateProductionError.EndpointError -> NetworkUnavailableElement(
+                        onActionButtonClick = onTryAgainClick
+                    )
 
-        if (feedUpdateState == FeedUpdateState.Available) {
-            AvailableUpdateBar(onUpdateClick = onUpdateClick)
+                    else -> UnknownErrorElement(onActionButtonClick = onTryAgainClick)
+                }
+            }
+
+            else -> {}
         }
 
         StoriesList(

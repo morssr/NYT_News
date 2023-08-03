@@ -11,6 +11,8 @@ interface TopicsRepository {
     suspend fun getStoriesByTopic(topic: TopicsType, remoteSync: Boolean): Response<List<Story>>
     fun getStoriesByTopicStream(topic: TopicsType, remoteSync: Boolean): Flow<ApiResponse<List<Story>>>
 
+    suspend fun refreshStoriesByTopic(topic: TopicsType): ApiResponse<Unit>
+
     fun getMyTopicsListStream(): Flow<List<TopicsType>>
 
     suspend fun updateMyTopicsList(topicsList: List<TopicsType>)

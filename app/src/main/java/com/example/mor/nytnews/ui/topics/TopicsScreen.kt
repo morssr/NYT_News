@@ -90,7 +90,8 @@ fun TopicsScreen(
         onStoryClick = onStoryClick,
         onPopularStoryClick = onPopularStoryClick,
         onBookmarkClick = { id, bookmarked -> viewModel.updateBookmark(id, bookmarked) },
-        onTopicsChooserDialogDismiss = { viewModel.updateTopics(it) }
+        onTopicsChooserDialogDismiss = { viewModel.updateTopics(it) },
+        onTryAgainClick = { viewModel.reloadCurrentTopic() },
     )
 }
 
@@ -107,6 +108,7 @@ private fun TopicScreenComponent(
     onPopularStoryClick: (PopularUi) -> Unit = {},
     onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
     onTopicsChooserDialogDismiss: (List<TopicsType>) -> Unit = {},
+    onTryAgainClick: () -> Unit = {},
 ) {
 
     val coroutineScope = rememberCoroutineScope()
@@ -274,7 +276,8 @@ private fun TopicScreenComponent(
                         stories = storiesList[topicsType[it]] ?: emptyList(),
                         feedUpdateState = feedUpdateStates[topicsType[it]] ?: FeedUpdateState.Idle,
                         onStoryClick = onStoryClick,
-                        onBookmarkClick = onBookmarkClick
+                        onBookmarkClick = onBookmarkClick,
+                        onTryAgainClick = onTryAgainClick
                     )
                 }
             }

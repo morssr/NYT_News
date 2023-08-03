@@ -35,5 +35,10 @@
     <string name="dynamic_colors">Dynamic colors</string>
     <string name="what_you_curious_about">What You Curious About?</string>
     <string name="bookmarks_title">Stories that made you interested</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="please_check_your_internet_connection_and_try_again">Please check your internet connection and try again.</string>
+    <string name="try_again">Try Again</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="please_try_again_later">Please try again later.</string>
 
 </resources>
