@@ -248,7 +248,7 @@ private fun TopicScreenComponent(
                         topicsType.forEachIndexed { index, topicsType ->
                             val selected = index == pagerState.currentPage
                             Tab(
-                                modifier = Modifier.padding(horizontal = 8.dp),
+                                modifier = Modifier.padding(horizontal = 6.dp),
                                 selected = selected,
                                 onClick = {
                                     coroutineScope.launch {
