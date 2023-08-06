@@ -1,15 +1,20 @@
 package com.example.mor.nytnews.data.search.api
 
+import androidx.annotation.Keep
+
+@Keep
 data class SearchResponse(
     val status: String,
     val response: SearchStoriesResponse
 )
 
+@Keep
 data class SearchStoriesResponse(
     val docs: List<SearchStoryResponse>,
     val meta: Meta
 )
 
+@Keep
 data class SearchStoryResponse(
     val _id: String,
     val abstract: String,
@@ -27,10 +32,12 @@ data class SearchStoryResponse(
     val web_url: String,
 )
 
+@Keep
 data class Headline(
     val main: String
 )
 
+@Keep
 data class Multimedia(
     val width: Int,
     val height: Int,
@@ -38,10 +45,12 @@ data class Multimedia(
     val url: String,
 )
 
+@Keep
 data class Byline(
     val original: String,
 )
 
+@Keep
 data class Meta(
     val hits: Int,
     val offset: Int,

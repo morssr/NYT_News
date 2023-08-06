@@ -1,5 +1,8 @@
 package com.example.mor.nytnews.data.topics.api
 
+import androidx.annotation.Keep
+
+@Keep
 data class TopicsResponse(
     val status: String,
     val section: String,
@@ -7,7 +10,7 @@ data class TopicsResponse(
     val num_results: Int,
     val results: List<TopicResponse>
 )
-
+@Keep
 data class TopicResponse(
     val section: String,
     val subsection: String,
@@ -29,7 +32,7 @@ data class TopicResponse(
     val multimedia: List<MultimediaResponse>?,
     val short_url: String
 )
-
+@Keep
 data class MultimediaResponse(
     val url: String,
     val format: String,
