@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "102391564476",
+    "project_id": "nyt-news",
+    "storage_bucket": "nyt-news.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102391564476:android:232f45b5858d0817fea8b9",
+        "android_client_info": {
+          "package_name": "com.example.mor.nytnews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "102391564476-ipp5v1b143rkh5f8tlm1sgmd6gkapj00.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXNgIK4icFmhQ41ZWsmpemnGuTtEBo84I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "102391564476-ipp5v1b143rkh5f8tlm1sgmd6gkapj00.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

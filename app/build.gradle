@@ -5,6 +5,8 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'com.google.devtools.ksp'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -133,6 +135,9 @@ dependencies {
     //Mock Server
     implementation "com.squareup.okhttp3:mockwebserver:4.9.2"
 
+    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
