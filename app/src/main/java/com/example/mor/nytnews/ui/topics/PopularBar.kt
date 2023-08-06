@@ -2,6 +2,10 @@
 
 package com.example.mor.nytnews.ui.topics
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -39,6 +43,9 @@ import com.example.mor.nytnews.R
 import com.example.mor.nytnews.data.popular.common.PopularType
 import com.example.mor.nytnews.ui.common.ItemCommonAsyncImage
 import com.example.mor.nytnews.ui.theme.NYTNewsTheme
+import com.valentinilk.shimmer.LocalShimmerTheme
+import com.valentinilk.shimmer.ShimmerBounds
+import com.valentinilk.shimmer.rememberShimmer
 import com.valentinilk.shimmer.shimmer
 import java.util.Date
 import kotlin.math.absoluteValue
@@ -177,7 +184,23 @@ private fun PopularListItem(
 private fun ShimmerPopularListItemScaffold(
     modifier: Modifier = Modifier
 ) {
-    Box(modifier = modifier.shimmer()) {
+    Box(
+        modifier = modifier.shimmer(
+            customShimmer = rememberShimmer(
+                shimmerBounds = ShimmerBounds.View,
+                theme = LocalShimmerTheme.current.copy(
+                    animationSpec = infiniteRepeatable(
+                        animation = tween(
+                            800,
+                            easing = LinearEasing,
+                            delayMillis = 500,
+                        ),
+                        repeatMode = RepeatMode.Restart,
+                    )
+                )
+            )
+        )
+    ) {
 
         Box(
             modifier = Modifier

@@ -1,5 +1,9 @@
 package com.example.mor.nytnews.ui.common
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,6 +16,9 @@ import androidx.compose.ui.platform.LocalContext
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.valentinilk.shimmer.LocalShimmerTheme
+import com.valentinilk.shimmer.ShimmerBounds
+import com.valentinilk.shimmer.rememberShimmer
 import com.valentinilk.shimmer.shimmer
 
 private const val TAG = "ItemCommonAsyncImage"
@@ -42,7 +49,21 @@ fun ItemCommonAsyncImage(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .shimmer()
+                    .shimmer(
+                        customShimmer = rememberShimmer(
+                            shimmerBounds = ShimmerBounds.View,
+                            theme = LocalShimmerTheme.current.copy(
+                                animationSpec = infiniteRepeatable(
+                                    animation = tween(
+                                        400,
+                                        easing = LinearEasing,
+                                        delayMillis = 250,
+                                    ),
+                                    repeatMode = RepeatMode.Restart,
+                                )
+                            )
+                        )
+                    )
                     .background(Color.LightGray)
             )
         }
