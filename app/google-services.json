@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:102391564476:android:232f45b5858d0817fea8b9",
+        "mobilesdk_app_id": "1:102391564476:android:8ab5bc0923720f1efea8b9",
         "android_client_info": {
-          "package_name": "com.example.mor.nytnews"
+          "package_name": "com.mls.mor.nytnews"
         }
       },
       "oauth_client": [

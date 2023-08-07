@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.mor.nytnews'
+    namespace 'com.mls.mor.nytnews'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.mor.nytnews"
+        applicationId "com.mls.mor.nytnews"
         minSdk 24
         targetSdk 33
         versionCode 1
