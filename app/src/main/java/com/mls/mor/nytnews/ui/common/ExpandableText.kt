@@ -1,5 +1,6 @@
 package com.mls.mor.nytnews.ui.common
 
+import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -61,10 +62,20 @@ fun ExpandableText(
                     // java.lang.StringIndexOutOfBoundsException: length=0; index=109
                     // at java.lang.String.substring(String.java:2060)
                     // at com.example.mor.nytnews.ui.common.ExpandableTextKt.ExpandableText-8r3B23s(ExpandableText.kt:54)
-                    val adjustText =
+
+                    //temporary solution for the crash above
+                    val adjustText = try {
                         text.substring(startIndex = 0, endIndex = lastCharIndex)
                             .dropLast(showMoreText.length)
                             .dropLastWhile { Character.isWhitespace(it) || it == '.' }
+                    } catch (e: Exception) {
+                        Log.w(
+                            TAG,
+                            "ExpandableText: last char index is out of bounds. Text string length is: ${text.length}",
+                            e
+                        )
+                        ""
+                    }
                     withStyle(style = textSpanStyle) { append(adjustText) }
                     pushStringAnnotation(tag = ANNOTATED_STRING_TAG, annotation = showMoreText)
                     withStyle(style = showMoreStyle) { append(showMoreText) }
@@ -73,15 +84,16 @@ fun ExpandableText(
                 withStyle(style = textSpanStyle) { append(text) }
             }
         }
-        ClickableText(modifier = textModifier
-            .fillMaxWidth()
-            .animateContentSize(),
+        ClickableText(
+            modifier = textModifier
+                .fillMaxWidth()
+                .animateContentSize(),
             text = annotatedString,
             maxLines = if (isExpanded) Int.MAX_VALUE else collapsedMaxLine,
             onTextLayout = { textLayoutResult ->
-                if (!isExpanded && textLayoutResult.hasVisualOverflow) {
+                if (!isExpanded && textLayoutResult.didOverflowHeight) {
                     clickable = true
-                    lastCharIndex = textLayoutResult.getLineEnd(collapsedMaxLine - 1, true)
+                    lastCharIndex = textLayoutResult.getLineEnd(collapsedMaxLine - 1, false)
                 }
             },
             style = style,
@@ -94,6 +106,7 @@ fun ExpandableText(
                 } else {
                     onUnAnnotatedTextClick()
                 }
-            })
+            }
+        )
     }
 }
