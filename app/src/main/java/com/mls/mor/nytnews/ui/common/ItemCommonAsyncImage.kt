@@ -6,9 +6,16 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ImageNotSupported
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -45,26 +52,51 @@ fun ItemCommonAsyncImage(
             contentScale = ContentScale.Crop
         )
 
-        if (painter.state is AsyncImagePainter.State.Loading) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .shimmer(
-                        customShimmer = rememberShimmer(
-                            shimmerBounds = ShimmerBounds.View,
-                            theme = LocalShimmerTheme.current.copy(
-                                animationSpec = infiniteRepeatable(
-                                    animation = tween(
-                                        400,
-                                        easing = LinearEasing,
-                                        delayMillis = 250,
-                                    ),
-                                    repeatMode = RepeatMode.Restart,
-                                )
-                            )
+        when (painter.state) {
+            is AsyncImagePainter.State.Error -> ErrorLoadingStateBox()
+            is AsyncImagePainter.State.Loading -> LoadingStateBox()
+            else -> Unit
+        }
+
+    }
+}
+
+@Composable
+private fun LoadingStateBox() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .shimmer(
+                customShimmer = rememberShimmer(
+                    shimmerBounds = ShimmerBounds.View,
+                    theme = LocalShimmerTheme.current.copy(
+                        animationSpec = infiniteRepeatable(
+                            animation = tween(
+                                400,
+                                easing = LinearEasing,
+                                delayMillis = 250,
+                            ),
+                            repeatMode = RepeatMode.Restart,
                         )
                     )
-                    .background(Color.LightGray)
+                )
+            )
+            .background(Color.LightGray)
+    )
+}
+
+@Composable
+private fun ErrorLoadingStateBox() {
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.ImageNotSupported,
+                contentDescription = "Error loading image",
+                modifier = Modifier.fillMaxSize(0.5f)
             )
         }
     }
