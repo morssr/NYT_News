@@ -89,7 +89,7 @@ class TopicsRepositoryImpl @Inject constructor(
                 return@flow
             }
 
-            try {
+            val result = try {
                 val response = api.getTopics(topic.topicName)
                 if (!response.isSuccessful) {
                     throw BadRequestException(response.message())
@@ -121,13 +121,17 @@ class TopicsRepositoryImpl @Inject constructor(
                     parseDateFromString(topicResponse.last_updated).time
                 )
 
-                val storiesFlow = dao.getTopStoriesBySectionTopic(topic.topicName)
-                emitAll(storiesFlow.map { ApiResponse.Success(it.toStoryList()) })
+                val entities = dao.getTopStoriesByTopic(topic.topicName)
+                ApiResponse.Success(entities.toStoryList())
 
             } catch (e: Exception) {
                 log.e(e) { "getStoriesByTopicStream(): exception occurred" }
-                emit(ApiResponse.Failure(error = e, fallbackData = dao.getTopStoriesByTopic(topic.name).toStoryList()))
+                ApiResponse.Failure(
+                    error = e,
+                    fallbackData = dao.getTopStoriesByTopic(topic.name).toStoryList()
+                )
             }
+            emit(result)
         }
     }
 
