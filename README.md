@@ -52,3 +52,7 @@ NYT's user interface is entirely crafted using Jetpack Compose. The design philo
 - **Dynamic Colors:** Utilizing Material 3's dynamic color feature for a personalized and engaging color experience.
 
 
+
+
+https://github.com/morssr/NYT_News/assets/68958800/7378b193-9dd4-4642-8a9c-3e34044f2bfd
+
