@@ -1,7 +1,7 @@
 
-# News App - Skill Reflection and Learning
+# NTY News App - Skill Reflection and Learning
 
-The News App is a showcase of my proficiency as an Android developer, demonstrating the application of industry best practices and the utilization of modern technologies to build a reliable, scalable, and aesthetically pleasing news consumption experience.
+The App is a showcase of my proficiency as an Android developer, demonstrating the application of industry best practices and the utilization of modern technologies to build a reliable, scalable, and aesthetically pleasing news consumption experience.
 
 ## Features
 
