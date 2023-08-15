@@ -94,15 +94,12 @@ fun SmallSearchStoryItem(
             ) {
                 Text(
                     modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(horizontal = 16.dp)
-                        .paddingFromBaseline(top = 16.dp, bottom = 8.dp),
-                    text = story.title,
+                        .padding(horizontal = 16.dp, vertical = 4.dp),                    text = story.title,
                     minLines = 2,
                     maxLines = 2,
                     color = Color.White,
                     overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.titleSmall
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
