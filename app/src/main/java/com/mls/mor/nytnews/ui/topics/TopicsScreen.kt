@@ -54,6 +54,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mls.mor.nytnews.R
 import com.mls.mor.nytnews.data.topics.TopicsType
 import com.mls.mor.nytnews.data.topics.defaultTopics
+import com.mls.mor.nytnews.ui.common.AboutUsDialog
 import com.mls.mor.nytnews.ui.common.CustomCollapsingToolbarContainer
 import com.mls.mor.nytnews.ui.common.CustomScrollableTabRow
 import com.mls.mor.nytnews.ui.common.EmailChooserMenu
@@ -114,6 +115,7 @@ private fun TopicScreenComponent(
     var showTopicsSelectionDialog by remember { mutableStateOf(false) }
     var showMainMenuDropdown by remember { mutableStateOf(false) }
     var showAppSettingsDialog by remember { mutableStateOf(false) }
+    var showAboutUsDialog by remember { mutableStateOf(false) }
     var showContactUsDialog by remember { mutableStateOf(false) }
     var showEmailChooser by remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
@@ -141,6 +143,12 @@ private fun TopicScreenComponent(
         if (showAppSettingsDialog) {
             AppSettingsDialog(
                 onDismiss = { showAppSettingsDialog = false },
+            )
+        }
+
+        if (showAboutUsDialog) {
+            AboutUsDialog(
+                onDismiss = { showAboutUsDialog = false },
             )
         }
 
@@ -196,6 +204,7 @@ private fun TopicScreenComponent(
                             onMenuClick = { showMainMenuDropdown = true },
                             onDismissMenu = { showMainMenuDropdown = false },
                             onSettingClick = { showAppSettingsDialog = true },
+                            onAboutUsClick = { showAboutUsDialog = true },
                             onContactUsClick = { showContactUsDialog = true },
                         )
 

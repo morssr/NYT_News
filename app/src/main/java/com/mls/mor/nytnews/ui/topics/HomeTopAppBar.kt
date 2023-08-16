@@ -72,7 +72,7 @@ fun HomeTopAppBar(
                     },
                     onClick = {
                         onDismissMenu()
-                        onSettingClick()
+                        onAboutUsClick()
                     },
                 )
                 DropdownMenuItem(
