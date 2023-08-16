@@ -202,6 +202,7 @@ private fun TopicScreenComponent(
                         HomeTopAppBar(
                             showMainMenu = showMainMenuDropdown,
                             onMenuClick = { showMainMenuDropdown = true },
+                            onLogoClick = { showAboutUsDialog = true },
                             onDismissMenu = { showMainMenuDropdown = false },
                             onSettingClick = { showAppSettingsDialog = true },
                             onAboutUsClick = { showAboutUsDialog = true },
