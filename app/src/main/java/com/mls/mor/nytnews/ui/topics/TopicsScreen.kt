@@ -5,7 +5,6 @@ package com.mls.mor.nytnews.ui.topics
 import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -19,8 +18,6 @@ import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -59,10 +56,11 @@ import com.mls.mor.nytnews.data.topics.TopicsType
 import com.mls.mor.nytnews.data.topics.defaultTopics
 import com.mls.mor.nytnews.ui.common.CustomCollapsingToolbarContainer
 import com.mls.mor.nytnews.ui.common.CustomScrollableTabRow
+import com.mls.mor.nytnews.ui.common.EmailChooserMenu
 import com.mls.mor.nytnews.ui.settings.AppSettingsDialog
+import com.mls.mor.nytnews.ui.settings.ContactUsDialog
 import com.mls.mor.nytnews.ui.theme.NYTNewsTheme
 import com.mls.mor.nytnews.ui.theme.appScreenGradientBackground
-import com.mls.mor.nytnews.ui.theme.customThemeAttributes
 import kotlinx.coroutines.launch
 
 private const val TAG = "TopicsScreen"
@@ -114,7 +112,10 @@ private fun TopicScreenComponent(
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState()
     var showTopicsSelectionDialog by remember { mutableStateOf(false) }
+    var showMainMenuDropdown by remember { mutableStateOf(false) }
     var showAppSettingsDialog by remember { mutableStateOf(false) }
+    var showContactUsDialog by remember { mutableStateOf(false) }
+    var showEmailChooser by remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
 
     val currentOnPageChange by rememberUpdatedState(onPageChange)
@@ -141,6 +142,21 @@ private fun TopicScreenComponent(
             AppSettingsDialog(
                 onDismiss = { showAppSettingsDialog = false },
             )
+        }
+
+        if (showContactUsDialog) {
+            ContactUsDialog(
+                onDismiss = { showContactUsDialog = false },
+                onEmailClick = {
+                    showContactUsDialog = false
+                    showEmailChooser = true
+                },
+            )
+        }
+
+        if (showEmailChooser) {
+            EmailChooserMenu(recipient = stringResource(id = R.string.app_contact_email_address))
+            showEmailChooser = false
         }
 
         // 40% of the screen height
@@ -175,8 +191,12 @@ private fun TopicScreenComponent(
                         )
                     ) {
 
-                        TopAppBar(
-                            onSettingsClick = { showAppSettingsDialog = true },
+                        HomeTopAppBar(
+                            showMainMenu = showMainMenuDropdown,
+                            onMenuClick = { showMainMenuDropdown = true },
+                            onDismissMenu = { showMainMenuDropdown = false },
+                            onSettingClick = { showAppSettingsDialog = true },
+                            onContactUsClick = { showContactUsDialog = true },
                         )
 
                         val showShimmer by remember(key1 = popularsList) {
@@ -334,36 +354,6 @@ private fun CustomTabContent(
     }
 }
 
-@Composable
-private fun TopAppBar(
-    modifier: Modifier = Modifier,
-    onLogoClick: () -> Unit = {},
-    onSettingsClick: () -> Unit = {},
-) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = 4.dp, start = 8.dp, end = 8.dp)
-    ) {
-        IconButton(modifier = Modifier.align(Alignment.CenterStart), onClick = onLogoClick) {
-            Image(
-                painter = painterResource(id = MaterialTheme.customThemeAttributes.appLogoResId),
-                contentDescription = "app logo",
-            )
-        }
-
-        IconButton(
-            modifier = Modifier.align(Alignment.CenterEnd),
-            onClick = onSettingsClick
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.Settings,
-                contentDescription = "settings"
-            )
-        }
-    }
-}
-
 
 @Preview
 @Composable
@@ -379,7 +369,7 @@ fun TopicsScreenPreview() {
 @Preview
 @Composable
 fun TopicsDialogSelectionPreview() {
-    NYTNewsTheme() {
+    NYTNewsTheme {
         TopicsInterestsDialog(
             selectedTopics = defaultTopics,
             onDismiss = { updated, topics ->

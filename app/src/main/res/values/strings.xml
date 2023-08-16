@@ -40,5 +40,14 @@
     <string name="try_again">Try Again</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="please_try_again_later">Please try again later.</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="contact_information">Contact Information</string>
+    <string name="email">Email</string>
+    <string name="app_contact_email_address">morsrs.dev.qa@gmail.com</string>
+    <string name="location">Location</string>
+    <string name="app_information_location">Israel, Tel-Aviv</string>
+    <string name="send_email_using">Send email using..</string>
 
 </resources>
