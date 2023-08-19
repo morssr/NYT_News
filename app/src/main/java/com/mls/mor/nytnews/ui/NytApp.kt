@@ -136,6 +136,7 @@ private fun NytBottomBar(
     modifier: Modifier = Modifier,
 ) {
     NavigationBar(
+        modifier = modifier,
         containerColor = MaterialTheme.colorScheme.background,
     ) {
         destinations.forEach { destination ->
