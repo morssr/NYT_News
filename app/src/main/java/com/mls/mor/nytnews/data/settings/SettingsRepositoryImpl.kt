@@ -32,7 +32,10 @@ class SettingsRepositoryImpl @Inject constructor(
                 } ?: ThemeConfig.FOLLOW_SYSTEM,
                 dynamicColorsEnabled = preferences[booleanPreferencesKey(
                     DYNAMIC_COLORS_ENABLED_PREFERENCES_KEY
-                )] ?: false
+                )] ?: false,
+                showDisclaimer = preferences[booleanPreferencesKey(
+                    SHOW_DISCLAIMER_PREFERENCES_KEY
+                )] ?: true
             )
         }
     }
@@ -68,6 +71,21 @@ class SettingsRepositoryImpl @Inject constructor(
         settingsPreferences.edit { preferences ->
             preferences[booleanPreferencesKey(DYNAMIC_COLORS_ENABLED_PREFERENCES_KEY)] =
                 enabled
+        }
+    }
+
+    override suspend fun getShowDisclaimer(): Boolean {
+        log.d { "getShowDisclaimer(): called" }
+        return settingsPreferences.data.map { preferences ->
+            preferences[booleanPreferencesKey(SHOW_DISCLAIMER_PREFERENCES_KEY)] ?: false
+        }.first()
+    }
+
+    override suspend fun setShowDisclaimer(show: Boolean) {
+        log.d { "setShowDisclaimer(): called with show: $show" }
+        settingsPreferences.edit { preferences ->
+            preferences[booleanPreferencesKey(SHOW_DISCLAIMER_PREFERENCES_KEY)] =
+                show
         }
     }
 }

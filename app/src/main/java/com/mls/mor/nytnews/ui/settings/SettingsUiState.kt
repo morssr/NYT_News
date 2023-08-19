@@ -4,12 +4,14 @@ import com.mls.mor.nytnews.data.settings.SettingsModel
 
 data class SettingsUiState(
     val theme: ThemeConfig = ThemeConfig.FOLLOW_SYSTEM,
-    val dynamicColorsEnabled: Boolean = false
+    val dynamicColorsEnabled: Boolean = false,
+    val showDisclaimer: Boolean = false
 )
 
 fun SettingsModel.toUiState(): SettingsUiState {
     return SettingsUiState(
         theme = theme,
-        dynamicColorsEnabled = dynamicColorsEnabled
+        dynamicColorsEnabled = dynamicColorsEnabled,
+        showDisclaimer = showDisclaimer
     )
 }

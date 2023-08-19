@@ -9,4 +9,6 @@ interface SettingsRepository {
     suspend fun setTheme(theme: ThemeConfig)
     suspend fun getDynamicColorsEnabled(): Boolean
     suspend fun setDynamicColorsEnabled(enabled: Boolean)
+    suspend fun getShowDisclaimer(): Boolean
+    suspend fun setShowDisclaimer(show: Boolean)
 }

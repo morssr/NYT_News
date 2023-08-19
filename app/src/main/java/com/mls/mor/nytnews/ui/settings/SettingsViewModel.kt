@@ -48,4 +48,11 @@ class SettingsViewModel @Inject constructor(
             settingsRepository.setDynamicColorsEnabled(enabled)
         }
     }
+
+    fun setShowDisclaimer(show: Boolean) {
+        log.d { "onShowDisclaimerChanged(): called with show: $show" }
+        viewModelScope.launch(dispatcher) {
+            settingsRepository.setShowDisclaimer(show)
+        }
+    }
 }

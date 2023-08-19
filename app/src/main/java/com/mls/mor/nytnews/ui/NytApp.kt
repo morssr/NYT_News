@@ -17,10 +17,16 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavType
@@ -28,11 +34,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.mls.mor.nytnews.ui.bookmarks.bookmarksScreen
+import com.mls.mor.nytnews.ui.common.DisclaimerDialog
 import com.mls.mor.nytnews.ui.common.NavArgumentsConstants
 import com.mls.mor.nytnews.ui.common.webview.WebViewRoute
 import com.mls.mor.nytnews.ui.common.webview.articleRoute
 import com.mls.mor.nytnews.ui.common.webview.navigateToArticle
 import com.mls.mor.nytnews.ui.search.searchScreen
+import com.mls.mor.nytnews.ui.settings.SettingsViewModel
 import com.mls.mor.nytnews.ui.theme.Icon
 import com.mls.mor.nytnews.ui.topics.topicsRoute
 import com.mls.mor.nytnews.ui.topics.topicsScreen
@@ -44,6 +52,7 @@ fun NytApp(
     windowSizeClass: WindowSizeClass,
     appState: NytAppState = rememberNytAppState(windowSizeClass = windowSizeClass)
 ) {
+    val settingsViewModel: SettingsViewModel = hiltViewModel()
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -65,6 +74,8 @@ fun NytApp(
                 .padding(innerPadding)
                 .consumeWindowInsets(innerPadding)
         ) {
+
+            ShowDisclaimerDialogIfNeeded(settingsViewModel)
 
             NavHost(
                 navController = appState.navController,
@@ -153,6 +164,21 @@ private fun NytBottomBar(
                 label = { Text(stringResource(destination.iconTextId)) },
             )
         }
+    }
+}
+
+@Composable
+private fun ShowDisclaimerDialogIfNeeded(settingsViewModel: SettingsViewModel) {
+    var showDisclaimerDialog by rememberSaveable { mutableStateOf(true) }
+
+    val showDisclaimerPref =
+        settingsViewModel.settingsUiState.collectAsStateWithLifecycle().value.showDisclaimer
+
+    if (showDisclaimerDialog && showDisclaimerPref) {
+        DisclaimerDialog(onDismiss = { dontShowAgainCheckbox: Boolean ->
+            settingsViewModel.setShowDisclaimer(dontShowAgainCheckbox.not())
+            showDisclaimerDialog = false
+        })
     }
 }
 
