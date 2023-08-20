@@ -1,0 +1,1232 @@
+{
+  "status": "OK",
+  "copyright": "Copyright (c) 2023 The New York Times Company.  All Rights Reserved.",
+  "num_results": 20,
+  "results": [
+    {
+      "uri": "nyt://article/05e2dde6-2814-5c25-9484-e652409b78e5",
+      "url": "https://www.nytimes.com/2023/06/19/well/family/kids-summer-boredom.html",
+      "id": 100000008913056,
+      "asset_id": 100000008913056,
+      "source": "New York Times",
+      "published_date": "2023-06-19",
+      "updated": "2023-06-19 18:26:22",
+      "section": "Well",
+      "subsection": "Family",
+      "nytdsection": "well",
+      "adx_keywords": "Children and Childhood;Boredom;Parenting;Summer (Season);Content Type: Service",
+      "column": null,
+      "byline": "By Catherine Pearson",
+      "type": "Article",
+      "title": "Let Kids Get Bored. It’s Good for Them.",
+      "abstract": "A reminder to parents soldiering through the summer: Boredom has its virtues.",
+      "des_facet": [
+        "Children and Childhood",
+        "Boredom",
+        "Parenting",
+        "Summer (Season)",
+        "Content Type: Service"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Lauren Lancaster for The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/05/18/multimedia/WELL-BOREDOM-BENEFITS-KIDS1-tjcq/WELL-BOREDOM-BENEFITS-KIDS1-tjcq-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/05/18/multimedia/WELL-BOREDOM-BENEFITS-KIDS1-tjcq/WELL-BOREDOM-BENEFITS-KIDS1-tjcq-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/05/18/multimedia/WELL-BOREDOM-BENEFITS-KIDS1-tjcq/WELL-BOREDOM-BENEFITS-KIDS1-tjcq-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://interactive/971d74e8-d975-57b2-96f7-b48a98ebc4cd",
+      "url": "https://www.nytimes.com/interactive/2023/06/09/health/noise-exposure-health-impacts.html",
+      "id": 100000008930012,
+      "asset_id": 100000008930012,
+      "source": "New York Times",
+      "published_date": "2023-06-09",
+      "updated": "2023-06-20 02:06:34",
+      "section": "Health",
+      "subsection": "",
+      "nytdsection": "health",
+      "adx_keywords": "Noise;Pollution;Stroke;Transportation;Heart;Hypertension;vis-design;internal-sub-only;vis-video;World Health Organization",
+      "column": null,
+      "byline": "By Emily Baumgaertner, Jason Kao, Eleanor Lutz, Josephine Sedgwick, Rumsey Taylor, Noah Throop and Josh Williams",
+      "type": "Interactive",
+      "title": "Noise Could Take Years Off Your Life. Here’s How.",
+      "abstract": "We used a professional sound meter to measure the din of daily life and talked to scientists about the health risks it can pose.",
+      "des_facet": [
+        "Noise",
+        "Pollution",
+        "Stroke",
+        "Transportation",
+        "Heart",
+        "Hypertension",
+        "vis-design",
+        "internal-sub-only",
+        "vis-video"
+      ],
+      "org_facet": [
+        "World Health Organization"
+      ],
+      "per_facet": [],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "",
+          "caption": "",
+          "copyright": "Noah Throop/The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/06/health/noise-exposure-health-impacts-index/noise-exposure-health-impacts-index-thumbStandard-v6.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/06/health/noise-exposure-health-impacts-index/noise-exposure-health-impacts-index-mediumThreeByTwo210-v6.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/06/health/noise-exposure-health-impacts-index/noise-exposure-health-impacts-index-mediumThreeByTwo440-v6.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/cc40e9d7-e141-50a6-a55e-661f77c43a1b",
+      "url": "https://www.nytimes.com/2023/06/19/climate/himalayas-melting-water-source.html",
+      "id": 100000008956414,
+      "asset_id": 100000008956414,
+      "source": "New York Times",
+      "published_date": "2023-06-19",
+      "updated": "2023-06-20 14:53:02",
+      "section": "Climate",
+      "subsection": "",
+      "nytdsection": "climate",
+      "adx_keywords": "Glaciers;Water;Global Warming;Research;Mountains;Himalayas;Nepal",
+      "column": null,
+      "byline": "By Delger Erdenesanaa",
+      "type": "Article",
+      "title": "Himalayan Glacier Loss Speeding Up, New Report Finds",
+      "abstract": "Glaciers in the region melted faster between 2010 and 2019 than in the previous decade. “Things are just happening so fast,” one researcher said.",
+      "des_facet": [
+        "Glaciers",
+        "Water",
+        "Global Warming",
+        "Research",
+        "Mountains"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [
+        "Himalayas",
+        "Nepal"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The Chiatibo glacier in the Hindu Kush mountain range of Pakistan.",
+          "copyright": "Pool photo by Neil Hall",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/19/climate/19cli-himalayas-01/19cli-himalayas-01-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/19/climate/19cli-himalayas-01/19cli-himalayas-01-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/19/climate/19cli-himalayas-01/19cli-himalayas-01-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/00ca03a6-f0bb-5c8a-b4ce-9571e85accb2",
+      "url": "https://www.nytimes.com/2023/06/20/nyregion/ps-15-red-hook-brooklyn.html",
+      "id": 100000008939126,
+      "asset_id": 100000008939126,
+      "source": "New York Times",
+      "published_date": "2023-06-20",
+      "updated": "2023-06-20 14:22:18",
+      "section": "New York",
+      "subsection": "",
+      "nytdsection": "new york",
+      "adx_keywords": "audio-neutral-immersive;audio-positive-happy;Education (K-12);Special Education;Intellectual Disabilities;Teachers and School Employees;Children and Childhood;PS 15 Patrick F Daly (Brooklyn, NY);Red Hook (Brooklyn, NY);New York City",
+      "column": null,
+      "byline": "By Troy Closson and Jackie Molloy",
+      "type": "Article",
+      "title": "A Brooklyn School Pioneers New Ways to Teach Children With Disabilities",
+      "abstract": "At P.S. 15 in Red Hook, a unique program for students with intellectual disabilities could serve as a model for other New York City schools.",
+      "des_facet": [
+        "audio-neutral-immersive",
+        "audio-positive-happy",
+        "Education (K-12)",
+        "Special Education",
+        "Intellectual Disabilities",
+        "Teachers and School Employees",
+        "Children and Childhood"
+      ],
+      "org_facet": [
+        "PS 15 Patrick F Daly (Brooklyn, NY)"
+      ],
+      "per_facet": [],
+      "geo_facet": [
+        "Red Hook (Brooklyn, NY)",
+        "New York City"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Jackie Molloy for The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/14/multimedia/00ny-special-ed-final-promo/00ny-special-ed-final-03-mphq-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/14/multimedia/00ny-special-ed-final-promo/00ny-special-ed-final-03-mphq-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/14/multimedia/00ny-special-ed-final-promo/00ny-special-ed-final-03-mphq-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/d1a399a7-a3c8-5a5d-ae35-5c7534aa5bd2",
+      "url": "https://www.nytimes.com/2023/06/20/books/book-bans-florida-tango-makes-three.html",
+      "id": 100000008956558,
+      "asset_id": 100000008956558,
+      "source": "New York Times",
+      "published_date": "2023-06-20",
+      "updated": "2023-06-20 21:30:47",
+      "section": "Books",
+      "subsection": "",
+      "nytdsection": "books",
+      "adx_keywords": "Book Bans;Books and Literature;Education (K-12);Law and Legislation;Suits and Litigation (Civil);Florida",
+      "column": null,
+      "byline": "By Elizabeth A. Harris and Alexandra Alter",
+      "type": "Article",
+      "title": "Authors and Students Sue Over Florida Law Driving Book Bans",
+      "abstract": "The authors of a picture book about a penguin family with two fathers sued the state and a school district that removed the book from libraries.",
+      "des_facet": [
+        "Book Bans",
+        "Books and Literature",
+        "Education (K-12)",
+        "Law and Legislation",
+        "Suits and Litigation (Civil)"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [
+        "Florida"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "A lawsuit targeted a school district and the State of Florida over restricting access to a book about a penguin family with two fathers.",
+          "copyright": "",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/21/books/review/20Tango/20Tango-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/21/books/review/20Tango/20Tango-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/21/books/review/20Tango/20Tango-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/68b23667-704c-52bd-b877-e4c0c97b0308",
+      "url": "https://www.nytimes.com/2023/06/20/us/politics/joe-biden-hunter-plea-deal.html",
+      "id": 100000008960007,
+      "asset_id": 100000008960007,
+      "source": "New York Times",
+      "published_date": "2023-06-20",
+      "updated": "2023-06-20 23:24:19",
+      "section": "U.S.",
+      "subsection": "Politics",
+      "nytdsection": "u.s.",
+      "adx_keywords": "United States Politics and Government;Biden, Hunter;Biden, Joseph R Jr;Justice Department",
+      "column": null,
+      "byline": "By Peter Baker",
+      "type": "Article",
+      "title": "For Biden, the Troubles of His Son Are Personal and Politically Painful",
+      "abstract": "Hunter Biden’s plea agreement put him in the cross-hairs of President Biden’s adversaries once again.",
+      "des_facet": [
+        "United States Politics and Government"
+      ],
+      "org_facet": [
+        "Justice Department"
+      ],
+      "per_facet": [
+        "Biden, Hunter",
+        "Biden, Joseph R Jr"
+      ],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Hunter Biden and the Justice Department reached an agreement for him to plead guilty on misdemeanor tax charges.",
+          "copyright": "Al Drago for The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20dc-biden-glph/20dc-biden-glph-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20dc-biden-glph/20dc-biden-glph-mediumThreeByTwo210-v2.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20dc-biden-glph/20dc-biden-glph-mediumThreeByTwo440-v2.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/efcda8c5-86c1-5627-b402-f3d2541388eb",
+      "url": "https://www.nytimes.com/2023/06/20/us/arkansas-transgender-care-ban.html",
+      "id": 100000008910472,
+      "asset_id": 100000008910472,
+      "source": "New York Times",
+      "published_date": "2023-06-20",
+      "updated": "2023-06-20 23:02:13",
+      "section": "U.S.",
+      "subsection": "",
+      "nytdsection": "u.s.",
+      "adx_keywords": "Decisions and Verdicts;Transgender;Law and Legislation;Moody, James M Jr (1964- );American Civil Liberties Union;Arkansas",
+      "column": null,
+      "byline": "By Rick Rojas and Emily Cochrane",
+      "type": "Article",
+      "title": "Judge Strikes Down Arkansas Law Banning Gender Transition Care for Minors",
+      "abstract": "The case had been closely watched as an important test of whether bans on transition care for minors, enacted by more than a dozen states, could withstand challenges.",
+      "des_facet": [
+        "Decisions and Verdicts",
+        "Transgender",
+        "Law and Legislation"
+      ],
+      "org_facet": [
+        "American Civil Liberties Union"
+      ],
+      "per_facet": [
+        "Moody, James M Jr (1964- )"
+      ],
+      "geo_facet": [
+        "Arkansas"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Dylan Brandt, a transgender teenager who is a plaintiff in the case, outside the federal courthouse in Little Rock, Ark., in 2021. ",
+          "copyright": "Andrew Demillo/Associated Press",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20nat-trans-arkansas-gkpc/20nat-trans-arkansas-gkpc-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20nat-trans-arkansas-gkpc/20nat-trans-arkansas-gkpc-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20nat-trans-arkansas-gkpc/20nat-trans-arkansas-gkpc-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/1df9101b-00cb-5689-b5f1-7b4d49a87ff6",
+      "url": "https://www.nytimes.com/2023/06/20/us/oceangate-titanic-missing-submersible.html",
+      "id": 100000008960336,
+      "asset_id": 100000008960336,
+      "source": "New York Times",
+      "published_date": "2023-06-20",
+      "updated": "2023-06-21 04:05:49",
+      "section": "U.S.",
+      "subsection": "",
+      "nytdsection": "u.s.",
+      "adx_keywords": "Titanic (Ship);Submarines and Submersibles;Oceans and Seas;Accidents and Safety;OceanGate Expeditions (Argus Expeditions Ltd);Rush, Stockton (1962- );Atlantic Ocean",
+      "column": null,
+      "byline": "By Nicholas Bogel-Burroughs, Jenny Gross and Anna Betts",
+      "type": "Article",
+      "title": "OceanGate Was Warned of Potential for ‘Catastrophic’ Problems With Titanic Mission",
+      "abstract": "Experts inside and outside the company warned of potential dangers and urged the company to undergo a certification process.",
+      "des_facet": [
+        "Titanic (Ship)",
+        "Submarines and Submersibles",
+        "Oceans and Seas",
+        "Accidents and Safety"
+      ],
+      "org_facet": [
+        "OceanGate Expeditions (Argus Expeditions Ltd)"
+      ],
+      "per_facet": [],
+      "geo_facet": [
+        "Rush, Stockton (1962- )",
+        "Atlantic Ocean"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "This undated image, courtesy of OceanGate Expeditions, shows their Titan submersible launching from a platform.",
+          "copyright": "OceanGate Expeditions/Agence France-Presse — Getty Images",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20titanic-blog-industry-zmfl/20titanic-blog-industry-zmfl-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20titanic-blog-industry-zmfl/20titanic-blog-industry-zmfl-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20titanic-blog-industry-zmfl/20titanic-blog-industry-zmfl-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/bf23dcb8-33ee-5675-829e-219e9dd3c11b",
+      "url": "https://www.nytimes.com/2023/06/19/us/missing-submarine-titanic-who-is-on.html",
+      "id": 100000008959301,
+      "asset_id": 100000008959301,
+      "source": "New York Times",
+      "published_date": "2023-06-19",
+      "updated": "2023-06-20 20:25:01",
+      "section": "U.S.",
+      "subsection": "",
+      "nytdsection": "u.s.",
+      "adx_keywords": "Titanic (Ship);Submarines and Submersibles;Maritime Accidents and Safety;Harding, Hamish (1964- );Dawood, Shahzada;Dawood, Suleman;Nargeolet, Paul-Henri;OceanGate Expeditions (Argus Expeditions Ltd);Newfoundland (Canada)",
+      "column": null,
+      "byline": "By Emma Bubola, Salman Masood and Victoria Kim",
+      "type": "Article",
+      "title": "Here Is Who Is on the Missing Submersible",
+      "abstract": "A British businessman and explorer, a British father and son from a prominent Pakistani family, and a French maritime expert are among the five-person crew on the Titan.",
+      "des_facet": [
+        "Titanic (Ship)",
+        "Submarines and Submersibles",
+        "Maritime Accidents and Safety"
+      ],
+      "org_facet": [
+        "OceanGate Expeditions (Argus Expeditions Ltd)"
+      ],
+      "per_facet": [
+        "Harding, Hamish (1964- )",
+        "Dawood, Shahzada",
+        "Dawood, Suleman",
+        "Nargeolet, Paul-Henri"
+      ],
+      "geo_facet": [
+        "Newfoundland (Canada)"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Five passengers were onboard the Titan.",
+          "copyright": "OceanGate, via Alamy",
+          "approved_for_syndication": 0,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/07/19/multimedia/19titanic-sub-hamish-harding-lftg/19titanic-sub-hamish-harding-lftg-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/07/19/multimedia/19titanic-sub-hamish-harding-lftg/19titanic-sub-hamish-harding-lftg-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/07/19/multimedia/19titanic-sub-hamish-harding-lftg/19titanic-sub-hamish-harding-lftg-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/90067e47-1625-57c2-a0ed-df2ed749e14c",
+      "url": "https://www.nytimes.com/2023/06/20/sports/football/cte-study-concussions-brain-tackle.html",
+      "id": 100000008921841,
+      "asset_id": 100000008921841,
+      "source": "New York Times",
+      "published_date": "2023-06-20",
+      "updated": "2023-06-20 23:36:50",
+      "section": "Sports",
+      "subsection": "N.F.L.",
+      "nytdsection": "sports",
+      "adx_keywords": "Football;Sensors;Research;Concussions;Chronic Traumatic Encephalopathy;Sports Injuries;Brain;Nature Communications (Journal)",
+      "column": null,
+      "byline": "By Ken Belson and Benjamin Mueller",
+      "type": "Article",
+      "title": "Collective Force of Head Hits, Not Just the Number of Them, Increases Odds of C.T.E.",
+      "abstract": "The largest study of chronic traumatic encephalopathy to date found that the cumulative force of head hits absorbed by players in their careers is the best predictor of future brain disease.",
+      "des_facet": [
+        "Football",
+        "Sensors",
+        "Research",
+        "Concussions",
+        "Chronic Traumatic Encephalopathy",
+        "Sports Injuries",
+        "Brain"
+      ],
+      "org_facet": [
+        "Nature Communications (Journal)"
+      ],
+      "per_facet": [],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The football program at Buffalo Grove High School outside Chicago eliminated full-contact practices in 2019.",
+          "copyright": "Taylor Glascock for The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20nfl-brainstudy-photo1-pgmq/20nfl-brainstudy-photo1-pgmq-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20nfl-brainstudy-photo1-pgmq/20nfl-brainstudy-photo1-pgmq-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20nfl-brainstudy-photo1-pgmq/20nfl-brainstudy-photo1-pgmq-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/5b38a56e-95b2-5f99-a3d6-9eb8db2e4945",
+      "url": "https://www.nytimes.com/2023/06/20/briefing/republicans-inequality-free-market.html",
+      "id": 100000008959816,
+      "asset_id": 100000008959816,
+      "source": "New York Times",
+      "published_date": "2023-06-20",
+      "updated": "2023-06-20 06:22:40",
+      "section": "Briefing",
+      "subsection": "",
+      "nytdsection": "briefing",
+      "adx_keywords": "internal-storyline-no;United States Politics and Government;Regulation and Deregulation of Industry;Politics and Government",
+      "column": null,
+      "byline": "By David Leonhardt",
+      "type": "Article",
+      "title": "Republicans Against Inequality",
+      "abstract": "We’re covering a new breed of Republicans, a missing submersible near the Titanic and Judge Judy’s new TV empire.",
+      "des_facet": [
+        "internal-storyline-no",
+        "United States Politics and Government",
+        "Regulation and Deregulation of Industry",
+        "Politics and Government"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Kenny Holston/The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20-THE-MORNING-NL-lede-tkmq/20-THE-MORNING-NL-lede-tkmq-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20-THE-MORNING-NL-lede-tkmq/20-THE-MORNING-NL-lede-tkmq-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/multimedia/20-THE-MORNING-NL-lede-tkmq/20-THE-MORNING-NL-lede-tkmq-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/f20a2770-7981-59f8-b480-71c712c16052",
+      "url": "https://www.nytimes.com/2023/06/20/opinion/taylor-swift-economics.html",
+      "id": 100000008960616,
+      "asset_id": 100000008960616,
+      "source": "New York Times",
+      "published_date": "2023-06-20",
+      "updated": "2023-06-20 23:46:39",
+      "section": "Opinion",
+      "subsection": "",
+      "nytdsection": "opinion",
+      "adx_keywords": "Economics (Theory and Philosophy);internal-sub-only-nl;Music;Box Office Sales;Audio Recordings, Downloads and Streaming;Pop and Rock Music;Swift, Taylor;Knowles, Beyonce",
+      "column": null,
+      "byline": "By Paul Krugman",
+      "type": "Article",
+      "title": "Is Taylor Swift Underpaid?",
+      "abstract": "Superstars in historical perspective.",
+      "des_facet": [
+        "Economics (Theory and Philosophy)",
+        "internal-sub-only-nl",
+        "Music",
+        "Box Office Sales",
+        "Audio Recordings, Downloads and Streaming",
+        "Pop and Rock Music"
+      ],
+      "org_facet": [],
+      "per_facet": [
+        "Swift, Taylor",
+        "Knowles, Beyonce"
+      ],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Illustration by The New York Times; photographs by Jutharat Pinyodoonyachet for The New York Times and Oliver Strewe/Getty Images",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/opinion/20krugman-newsletter-image/20krugman-newsletter-image-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/opinion/20krugman-newsletter-image/20krugman-newsletter-image-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/opinion/20krugman-newsletter-image/20krugman-newsletter-image-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/e750cd29-152f-548a-9bab-8f0e4f208c5e",
+      "url": "https://www.nytimes.com/2023/06/19/technology/gop-disinformation-researchers-2024-election.html",
+      "id": 100000008945986,
+      "asset_id": 100000008945986,
+      "source": "New York Times",
+      "published_date": "2023-06-19",
+      "updated": "2023-06-20 12:32:02",
+      "section": "Technology",
+      "subsection": "",
+      "nytdsection": "technology",
+      "adx_keywords": "United States Politics and Government;Conservatism (US Politics);Academic Freedom;Colleges and Universities;Suits and Litigation (Civil);Rumors and Misinformation;Presidential Election of 2024;Jordan, Jim (1964- );House Committee on the Judiciary;Republican Party",
+      "column": null,
+      "byline": "By Steven Lee Myers and Sheera Frenkel",
+      "type": "Article",
+      "title": "G.O.P. Targets Researchers Who Study Disinformation Ahead of 2024 Election",
+      "abstract": "A legal campaign against universities and think tanks seeks to undermine the fight against false claims about elections, vaccines and other hot political topics.",
+      "des_facet": [
+        "United States Politics and Government",
+        "Conservatism (US Politics)",
+        "Academic Freedom",
+        "Colleges and Universities",
+        "Suits and Litigation (Civil)",
+        "Rumors and Misinformation",
+        "Presidential Election of 2024"
+      ],
+      "org_facet": [
+        "House Committee on the Judiciary",
+        "Republican Party"
+      ],
+      "per_facet": [
+        "Jordan, Jim (1964- )"
+      ],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The House Judiciary Committee chairman, Representative Jim Jordan of Ohio, has accused organizations that research disinformation of censoring conservative speech online.",
+          "copyright": "Haiyun Jiang/The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/12/multimedia/00disinfo-researchers-jordan-zpbm/00disinfo-researchers-jordan-zpbm-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/12/multimedia/00disinfo-researchers-jordan-zpbm/00disinfo-researchers-jordan-zpbm-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/12/multimedia/00disinfo-researchers-jordan-zpbm/00disinfo-researchers-jordan-zpbm-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/50667140-c399-5d59-9a3e-d97ee1bd06be",
+      "url": "https://www.nytimes.com/2023/06/19/opinion/nutrition-science.html",
+      "id": 100000008950913,
+      "asset_id": 100000008950913,
+      "source": "New York Times",
+      "published_date": "2023-06-19",
+      "updated": "2023-06-19 20:39:18",
+      "section": "Opinion",
+      "subsection": "",
+      "nytdsection": "opinion",
+      "adx_keywords": "Diet and Nutrition;Artificial Sweeteners;Sugar;Weight;Research;internal-sub-only",
+      "column": null,
+      "byline": "By Anupam B. Jena and Christopher M. Worsham",
+      "type": "Article",
+      "title": "The Science of What We Eat Is Failing Us",
+      "abstract": "Nutrition science needs a credibility revolution.",
+      "des_facet": [
+        "Diet and Nutrition",
+        "Artificial Sweeteners",
+        "Sugar",
+        "Weight",
+        "Research",
+        "internal-sub-only"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Illustration by The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/19/opinion/19JenaWorsham/19JenaWorsham-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/19/opinion/19JenaWorsham/19JenaWorsham-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/19/opinion/19JenaWorsham/19JenaWorsham-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/3fbd9004-f652-5aed-9797-e89bd5e51294",
+      "url": "https://www.nytimes.com/2023/06/20/opinion/wildfire-smoke-minneapolis-canada-fires.html",
+      "id": 100000008953205,
+      "asset_id": 100000008953205,
+      "source": "New York Times",
+      "published_date": "2023-06-20",
+      "updated": "2023-06-20 11:28:19",
+      "section": "Opinion",
+      "subsection": "",
+      "nytdsection": "opinion",
+      "adx_keywords": "Wildfires;Greenhouse Gas Emissions;Politics and Government;Air Pollution;Minnesota;Canada;United States",
+      "column": null,
+      "byline": "By Paul Bogard",
+      "type": "Article",
+      "title": "We’re Watching the Sky as We Know It Disappear",
+      "abstract": "The sky has enormous power to shape our lives and to signal how disrupted our climate is becoming.",
+      "des_facet": [
+        "Wildfires",
+        "Greenhouse Gas Emissions",
+        "Politics and Government",
+        "Air Pollution"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [
+        "Minnesota",
+        "Canada",
+        "United States"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Jenn Ackerman",
+          "approved_for_syndication": 0,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/opinion/20bograd-image/20bograd-image-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/opinion/20bograd-image/20bograd-image-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/20/opinion/20bograd-image/20bograd-image-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/57da92ae-e4ff-5501-9442-d22919d031f4",
+      "url": "https://www.nytimes.com/2023/06/19/opinion/cormac-mccarthy-publishing.html",
+      "id": 100000008956627,
+      "asset_id": 100000008956627,
+      "source": "New York Times",
+      "published_date": "2023-06-19",
+      "updated": "2023-06-20 21:34:59",
+      "section": "Opinion",
+      "subsection": "",
+      "nytdsection": "opinion",
+      "adx_keywords": "Books and Literature;Book Trade and Publishing;Writing and Writers;McCarthy, Cormac",
+      "column": null,
+      "byline": "By Dan Sinykin",
+      "type": "Article",
+      "title": "Cormac McCarthy Had a Remarkable Literary Career. It Could Never Happen Now.",
+      "abstract": "The writer had a famously improbable ride to stardom. The fact that he ever escaped obscurity is a testament to just how serendipitous his path was.",
+      "des_facet": [
+        "Books and Literature",
+        "Book Trade and Publishing",
+        "Writing and Writers"
+      ],
+      "org_facet": [],
+      "per_facet": [
+        "McCarthy, Cormac"
+      ],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Kurt Markus",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/21/opinion/19Sinykin/19Sinykin-thumbStandard-v2.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/21/opinion/19Sinykin/19Sinykin-mediumThreeByTwo210-v2.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/21/opinion/19Sinykin/19Sinykin-mediumThreeByTwo440-v2.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/611de8c0-34fb-5b93-8d72-bf50ef269e2e",
+      "url": "https://www.nytimes.com/2023/06/19/us/politics/trump-classified-document-fox-news.html",
+      "id": 100000008959401,
+      "asset_id": 100000008959401,
+      "source": "New York Times",
+      "published_date": "2023-06-19",
+      "updated": "2023-06-20 11:42:25",
+      "section": "U.S.",
+      "subsection": "Politics",
+      "nytdsection": "u.s.",
+      "adx_keywords": "Federal Criminal Case Against Trump (Documents Case);Classified Information and State Secrets;Trump, Donald J;Baier, Bret;Republican Party;Fox News Channel",
+      "column": null,
+      "byline": "By Maggie Haberman, Alan Feuer and Jonathan Swan",
+      "type": "Article",
+      "title": "Trump Says ‘Secret’ Document He Described on Tape Referred to News Clippings",
+      "abstract": "“There was no document,” the former president said on Fox News as he gave some of his most expansive remarks on the case that led to his federal indictment.",
+      "des_facet": [
+        "Federal Criminal Case Against Trump (Documents Case)",
+        "Classified Information and State Secrets"
+      ],
+      "org_facet": [
+        "Republican Party",
+        "Fox News Channel"
+      ],
+      "per_facet": [
+        "Trump, Donald J",
+        "Baier, Bret"
+      ],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "In a 2021 meeting, according to a transcript, former President Donald J. Trump described a document and said that “as president, I could have declassified it,” adding, “Now I can’t, you know, but this is still a secret.” ",
+          "copyright": "Doug Mills/The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/19/multimedia/19pol-trumpfox-wjfq/19pol-trumpfox-wjfq-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/19/multimedia/19pol-trumpfox-wjfq/19pol-trumpfox-wjfq-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/19/multimedia/19pol-trumpfox-wjfq/19pol-trumpfox-wjfq-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/ff935834-59fb-55af-b0f3-d0e2215836a1",
+      "url": "https://www.nytimes.com/2023/06/19/arts/music/max-morath-dead.html",
+      "id": 100000007361713,
+      "asset_id": 100000007361713,
+      "source": "New York Times",
+      "published_date": "2023-06-19",
+      "updated": "2023-06-20 21:56:31",
+      "section": "Arts",
+      "subsection": "Music",
+      "nytdsection": "arts",
+      "adx_keywords": "Deaths (Obituaries);Music;Pianos;Television;Morath, Max;National Educational Television Network",
+      "column": null,
+      "byline": "By Robert D. McFadden",
+      "type": "Article",
+      "title": "Max Morath, Pianist Who Staged a One-Man Ragtime Revival, Dies at 96",
+      "abstract": "A student of both music and history, he entertained audiences in the 1960s and beyond while educating them about a genre whose heyday had ended decades earlier.",
+      "des_facet": [
+        "Deaths (Obituaries)",
+        "Music",
+        "Pianos",
+        "Television"
+      ],
+      "org_facet": [
+        "National Educational Television Network"
+      ],
+      "per_facet": [
+        "Morath, Max"
+      ],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The pianist Max Morath in 1963. He made ragtime come alive in concert halls, in nightclubs and on television.",
+          "copyright": "Lowell Georgia/The Denver Post, via Getty Images",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/21/obituaries/19-morath-print1/19-morath-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/21/obituaries/19-morath-print1/19-morath-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/21/obituaries/19-morath-print1/19-morath-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/1978bd5c-df7f-542d-9749-8a846da08657",
+      "url": "https://www.nytimes.com/2023/06/20/business/return-to-office-remote-work.html",
+      "id": 100000008952349,
+      "asset_id": 100000008952349,
+      "source": "New York Times",
+      "published_date": "2023-06-20",
+      "updated": "2023-06-20 10:54:24",
+      "section": "Business",
+      "subsection": "",
+      "nytdsection": "business",
+      "adx_keywords": "Workplace Environment;Coronavirus Return to Office;Telecommuting;Coronavirus (2019-nCoV);Productivity;Performance Evaluations (Labor);Real Estate (Commercial)",
+      "column": null,
+      "byline": "By Emma Goldberg",
+      "type": "Article",
+      "title": "Return to Office Enters the Desperation Phase",
+      "abstract": "The next stage of getting workers back at their desks includes incentives like $10 to the charity of their choice — and consequences like poor performance evaluations if they don’t make the trek in.",
+      "des_facet": [
+        "Workplace Environment",
+        "Coronavirus Return to Office",
+        "Telecommuting",
+        "Coronavirus (2019-nCoV)",
+        "Productivity",
+        "Performance Evaluations (Labor)",
+        "Real Estate (Commercial)"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "For 10 days, Salesforce is giving a $10 charitable donation per day on behalf of any employee who comes into the office.",
+          "copyright": "Jeenah Moon for The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/06/16/multimedia/00RTO-Desperation-01-qmcf/00RTO-Desperation-01-qmcf-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/16/multimedia/00RTO-Desperation-01-qmcf/00RTO-Desperation-01-qmcf-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/06/16/multimedia/00RTO-Desperation-01-qmcf/00RTO-Desperation-01-qmcf-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/71f59cf4-2235-58ad-8388-95d3f58cd86b",
+      "url": "https://www.nytimes.com/2023/05/29/opinion/inflation-groceries-pricing-walmart.html",
+      "id": 100000008888323,
+      "asset_id": 100000008888323,
+      "source": "New York Times",
+      "published_date": "2023-05-29",
+      "updated": "2023-05-31 17:09:36",
+      "section": "Opinion",
+      "subsection": "",
+      "nytdsection": "opinion",
+      "adx_keywords": "Food;Inflation (Economics);Supermarkets and Grocery Stores;Antitrust Laws and Competition Issues;Innovation;Shopping and Retail;Small Business;United States Economy;Regulation and Deregulation of Industry;internal-sub-only",
+      "column": null,
+      "byline": "By Stacy Mitchell",
+      "type": "Article",
+      "title": "The Real Reason Your Groceries Are Getting So Expensive",
+      "abstract": "Grocery-retailer consolidation is damaging our food system, stifling innovation and making everything more expensive.",
+      "des_facet": [
+        "Food",
+        "Inflation (Economics)",
+        "Supermarkets and Grocery Stores",
+        "Antitrust Laws and Competition Issues",
+        "Innovation",
+        "Shopping and Retail",
+        "Small Business",
+        "United States Economy",
+        "Regulation and Deregulation of Industry",
+        "internal-sub-only"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Zak Tebbal",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2023/05/30/opinion/29Mitchell/29Mitchell-thumbStandard-v2.png",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/05/30/opinion/29Mitchell/29Mitchell-mediumThreeByTwo210-v2.png",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2023/05/30/opinion/29Mitchell/29Mitchell-mediumThreeByTwo440-v2.png",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    }
+  ]
+}

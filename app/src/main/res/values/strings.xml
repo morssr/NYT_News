@@ -1,3 +1,63 @@
 <resources>
     <string name="app_name">NYT News</string>
+
+    <string name="very_long_lorem_ipsum">vel eros donec ac odio tempor orci dapibus ultrices in iaculis nunc sed augue lacus viverra vitae congue eu consequat ac felis donec et odio pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc sed velit dignissim sodales ut eu sem integer vitae justo eget magna fermentum iaculis eu non diam phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet enim tortor at auctor urna nunc id cursus metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper eget duis at tellus at urna condimentum mattis pellentesque id nibh tortor id aliquet lectus proin nibh nisl condimentum id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa ultricies mi quis hendrerit dolor magna eget est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas integer eget aliquet nibh praesent tristique magna sit amet purus gravida quis blandit turpis cursus in hac habitasse platea dictumst quisque sagittis purus sit amet volutpat consequat mauris nunc congue nisi vitae suscipit tellus mauris a diam maecenas sed enim ut sem viverra aliquet eget sit amet tellus cras adipiscing enim eu turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus mauris ultrices eros in cursus turpis massa tincidunt dui ut ornare lectus sit amet est placerat in egestas erat imperdiet sed euismod nisi porta lorem mollis aliquam ut porttitor leo a diam sollicitudin tempor id eu nisl nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam eget felis eget nunc lobortis mattis aliquam faucibus purus in massa tempor nec feugiat nisl pretium fusce id velit ut tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus in hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis a cras semper auctor neque vitae tempus quam pellentesque nec nam aliquam sem et tortor consequat id porta nibh venenatis cras sed felis eget velit aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis lectus nulla at volutpat diam ut venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus nisl tincidunt eget nullam non nisi est sit amet facilisis magna etiam</string>
+    <string name="long_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="short_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
+    <string name="shortest_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet. </string>
+    <string name="topics">Topics</string>
+    <string name="search">Search</string>
+    <string name="search_placeholder">What\'s In Your Mind? </string>
+    <string name="bookmarks">Bookmarks</string>
+    <string name="delete">delete</string>
+    <string name="expandable_text_more">… more</string>
+    <string name="last_search">Last Search</string>
+    <string name="recommended_for_you">Recommended For You</string>
+    <string name="interests">Interests</string>
+    <string name="no_results_found_message">Oops, no results found…</string>
+    <string name="something_went_wrong_message">Oops, something went wrong…</string>
+    <string name="too_many_requests_error_message">Too many requests in short period, wait a few minutes and try again</string>
+    <string name="retry">Retry</string>
+    <string name="check_your_internet_connection_message">Check your internet connection and try again</string>
+    <string name="search_for_something_message">Search for something…</string>
+    <string name="loading">Loading</string>
+    <string name="popular_article_image_content_description">popular article image</string>
+    <string name="edit_topics_content_description">Edit topics</string>
+    <string name="back">Back</string>
+    <string name="bookmark_added">Added To Bookmarks</string>
+    <string name="undo">Undo</string>
+    <string name="bookmarks_are_empty">Bookmarks are empty</string>
+    <string name="follow_system">System</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="done">Done</string>
+    <string name="theme_modes">Theme modes</string>
+    <string name="dynamic_colors">Dynamic colors</string>
+    <string name="what_you_curious_about">What You Curious About?</string>
+    <string name="bookmarks_title">Stories that made you interested</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="please_check_your_internet_connection_and_try_again">Please check your internet connection and try again.</string>
+    <string name="try_again">Try Again</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="please_try_again_later">Please try again later.</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="about_us">About Us</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="contact_information">Contact Information</string>
+    <string name="email">Email</string>
+    <string name="app_contact_email_address">morsrs.dev.qa@gmail.com</string>
+    <string name="location">Location</string>
+    <string name="app_information_location">Israel, Tel-Aviv</string>
+    <string name="send_email_using">Send email using..</string>
+
+    //Disclaimer
+    <string name="app_disclaimer">Important Note: This application explicitly disclaims any responsibility for the news content it displays. Its primary function is to serve as an illustrative sample app, highlighting the effective implementation of Jetpack Compose and recommended Android development practices. The app\'s sole intent is for demonstration purposes, and it is strongly advised not to utilize it for any other use cases.</string>
+    <string name="go_to_new_york_times_website">Go to New York Times Website</string>
+    <string name="NYT_credits">Credits: All news content in NYT comes from the respected New York Times magazine.</string>
+    <string name="welcome_greeting">Welcome to NYT News Sample App</string>
+    <string name="dont_show_again">Don\'t show this again</string>
+    <string name="i_understand">I understand</string>
+    <string name="nyt_website_url">https://www.nytimes.com/</string>
+
 </resources>
