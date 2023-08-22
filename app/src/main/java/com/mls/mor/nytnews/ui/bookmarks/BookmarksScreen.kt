@@ -17,10 +17,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DismissDirection
 import androidx.compose.material3.DismissState
@@ -80,14 +82,15 @@ fun BookmarksScreen(
         return
     }
 
-    LazyColumn(
+    LazyVerticalStaggeredGrid(
         modifier = modifier,
-        state = lazyListState,
-        contentPadding = PaddingValues(8.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        columns = StaggeredGridCells.Adaptive(300.dp),
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalItemSpacing = 16.dp,
     ) {
 
-        item {
+        item(span = StaggeredGridItemSpan.FullLine) {
             Column {
                 Text(
                     modifier = Modifier
@@ -118,7 +121,7 @@ fun BookmarksScreen(
             )
 
             SwipeToDeleteBookmarkItem(
-                Modifier.animateItemPlacement(),
+//                Modifier.animateItemPlacement(),
                 bookmarked = story,
                 dismissState = dismissState,
                 onStoryClick = onStoryClick
