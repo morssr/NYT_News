@@ -1,10 +1,14 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.mls.mor.nytnews.ui.search
 
 import android.content.Context
 import android.content.res.Resources.NotFoundException
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,7 +21,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -239,35 +244,40 @@ fun SearchScreen(
                     }
 
                     else -> {
-                        LazyColumn(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.spacedBy(16.dp),
-                            contentPadding = PaddingValues(8.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
+                        LazyVerticalStaggeredGrid(
+                            modifier = modifier,
+                            columns = StaggeredGridCells.Adaptive(300.dp),
+                            contentPadding = PaddingValues(16.dp),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                            verticalItemSpacing = 16.dp
+                            ) {
 
                             items(count = searchItems.itemCount) {
                                 val story = searchItems[it]
                                 story?.let { storyItem: SearchUiModel ->
-                                    SearchStoryItem(
-                                        modifier = Modifier,
-                                        story = storyItem,
-                                        onStoryClick = onSearchItemClick,
-                                        onBookmarkClick = { id ->
-                                            onAddToBookmarksClick(id)
-                                            showAddToBookmarksSnackbar(
-                                                scope,
-                                                snackbarHostState,
-                                                context,
-                                                onUndoAddToBookmarksClick,
-                                                id
-                                            )
-                                        }
-                                    )
-                                    Divider(
-                                        modifier
-                                            .fillMaxWidth()
-                                            .padding(horizontal = 16.dp))
+                                    Column {
+                                        SearchStoryItem(
+                                            modifier = Modifier,
+                                            story = storyItem,
+                                            onStoryClick = onSearchItemClick,
+                                            onBookmarkClick = { id ->
+                                                onAddToBookmarksClick(id)
+                                                showAddToBookmarksSnackbar(
+                                                    scope,
+                                                    snackbarHostState,
+                                                    context,
+                                                    onUndoAddToBookmarksClick,
+                                                    id
+                                                )
+                                            }
+                                        )
+
+                                        Divider(
+                                            modifier
+                                                .fillMaxWidth()
+                                                .padding(horizontal = 16.dp)
+                                        )
+                                    }
                                 }
                             }
 
@@ -282,6 +292,14 @@ fun SearchScreen(
                     }
                 }
             }
+
+            // Handle back button. If search is active, close it. Otherwise, navigate back.
+            BackHandler {
+                if (active) {
+                    active = false
+                }
+            }
+
         }
 
         Spacer(modifier = Modifier.height(8.dp))
