@@ -3,6 +3,7 @@
 package com.mls.mor.nytnews.ui.common
 
 import android.util.Log
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.AnimationState
 import androidx.compose.animation.core.DecayAnimationSpec
@@ -89,7 +90,7 @@ fun CustomCollapsingToolbarContainer(
     }
 
     Box(
-        modifier = modifier
+        modifier = modifier.animateContentSize()
             .then(appBarDragModifier)
             .height(contentHeightDp)
             .then(
@@ -169,4 +170,14 @@ private fun TopAppBarScrollBehavior.printState(tag: String) {
             "Container: heightOffsetLimit:$heightOffsetLimit | heightOffset:$heightOffset | collapsedFraction:$collapsedFraction| contentOffset:$contentOffset | overlappedFraction:$overlappedFraction"
         )
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+fun TopAppBarState.collapseAppBar() {
+    this.heightOffset = - (heightOffsetLimit.absoluteValue)
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+fun TopAppBarState.expandAppBar() {
+    this.heightOffset += heightOffsetLimit.absoluteValue
 }

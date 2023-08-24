@@ -48,6 +48,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -58,6 +59,7 @@ import com.mls.mor.nytnews.ui.common.AboutUsDialog
 import com.mls.mor.nytnews.ui.common.CustomCollapsingToolbarContainer
 import com.mls.mor.nytnews.ui.common.CustomScrollableTabRow
 import com.mls.mor.nytnews.ui.common.EmailChooserMenu
+import com.mls.mor.nytnews.ui.common.collapseAppBar
 import com.mls.mor.nytnews.ui.settings.AppSettingsDialog
 import com.mls.mor.nytnews.ui.settings.ContactUsDialog
 import com.mls.mor.nytnews.ui.theme.NYTNewsTheme
@@ -167,8 +169,10 @@ private fun TopicScreenComponent(
             showEmailChooser = false
         }
 
-        // 40% of the screen height
-        val collapsingToolbarHeight = maxHeight * 0.42f
+        // calculate the height of the collapsing toolbar based on the screen height
+        val collapsingToolbarHeight by remember {
+            derivedStateOf { calculateCollapsingToolbarHeight(maxHeight) }
+        }
 
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -281,6 +285,7 @@ private fun TopicScreenComponent(
                                 modifier = Modifier.padding(horizontal = 6.dp),
                                 selected = selected,
                                 onClick = {
+                                    appBarState.collapseAppBar()
                                     coroutineScope.launch {
                                         pagerState.animateScrollToPage(
                                             index
@@ -312,6 +317,15 @@ private fun TopicScreenComponent(
                 }
             }
         }
+    }
+}
+
+private fun calculateCollapsingToolbarHeight(containerHeight: Dp): Dp {
+    return when {
+        containerHeight < 480.dp -> containerHeight * 0.75f
+        containerHeight < 640.dp -> containerHeight * 0.5f
+        containerHeight < 800.dp -> containerHeight * 0.43f
+        else  -> containerHeight * 0.33f
     }
 }
 
