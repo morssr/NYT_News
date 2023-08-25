@@ -131,12 +131,10 @@ fun PopularBarComponent(
 
                     if (!shimmer) {
                         // Card content
-                        populars[pageIndex].let {
-                            PopularListItem(
-                                popular = it,
-                                onItemClick = onPopularStoryClick
-                            )
-                        }
+                        PopularListItem(
+                            popular = populars[pageIndex],
+                            onItemClick = onPopularStoryClick
+                        )
                     } else {
                         ShimmerPopularListItemScaffold()
                     }
@@ -258,7 +256,7 @@ private fun calculateDynamicPopularItemWidth(containerWidth: Dp): Dp = when {
 @Preview
 @Composable
 fun PopularListItemPreview() {
-    NYTNewsTheme() {
+    NYTNewsTheme {
         PopularListItem(
             popular = PopularUi(
                 "234234",

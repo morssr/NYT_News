@@ -252,7 +252,7 @@ fun BookmarkScreenPreview() {
 @Preview
 @Composable
 fun BookmarkItemPreview() {
-    NYTNewsTheme() {
+    NYTNewsTheme {
         BookmarkItem(
             bookmarkedStory = fakeBookmarkUiModel,
             onStoryClick = {}

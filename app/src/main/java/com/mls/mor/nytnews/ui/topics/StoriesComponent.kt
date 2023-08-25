@@ -334,7 +334,7 @@ fun StoryItemPreview_ShortAbstract() {
 @Preview(widthDp = 360, heightDp = 40)
 @Composable
 fun ExpandableToggleAreaCollapsedPreview() {
-    NYTNewsTheme() {
+    NYTNewsTheme {
         ExpandableToggleArea()
     }
 }
@@ -342,7 +342,7 @@ fun ExpandableToggleAreaCollapsedPreview() {
 @Preview(widthDp = 360, heightDp = 40)
 @Composable
 fun ExpandableToggleAreaExpandedPreview() {
-    NYTNewsTheme() {
+    NYTNewsTheme {
         ExpandableToggleArea(expanded = true)
     }
 }

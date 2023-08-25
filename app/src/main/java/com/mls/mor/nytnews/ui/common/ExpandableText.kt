@@ -47,7 +47,7 @@ fun ExpandableText(
 
     var isExpanded by remember { mutableStateOf(false) }
     var clickable by remember { mutableStateOf(false) }
-    var lastCharIndex by remember() { mutableStateOf(0) }
+    var lastCharIndex by remember { mutableStateOf(0) }
 
     val textSpanStyle = style.toSpanStyle().copy(color = color)
     Box(
