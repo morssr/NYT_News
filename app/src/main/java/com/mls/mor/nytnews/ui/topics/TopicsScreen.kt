@@ -88,11 +88,14 @@ fun TopicsScreen(
             viewModel.refreshCurrentTopic(uiState.topics[page])
         },
         feedUpdateStates = uiState.feedsStates.map { it.key to it.value.updateState }.toMap(),
+        dialogSelector = uiState.dialogSelector,
         onStoryClick = onStoryClick,
         onPopularStoryClick = onPopularStoryClick,
         onBookmarkClick = { id, bookmarked -> viewModel.updateBookmark(id, bookmarked) },
         onTopicsChooserDialogDismiss = { viewModel.updateTopics(it) },
         onTryAgainClick = { viewModel.reloadCurrentTopic() },
+        onShowDialogClick = { viewModel.showDialog(it) },
+        onDismissDialogClick = { viewModel.dismissDialog() },
     )
 }
 
@@ -104,22 +107,20 @@ private fun TopicScreenComponent(
     storiesList: Map<TopicsType, List<StoryUI>>,
     popularsList: List<PopularUi> = emptyList(),
     feedUpdateStates: Map<TopicsType, FeedUpdateState> = emptyMap(),
+    dialogSelector: DialogSelector = DialogSelector.None,
     onPageChange: (Int) -> Unit = {},
     onStoryClick: (StoryUI) -> Unit = {},
     onPopularStoryClick: (PopularUi) -> Unit = {},
     onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
     onTopicsChooserDialogDismiss: (List<TopicsType>) -> Unit = {},
     onTryAgainClick: () -> Unit = {},
+    onShowDialogClick: (DialogSelector) -> Unit = {},
+    onDismissDialogClick: () -> Unit = {},
 ) {
 
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState()
     var showTopicsSelectionDialog by remember { mutableStateOf(false) }
-    var showMainMenuDropdown by remember { mutableStateOf(false) }
-    var showAppSettingsDialog by remember { mutableStateOf(false) }
-    var showAboutUsDialog by remember { mutableStateOf(false) }
-    var showContactUsDialog by remember { mutableStateOf(false) }
-    var showEmailChooser by remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
 
     val currentOnPageChange by rememberUpdatedState(onPageChange)
@@ -141,33 +142,6 @@ private fun TopicScreenComponent(
     BoxWithConstraints(
         modifier = modifier.appScreenGradientBackground()
     ) {
-
-        if (showAppSettingsDialog) {
-            AppSettingsDialog(
-                onDismiss = { showAppSettingsDialog = false },
-            )
-        }
-
-        if (showAboutUsDialog) {
-            AboutUsDialog(
-                onDismiss = { showAboutUsDialog = false },
-            )
-        }
-
-        if (showContactUsDialog) {
-            ContactUsDialog(
-                onDismiss = { showContactUsDialog = false },
-                onEmailClick = {
-                    showContactUsDialog = false
-                    showEmailChooser = true
-                },
-            )
-        }
-
-        if (showEmailChooser) {
-            EmailChooserMenu(recipient = stringResource(id = R.string.app_contact_email_address))
-            showEmailChooser = false
-        }
 
         // calculate the height of the collapsing toolbar based on the screen height
         val collapsingToolbarHeight by remember {
@@ -202,15 +176,14 @@ private fun TopicScreenComponent(
                             }
                         )
                     ) {
-
                         HomeTopAppBar(
-                            showMainMenu = showMainMenuDropdown,
-                            onMenuClick = { showMainMenuDropdown = true },
-                            onLogoClick = { showAboutUsDialog = true },
-                            onDismissMenu = { showMainMenuDropdown = false },
-                            onSettingClick = { showAppSettingsDialog = true },
-                            onAboutUsClick = { showAboutUsDialog = true },
-                            onContactUsClick = { showContactUsDialog = true },
+                            showMainMenu = dialogSelector == DialogSelector.MainMenuDropdown,
+                            onMenuClick = { onShowDialogClick(DialogSelector.MainMenuDropdown) },
+                            onLogoClick = { onShowDialogClick(DialogSelector.AboutUs) },
+                            onDismissMenu = { onDismissDialogClick() },
+                            onSettingClick = { onShowDialogClick(DialogSelector.Settings) },
+                            onAboutUsClick = { onShowDialogClick(DialogSelector.AboutUs) },
+                            onContactUsClick = { onShowDialogClick(DialogSelector.ContactUs) },
                         )
 
                         val showShimmer by remember(key1 = popularsList) {
@@ -229,10 +202,14 @@ private fun TopicScreenComponent(
                 }
             }
         ) { innerPadding ->
-            Column(
-                modifier = Modifier
-                    .padding(top = innerPadding.calculateTopPadding())
-            ) {
+            Column(modifier = Modifier.padding(top = innerPadding.calculateTopPadding())) {
+
+                TopicsGeneralDialogsPresenter(
+                    dialogSelector = dialogSelector,
+                    onShowDialogClick = onShowDialogClick,
+                    onDismiss = onDismissDialogClick
+                )
+
                 if (showTopicsSelectionDialog) {
                     TopicsInterestsDialog(
                         onDismiss = { updated, topics ->
@@ -245,7 +222,6 @@ private fun TopicScreenComponent(
                         selectedTopics = topicsType
                     )
                 }
-
                 Column(modifier = Modifier.animateContentSize()) {
 
                     Row(
@@ -320,12 +296,50 @@ private fun TopicScreenComponent(
     }
 }
 
+@Composable
+private fun TopicsGeneralDialogsPresenter(
+    dialogSelector: DialogSelector,
+    onShowDialogClick: (DialogSelector) -> Unit = {},
+    onDismiss: () -> Unit = {},
+) {
+
+    when (dialogSelector) {
+        DialogSelector.AboutUs -> {
+            AboutUsDialog(onDismiss = { onDismiss() })
+        }
+
+        DialogSelector.ContactUs -> {
+            ContactUsDialog(
+                onDismiss = { onDismiss() },
+                onEmailClick = {
+                    onShowDialogClick(DialogSelector.EmailChooser)
+                },
+            )
+        }
+
+        DialogSelector.Settings -> {
+            AppSettingsDialog(onDismiss = { onDismiss() })
+        }
+
+        DialogSelector.EmailChooser -> {
+            EmailChooserMenu(recipient = stringResource(id = R.string.app_contact_email_address))
+            onShowDialogClick(DialogSelector.None)
+        }
+
+        else -> {
+            onShowDialogClick(DialogSelector.None)
+        }
+    }
+
+}
+
+
 private fun calculateCollapsingToolbarHeight(containerHeight: Dp): Dp {
     return when {
         containerHeight < 480.dp -> containerHeight * 0.75f
         containerHeight < 640.dp -> containerHeight * 0.5f
         containerHeight < 800.dp -> containerHeight * 0.43f
-        else  -> containerHeight * 0.33f
+        else -> containerHeight * 0.33f
     }
 }
 
