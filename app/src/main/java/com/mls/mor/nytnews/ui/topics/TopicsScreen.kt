@@ -223,7 +223,7 @@ private fun TopicScreenComponent(
                     )
                 }
 
-                Column(modifier = Modifier.animateContentSize()) {
+                Column {
 
                     InterestBar(onShowTopicsSelectionDialog = { showInterestsSelectionDialog = true })
 
