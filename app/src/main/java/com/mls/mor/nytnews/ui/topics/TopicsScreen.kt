@@ -3,7 +3,6 @@
 package com.mls.mor.nytnews.ui.topics
 
 import android.util.Log
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -355,16 +354,6 @@ private fun TopicsGeneralDialogsPresenter(
 
 }
 
-
-private fun calculateCollapsingToolbarHeight(containerHeight: Dp): Dp {
-    return when {
-        containerHeight < 480.dp -> containerHeight * 0.75f
-        containerHeight < 640.dp -> containerHeight * 0.5f
-        containerHeight < 800.dp -> containerHeight * 0.43f
-        else -> containerHeight * 0.33f
-    }
-}
-
 @Composable
 private fun CustomTabCell(
     selected: Boolean,
@@ -414,6 +403,14 @@ private fun CustomTabCell(
     }
 }
 
+private fun calculateCollapsingToolbarHeight(containerHeight: Dp): Dp {
+    return when {
+        containerHeight < 480.dp -> containerHeight * 0.75f
+        containerHeight < 640.dp -> containerHeight * 0.5f
+        containerHeight < 800.dp -> containerHeight * 0.43f
+        else -> containerHeight * 0.33f
+    }
+}
 
 @Preview
 @Composable
