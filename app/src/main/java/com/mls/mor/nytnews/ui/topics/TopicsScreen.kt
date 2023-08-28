@@ -227,31 +227,17 @@ private fun TopicScreenComponent(
 
                     InterestBar(onShowTopicsSelectionDialog = { showTopicsSelectionDialog = true })
 
-                    CustomScrollableTabRow(
-                        selectedTabIndex = pagerState.currentPage,
-                        containerColor = Color.Transparent,
-                        edgePadding = 8.dp,
-                        indicator = {},
-                        divider = {}
-                    ) {
-                        topicsType.forEachIndexed { index, topicsType ->
-                            val selected = index == pagerState.currentPage
-                            Tab(
-                                modifier = Modifier.padding(horizontal = 6.dp),
-                                selected = selected,
-                                onClick = {
-                                    appBarState.collapseAppBar()
-                                    coroutineScope.launch {
-                                        pagerState.animateScrollToPage(
-                                            index
-                                        )
-                                    }
-                                },
-                            ) {
-                                CustomTabContent(selected, topicsType)
+                    InterestTabsRow(
+                        topicsType,
+                        pagerState.currentPage,
+                        onTabClick = { page ->
+                            appBarState.collapseAppBar()
+
+                            coroutineScope.launch {
+                                pagerState.animateScrollToPage(page)
                             }
                         }
-                    }
+                    )
                 }
 
                 HorizontalPager(
@@ -270,6 +256,32 @@ private fun TopicScreenComponent(
                         onTryAgainClick = onTryAgainClick
                     )
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun InterestTabsRow(
+    topicsType: List<TopicsType> = defaultTopics,
+    currentSelectedPageIndex: Int = 0,
+    onTabClick: (Int) -> Unit = {},
+) {
+    CustomScrollableTabRow(
+        selectedTabIndex = currentSelectedPageIndex,
+        containerColor = Color.Transparent,
+        edgePadding = 8.dp,
+        indicator = {},
+        divider = {}
+    ) {
+        topicsType.forEachIndexed { index, topicsType ->
+            val selected = index == currentSelectedPageIndex
+            Tab(
+                modifier = Modifier.padding(horizontal = 6.dp),
+                selected = selected,
+                onClick = { onTabClick(index) },
+            ) {
+                CustomTabCell(selected, topicsType)
             }
         }
     }
@@ -354,7 +366,7 @@ private fun calculateCollapsingToolbarHeight(containerHeight: Dp): Dp {
 }
 
 @Composable
-private fun CustomTabContent(
+private fun CustomTabCell(
     selected: Boolean,
     topicsType: TopicsType
 ) {
@@ -432,5 +444,15 @@ fun TopicsDialogSelectionPreview() {
 private fun InterestBarPreview() {
     NYTNewsTheme {
         InterestBar()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun InterestTabRowPreview() {
+    NYTNewsTheme {
+        Box(modifier = Modifier.padding(vertical = 16.dp)) {
+            InterestTabsRow()
+        }
     }
 }
