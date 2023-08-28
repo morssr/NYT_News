@@ -347,9 +347,7 @@ private fun TopicsGeneralDialogsPresenter(
             onShowDialogClick(DialogSelector.None)
         }
 
-        else -> {
-            onShowDialogClick(DialogSelector.None)
-        }
+        else -> {}
     }
 
 }
