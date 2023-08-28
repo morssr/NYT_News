@@ -71,13 +71,15 @@ fun NytApp(
             // check if we should show the bottom bar depending on the current screen size
             if (!appState.shouldShowBottomBar) return@Scaffold
 
-            if (appState.isCurrentDestinationTopLevel()) {
-                NytBottomBar(
-                    destinations = appState.topLevelDestinations,
-                    onNavigateToDestination = appState::navigateToTopLevelDestination,
-                    currentDestination = appState.currentDestination,
-                )
-            }
+            //check if we should show the bottom bar depends if destination is top level
+            if (!appState.isCurrentDestinationTopLevel()) return@Scaffold
+
+            NytBottomBar(
+                destinations = appState.topLevelDestinations,
+                onNavigateToDestination = appState::navigateToTopLevelDestination,
+                currentDestination = appState.currentDestination,
+            )
+
         },
     ) { innerPadding ->
         Row(
@@ -93,7 +95,7 @@ fun NytApp(
         ) {
             ShowDisclaimerDialogIfNeeded(settingsViewModel)
 
-            if (appState.isCurrentDestinationTopLevel() && appState.shouldShowNavRail) {
+            if (appState.shouldShowNavRail && appState.isCurrentDestinationTopLevel()) {
                 NytNavRail(
                     destinations = appState.topLevelDestinations,
                     onNavigateToDestination = appState::navigateToTopLevelDestination,

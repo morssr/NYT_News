@@ -98,7 +98,7 @@ class NytAppState(
         return topLevelDestinations.any { topLevelDestination ->
             currentDestination?.hierarchy?.any {
                 it.route?.contains(topLevelDestination.name, true) ?: false
-            } ?: false
+            } ?: true
         }
     }
 }
