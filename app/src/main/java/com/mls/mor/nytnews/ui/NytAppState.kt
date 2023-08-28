@@ -7,6 +7,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -42,6 +43,7 @@ class NytAppState(
     val coroutineScope: CoroutineScope,
     val windowSizeClass: WindowSizeClass,
 ) {
+    val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
 
     val currentDestination: NavDestination?
         @Composable get() = navController
@@ -53,7 +55,6 @@ class NytAppState(
     val shouldShowNavRail: Boolean
         get() = !shouldShowBottomBar
 
-    val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
 
     /**
      * UI logic for navigating to a top level destination in the app. Top level destinations have
@@ -90,5 +91,14 @@ class NytAppState(
 
     fun navigateUp() {
         navController.navigateUp()
+    }
+
+    @Composable
+    fun isCurrentDestinationTopLevel(): Boolean {
+        return topLevelDestinations.any { topLevelDestination ->
+            currentDestination?.hierarchy?.any {
+                it.route?.contains(topLevelDestination.name, true) ?: false
+            } ?: false
+        }
     }
 }

@@ -71,7 +71,7 @@ fun NytApp(
             // check if we should show the bottom bar depending on the current screen size
             if (!appState.shouldShowBottomBar) return@Scaffold
 
-            if (appState.currentDestination.isCurrentDestinationTopLevel(appState.topLevelDestinations)) {
+            if (appState.isCurrentDestinationTopLevel()) {
                 NytBottomBar(
                     destinations = appState.topLevelDestinations,
                     onNavigateToDestination = appState::navigateToTopLevelDestination,
@@ -93,7 +93,7 @@ fun NytApp(
         ) {
             ShowDisclaimerDialogIfNeeded(settingsViewModel)
 
-            if (appState.shouldShowNavRail) {
+            if (appState.isCurrentDestinationTopLevel() && appState.shouldShowNavRail) {
                 NytNavRail(
                     destinations = appState.topLevelDestinations,
                     onNavigateToDestination = appState::navigateToTopLevelDestination,
@@ -237,12 +237,3 @@ private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLev
     this?.hierarchy?.any {
         it.route?.contains(destination.name, true) ?: false
     } ?: false
-
-
-private fun NavDestination?.isCurrentDestinationTopLevel(topLevelDestinations: List<TopLevelDestination>): Boolean {
-    return topLevelDestinations.any { topLevelDestination ->
-        this?.hierarchy?.any {
-            it.route?.contains(topLevelDestination.name, true) ?: false
-        } ?: false
-    }
-}
