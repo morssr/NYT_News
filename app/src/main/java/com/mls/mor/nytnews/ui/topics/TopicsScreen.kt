@@ -222,31 +222,10 @@ private fun TopicScreenComponent(
                         selectedTopics = topicsType
                     )
                 }
+
                 Column(modifier = Modifier.animateContentSize()) {
 
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-
-                    ) {
-                        Text(
-                            text = stringResource(R.string.what_you_curious_about),
-                            modifier = Modifier.padding(start = 16.dp),
-                            style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-
-                        IconButton(
-                            modifier = Modifier.padding(end = 4.dp),
-                            onClick = { showTopicsSelectionDialog = true }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.tabler_edit_24dp),
-                                tint = MaterialTheme.colorScheme.onSurface,
-                                contentDescription = stringResource(R.string.edit_topics_content_description)
-                            )
-                        }
-                    }
+                    InterestBar(onShowTopicsSelectionDialog = { showTopicsSelectionDialog = true })
 
                     CustomScrollableTabRow(
                         selectedTabIndex = pagerState.currentPage,
@@ -292,6 +271,37 @@ private fun TopicScreenComponent(
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun InterestBar(
+    modifier: Modifier = Modifier,
+    onShowTopicsSelectionDialog: () -> Unit = {}
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+
+    ) {
+        Text(
+            text = stringResource(R.string.what_you_curious_about),
+            modifier = Modifier.padding(start = 16.dp),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+
+        IconButton(
+            modifier = Modifier.padding(end = 4.dp),
+            onClick = onShowTopicsSelectionDialog
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.tabler_edit_24dp),
+                tint = MaterialTheme.colorScheme.onSurface,
+                contentDescription = stringResource(R.string.edit_topics_content_description)
+            )
         }
     }
 }
@@ -414,5 +424,13 @@ fun TopicsDialogSelectionPreview() {
                 Log.d("TAG", "TopicsDialogSelectionPreview: $updated $topics")
             },
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun InterestBarPreview() {
+    NYTNewsTheme {
+        InterestBar()
     }
 }
