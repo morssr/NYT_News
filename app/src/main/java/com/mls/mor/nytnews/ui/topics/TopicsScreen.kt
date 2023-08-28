@@ -120,7 +120,7 @@ private fun TopicScreenComponent(
 
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState()
-    var showTopicsSelectionDialog by remember { mutableStateOf(false) }
+    var showInterestsSelectionDialog by remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
 
     val currentOnPageChange by rememberUpdatedState(onPageChange)
@@ -210,14 +210,14 @@ private fun TopicScreenComponent(
                     onDismiss = onDismissDialogClick
                 )
 
-                if (showTopicsSelectionDialog) {
-                    TopicsInterestsDialog(
+                if (showInterestsSelectionDialog) {
+                    InterestsBottomSheetDialog(
                         onDismiss = { updated, topics ->
                             if (updated) {
                                 coroutineScope.launch { pagerState.animateScrollToPage(0) }
                             }
                             onTopicsChooserDialogDismiss(topics)
-                            showTopicsSelectionDialog = false
+                            showInterestsSelectionDialog = false
                         },
                         selectedTopics = topicsType
                     )
@@ -225,7 +225,7 @@ private fun TopicScreenComponent(
 
                 Column(modifier = Modifier.animateContentSize()) {
 
-                    InterestBar(onShowTopicsSelectionDialog = { showTopicsSelectionDialog = true })
+                    InterestBar(onShowTopicsSelectionDialog = { showInterestsSelectionDialog = true })
 
                     InterestTabsRow(
                         topicsType,
@@ -430,7 +430,7 @@ fun TopicsScreenPreview() {
 @Composable
 fun TopicsDialogSelectionPreview() {
     NYTNewsTheme {
-        TopicsInterestsDialog(
+        InterestsBottomSheetDialog(
             selectedTopics = defaultTopics,
             onDismiss = { updated, topics ->
                 Log.d("TAG", "TopicsDialogSelectionPreview: $updated $topics")

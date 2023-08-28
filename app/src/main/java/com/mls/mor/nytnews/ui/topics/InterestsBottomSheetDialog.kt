@@ -30,7 +30,7 @@ import com.mls.mor.nytnews.data.topics.defaultTopics
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun TopicsInterestsDialog(
+fun InterestsBottomSheetDialog(
     selectableTopics: List<TopicsType> = TopicsType.allTopics,
     selectedTopics: List<TopicsType> = defaultTopics,
     onDismiss: (updated: Boolean, updatedTopics: List<TopicsType>) -> Unit = { _, _ -> }
