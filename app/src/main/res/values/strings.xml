@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">NYT News</string>
+    <string name="app_name" translatable="false">NYT News</string>
 
     // General
     <string name="topics">Topics</string>
     <string name="search">Search</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="delete">delete</string>
-    <string name="expandable_text_more">… more</string>
+    <string name="expandable_text_more" translatable="false">… more</string>
     <string name="retry">Retry</string>
     <string name="loading">Loading</string>
     <string name="follow_system">System</string>
@@ -24,6 +24,10 @@
     <string name="recommended_for_you">Recommended For You</string>
     <string name="search_for_something_message">Search for something…</string>
     <string name="bookmarks_are_empty">Bookmarks are empty</string>
+    <string name="your_topics">Edit Your Topics</string>
+    <string name="newest">Newest</string>
+    <string name="reports">Reports</string>
+
 
     // Errors
     <string name="no_results_found_message">Oops, no results found…</string>
@@ -49,7 +53,7 @@
     <string name="contact_us">Contact Us</string>
     <string name="contact_information">Contact Information</string>
     <string name="email">Email</string>
-    <string name="app_contact_email_address">morsrs.dev.qa@gmail.com</string>
+    <string name="app_contact_email_address" translatable="false">morsrs.dev.qa@gmail.com</string>
     <string name="app_information_location">Israel, Tel-Aviv</string>
     <string name="send_email_using">Send email using..</string>
 
@@ -64,9 +68,10 @@
     <string name="welcome_greeting">Welcome to NYT News Sample App</string>
     <string name="dont_show_again">Don\'t show this again</string>
     <string name="i_understand">I understand</string>
-    <string name="nyt_website_url">https://www.nytimes.com/</string>
+    <string name="nyt_website_url" translatable="false">https://www.nytimes.com/</string>
 
     //Dummy
     <string name="short_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
+
 
 </resources>

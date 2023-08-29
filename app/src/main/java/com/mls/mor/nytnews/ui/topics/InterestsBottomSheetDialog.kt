@@ -22,8 +22,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.mls.mor.nytnews.R
 
 import com.mls.mor.nytnews.data.topics.TopicsType
 import com.mls.mor.nytnews.data.topics.defaultTopics
@@ -45,7 +47,7 @@ fun InterestsBottomSheetDialog(
     }) {
 
         Text(
-            text = "Your Topics",
+            text = stringResource(R.string.your_topics),
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
             fontWeight = FontWeight.Bold
         )

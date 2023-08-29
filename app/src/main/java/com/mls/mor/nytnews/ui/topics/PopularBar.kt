@@ -78,10 +78,10 @@ fun PopularBarComponent(
                             color = MaterialTheme.colorScheme.primary,
                         )
                     ) {
-                        append("Newest")
+                        append(stringResource(R.string.newest))
                     }
                     append(" ")
-                    append("Reports")
+                    append(stringResource(R.string.reports))
                 },
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
