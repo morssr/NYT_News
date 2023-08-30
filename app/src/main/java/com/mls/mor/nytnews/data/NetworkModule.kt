@@ -39,7 +39,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(@RetrofitRemoteBaseUrl baseUrl: String = BASE_URL): Retrofit {
         val logger = HttpLoggingInterceptor()
-        logger.level = HttpLoggingInterceptor.Level.BASIC
+//        logger.level = HttpLoggingInterceptor.Level.BASIC
 
         val client = OkHttpClient.Builder()
             .addInterceptor(logger)

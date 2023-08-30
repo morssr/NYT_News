@@ -21,7 +21,7 @@ object MainModule {
     //TODO: Change severity on demand (e.g. for production)
     fun providesBaseLogger(): Logger = Logger(
         config = StaticConfig(
-            minSeverity = Severity.Verbose,
+            minSeverity = Severity.Warn,
             logWriterList = listOf(platformLogWriter())
         ), "NYT"
     )
