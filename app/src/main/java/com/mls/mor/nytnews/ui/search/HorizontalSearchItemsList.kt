@@ -22,10 +22,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.mls.mor.nytnews.ui.common.ItemCommonAsyncImage
 
@@ -70,36 +73,38 @@ fun SmallSearchStoryItem(
     story: SearchUiModel,
     onStoryClick: (SearchUiModel) -> Unit = {}
 ) {
-    ElevatedCard(
-        modifier = modifier
-            .width(300.dp)
-            .animateContentSize(animationSpec = tween(50))
-            .clickable {
-                onStoryClick(story)
-            },
-    ) {
-        Box(modifier = Modifier) {
-            ItemCommonAsyncImage(
-                modifier = Modifier.aspectRatio(4f / 3f),
-                imageUrl = story.imageUrl,
-                contentDescription = story.title
-            )
-
-            Surface(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter),
-                color = Color.Black.copy(alpha = 0.61f)
-            ) {
-                Text(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 4.dp),                    text = story.title,
-                    minLines = 2,
-                    maxLines = 2,
-                    color = Color.White,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodyMedium
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+        ElevatedCard(
+            modifier = modifier
+                .width(300.dp)
+                .animateContentSize(animationSpec = tween(50))
+                .clickable {
+                    onStoryClick(story)
+                },
+        ) {
+            Box(modifier = Modifier) {
+                ItemCommonAsyncImage(
+                    modifier = Modifier.aspectRatio(4f / 3f),
+                    imageUrl = story.imageUrl,
+                    contentDescription = story.title
                 )
+
+                Surface(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter),
+                    color = Color.Black.copy(alpha = 0.61f)
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp, vertical = 4.dp), text = story.title,
+                        minLines = 2,
+                        maxLines = 2,
+                        color = Color.White,
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         }
     }

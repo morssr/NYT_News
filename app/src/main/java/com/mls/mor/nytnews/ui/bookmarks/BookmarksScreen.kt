@@ -34,10 +34,13 @@ import androidx.compose.material3.SwipeToDismiss
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -119,13 +122,14 @@ fun BookmarksScreen(
                 },
                 positionalThreshold = { lazyListState.layoutInfo.viewportSize.width / 2f }
             )
-
-            SwipeToDeleteBookmarkItem(
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                SwipeToDeleteBookmarkItem(
 //                Modifier.animateItemPlacement(),
-                bookmarked = story,
-                dismissState = dismissState,
-                onStoryClick = onStoryClick
-            )
+                    bookmarked = story,
+                    dismissState = dismissState,
+                    onStoryClick = onStoryClick
+                )
+            }
         }
     }
 }
