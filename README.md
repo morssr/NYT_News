@@ -51,6 +51,9 @@ NYT's user interface is entirely crafted using Jetpack Compose. The design philo
 - **Dark Mode:** Offer a comfortable reading experience in low-light conditions through a thoughtfully designed dark mode.
 - **Dynamic Colors:** Utilizing Material 3's dynamic color feature for a personalized and engaging color experience.
 
-![NYT_GIT_GIF_1](https://github.com/morssr/NYT_News/assets/68958800/d11a64f9-58fc-4a1d-8d13-febab3f1b4cd)
+![NYT_GIT_GIF_1](https://github.com/morssr/NYT_News/assets/68958800/d11a64f9-58fc-4a1d-8d13-febab3f1b4cd)  ![NYT_GIT_GIF_2](https://github.com/morssr/NYT_News/assets/68958800/a6cb9ba5-57bb-49c4-a101-10514cd7817f)
+
+![NYT_GIT_GIF_3](https://github.com/morssr/NYT_News/assets/68958800/91d998b8-913f-421b-8e36-842d21764023)
+
 
 https://github.com/morssr/NYT_News/assets/68958800/7378b193-9dd4-4642-8a9c-3e34044f2bfd
