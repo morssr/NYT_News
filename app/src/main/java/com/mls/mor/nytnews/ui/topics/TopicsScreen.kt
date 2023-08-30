@@ -43,6 +43,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -266,6 +267,8 @@ private fun InterestTabsRow(
     currentSelectedPageIndex: Int = 0,
     onTabClick: (Int) -> Unit = {},
 ) {
+    val context = LocalContext.current
+
     CustomScrollableTabRow(
         selectedTabIndex = currentSelectedPageIndex,
         containerColor = Color.Transparent,
@@ -275,12 +278,16 @@ private fun InterestTabsRow(
     ) {
         topicsType.forEachIndexed { index, topicsType ->
             val selected = index == currentSelectedPageIndex
+            val interestString by remember {
+                derivedStateOf { interestEnumToStringResources(context, topicsType) }
+            }
+
             Tab(
                 modifier = Modifier.padding(horizontal = 6.dp),
                 selected = selected,
                 onClick = { onTabClick(index) },
             ) {
-                CustomTabCell(selected, topicsType)
+                CustomTabCell(interestString, selected)
             }
         }
     }
@@ -354,8 +361,8 @@ private fun TopicsGeneralDialogsPresenter(
 
 @Composable
 private fun CustomTabCell(
+    text: String,
     selected: Boolean,
-    topicsType: TopicsType
 ) {
     Surface(
         modifier = Modifier,
@@ -382,7 +389,7 @@ private fun CustomTabCell(
         ) {
             if (selected) {
                 Text(
-                    text = topicsType.name,
+                    text = text,
                     fontWeight = FontWeight.SemiBold,
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onPrimary,
@@ -390,7 +397,7 @@ private fun CustomTabCell(
                 )
             } else {
                 Text(
-                    text = topicsType.name,
+                    text = text,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Light,
