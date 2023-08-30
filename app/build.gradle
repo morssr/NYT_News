@@ -11,7 +11,7 @@ plugins {
 
 android {
     namespace 'com.mls.mor.nytnews'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.mls.mor.nytnews"
@@ -84,17 +84,17 @@ dependencies {
     //UI - Shimmer
     implementation 'com.valentinilk.shimmer:compose-shimmer:1.0.5'
     //UI - Coil
-    implementation("io.coil-kt:coil-compose:2.3.0")
+    implementation('io.coil-kt:coil-compose:2.4.0')
     //UI - Lottie
     def lottieVersion = '6.1.0'
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 
     //Logger
-    implementation("co.touchlab:kermit:2.0.0-RC4")
+    implementation('co.touchlab:kermit:2.0.0-RC5')
 
     //UI - Paging
-    def paging_version = '3.2.0-rc01'
-    implementation "androidx.paging:paging-runtime:$paging_version"
+    def paging_version = '3.2.0'
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     implementation "androidx.paging:paging-compose:$paging_version"
 
     //UI - Splash Screen
@@ -118,7 +118,7 @@ dependencies {
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
     //DI - Hilt
-    def hilt_version = "2.44"
+    def hilt_version = '2.47'
     implementation "com.google.dagger:hilt-android:$hilt_version"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 
@@ -128,14 +128,14 @@ dependencies {
     def retrofit_version = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.15.0'
     implementation "com.squareup.okhttp3:logging-interceptor:4.10.0"
-    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
 
     //Mock Server
     implementation "com.squareup.okhttp3:mockwebserver:4.9.2"
 
-    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+    implementation(platform('com.google.firebase:firebase-bom:32.2.3'))
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
 
