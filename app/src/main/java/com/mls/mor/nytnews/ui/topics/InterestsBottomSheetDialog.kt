@@ -16,12 +16,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -38,6 +40,7 @@ fun InterestsBottomSheetDialog(
     onDismiss: (updated: Boolean, updatedTopics: List<TopicsType>) -> Unit = { _, _ -> }
 ) {
     var newSelectedTopics by remember { mutableStateOf(selectedTopics) }
+    val context = LocalContext.current
 
     ModalBottomSheet(onDismissRequest = {
         onDismiss(
@@ -59,9 +62,10 @@ fun InterestsBottomSheetDialog(
             selectableTopics.forEach {
 
                 val selected by remember(newSelectedTopics) {
-                    mutableStateOf(
-                        newSelectedTopics.contains(it)
-                    )
+                    mutableStateOf(newSelectedTopics.contains(it))
+                }
+                val interestName by remember {
+                    derivedStateOf { interestEnumToStringResources(context, it) }
                 }
 
                 FilterChip(
@@ -80,7 +84,7 @@ fun InterestsBottomSheetDialog(
                         }
                     },
 
-                    label = { Text(it.topicName.uppercase()) },
+                    label = { Text(interestName) },
                     leadingIcon = if (selected) {
                         {
                             Icon(
