@@ -278,7 +278,7 @@ private fun InterestTabsRow(
     ) {
         topicsType.forEachIndexed { index, topicsType ->
             val selected = index == currentSelectedPageIndex
-            val interestString by remember {
+            val interestString by remember(key1 = topicsType) {
                 derivedStateOf { interestEnumToStringResources(context, topicsType) }
             }
 
