@@ -2,15 +2,22 @@
 
 package com.mls.mor.nytnews.ui
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -25,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
@@ -59,23 +67,41 @@ fun NytApp(
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         bottomBar = {
-            if (appState.currentDestination.isCurrentDestinationTopLevel(appState.topLevelDestinations)) {
-                NytBottomBar(
+
+            // check if we should show the bottom bar depending on the current screen size
+            if (!appState.shouldShowBottomBar) return@Scaffold
+
+            //check if we should show the bottom bar depends if destination is top level
+            if (!appState.isCurrentDestinationTopLevel()) return@Scaffold
+
+            NytBottomBar(
+                destinations = appState.topLevelDestinations,
+                onNavigateToDestination = appState::navigateToTopLevelDestination,
+                currentDestination = appState.currentDestination,
+            )
+
+        },
+    ) { innerPadding ->
+        Row(
+            Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .consumeWindowInsets(innerPadding)
+                .windowInsetsPadding(
+                    WindowInsets.safeDrawing.only(
+                        WindowInsetsSides.Horizontal,
+                    ),
+                ),
+        ) {
+            ShowDisclaimerDialogIfNeeded(settingsViewModel)
+
+            if (appState.shouldShowNavRail && appState.isCurrentDestinationTopLevel()) {
+                NytNavRail(
                     destinations = appState.topLevelDestinations,
                     onNavigateToDestination = appState::navigateToTopLevelDestination,
                     currentDestination = appState.currentDestination,
                 )
             }
-        },
-    ) { innerPadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .consumeWindowInsets(innerPadding)
-        ) {
-
-            ShowDisclaimerDialogIfNeeded(settingsViewModel)
 
             NavHost(
                 navController = appState.navController,
@@ -144,27 +170,53 @@ private fun NytBottomBar(
             NavigationBarItem(
                 selected = selected,
                 onClick = { onNavigateToDestination(destination) },
-                icon = {
-                    val icon = if (selected) {
-                        destination.selectedIcon
-                    } else {
-                        destination.unselectedIcon
-                    }
-                    when (icon) {
-                        is Icon.ImageVectorIcon -> Icon(
-                            imageVector = icon.imageVector,
-                            contentDescription = stringResource(id = destination.iconTextId),
-                        )
-
-                        is Icon.DrawableResourceIcon -> Icon(
-                            painter = painterResource(id = icon.id),
-                            contentDescription = stringResource(id = destination.iconTextId)
-                        )
-                    }
-                },
+                icon = { NavigationIconSelector(selected, destination) },
                 label = { Text(stringResource(destination.iconTextId)) },
             )
         }
+    }
+}
+
+@Composable
+private fun NytNavRail(
+    destinations: List<TopLevelDestination>,
+    onNavigateToDestination: (TopLevelDestination) -> Unit,
+    currentDestination: NavDestination?,
+    modifier: Modifier = Modifier,
+) {
+    NavigationRail(modifier = modifier.padding(top = 8.dp)) {
+        destinations.forEach { destination ->
+            val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
+            NavigationRailItem(
+                selected = selected,
+                onClick = { onNavigateToDestination(destination) },
+                icon = { NavigationIconSelector(selected, destination) },
+                label = { Text(stringResource(destination.iconTextId)) },
+            )
+        }
+    }
+}
+
+@Composable
+private fun NavigationIconSelector(
+    selected: Boolean,
+    destination: TopLevelDestination
+) {
+    val icon = if (selected) {
+        destination.selectedIcon
+    } else {
+        destination.unselectedIcon
+    }
+    when (icon) {
+        is Icon.ImageVectorIcon -> Icon(
+            imageVector = icon.imageVector,
+            contentDescription = stringResource(id = destination.iconTextId),
+        )
+
+        is Icon.DrawableResourceIcon -> Icon(
+            painter = painterResource(id = icon.id),
+            contentDescription = stringResource(id = destination.iconTextId)
+        )
     }
 }
 
@@ -187,12 +239,3 @@ private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLev
     this?.hierarchy?.any {
         it.route?.contains(destination.name, true) ?: false
     } ?: false
-
-
-private fun NavDestination?.isCurrentDestinationTopLevel(topLevelDestinations: List<TopLevelDestination>): Boolean {
-    return topLevelDestinations.any { topLevelDestination ->
-        this?.hierarchy?.any {
-            it.route?.contains(topLevelDestination.name, true) ?: false
-        } ?: false
-    }
-}

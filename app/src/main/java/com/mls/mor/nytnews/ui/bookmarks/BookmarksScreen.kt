@@ -17,10 +17,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DismissDirection
 import androidx.compose.material3.DismissState
@@ -32,10 +34,13 @@ import androidx.compose.material3.SwipeToDismiss
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -80,14 +85,15 @@ fun BookmarksScreen(
         return
     }
 
-    LazyColumn(
+    LazyVerticalStaggeredGrid(
         modifier = modifier,
-        state = lazyListState,
-        contentPadding = PaddingValues(8.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        columns = StaggeredGridCells.Adaptive(300.dp),
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalItemSpacing = 16.dp,
     ) {
 
-        item {
+        item(span = StaggeredGridItemSpan.FullLine) {
             Column {
                 Text(
                     modifier = Modifier
@@ -116,13 +122,14 @@ fun BookmarksScreen(
                 },
                 positionalThreshold = { lazyListState.layoutInfo.viewportSize.width / 2f }
             )
-
-            SwipeToDeleteBookmarkItem(
-                Modifier.animateItemPlacement(),
-                bookmarked = story,
-                dismissState = dismissState,
-                onStoryClick = onStoryClick
-            )
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                SwipeToDeleteBookmarkItem(
+//                Modifier.animateItemPlacement(),
+                    bookmarked = story,
+                    dismissState = dismissState,
+                    onStoryClick = onStoryClick
+                )
+            }
         }
     }
 }
@@ -249,7 +256,7 @@ fun BookmarkScreenPreview() {
 @Preview
 @Composable
 fun BookmarkItemPreview() {
-    NYTNewsTheme() {
+    NYTNewsTheme {
         BookmarkItem(
             bookmarkedStory = fakeBookmarkUiModel,
             onStoryClick = {}

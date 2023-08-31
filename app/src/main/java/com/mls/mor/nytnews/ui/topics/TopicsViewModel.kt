@@ -174,6 +174,7 @@ class TopicsViewModel @Inject constructor(
             }
         }
 
+    //TODO: Warning:(181, 26) Name shadowed: response
     private fun createFeedUiState(
         response: ApiResponse<List<Story>>,
         bookmarks: List<BookmarkedStory>
@@ -246,6 +247,16 @@ class TopicsViewModel @Inject constructor(
             }
         }
     }
+
+    fun showDialog(dialogSelector: DialogSelector) {
+        log.d { "showDialog() called with: dialogSelector = $dialogSelector" }
+        _uiState.update { it.copy(dialogSelector = dialogSelector) }
+    }
+
+    fun dismissDialog() {
+        log.d { "dismissDialog() called" }
+        _uiState.update { it.copy(dialogSelector = DialogSelector.None) }
+    }
 }
 
 data class TopicsUiState(
@@ -254,10 +265,20 @@ data class TopicsUiState(
     val feedsStates: Map<TopicsType, FeedUiState> = emptyMap(),
     val populars: List<PopularUi> = emptyList(),
     val isLoading: Boolean = false,
-    val offlineMode: Boolean = false
+    val offlineMode: Boolean = false,
+    val dialogSelector: DialogSelector = DialogSelector.None
 )
 
 data class FeedUiState(
     val stories: List<StoryUI> = emptyList(),
     val updateState: FeedUpdateState = FeedUpdateState.Idle,
 )
+
+sealed class DialogSelector {
+    object MainMenuDropdown : DialogSelector()
+    object Settings : DialogSelector()
+    object AboutUs : DialogSelector()
+    object ContactUs : DialogSelector()
+    object EmailChooser : DialogSelector()
+    object None : DialogSelector()
+}

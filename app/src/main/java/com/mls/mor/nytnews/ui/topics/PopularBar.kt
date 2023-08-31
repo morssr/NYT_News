@@ -24,11 +24,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -37,6 +42,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import com.mls.mor.nytnews.R
@@ -63,8 +70,8 @@ fun PopularBarComponent(
 
     BoxWithConstraints(modifier = modifier) {
 
-        // Calculate the item width to be 80% of the maxWidth
-        val popularItemWidth = maxWidth * 0.8f
+        // Calculate the item width by the available width
+        val popularItemWidth by remember { derivedStateOf { calculateDynamicPopularItemWidth(maxWidth) }}
 
         Column {
             Text(
@@ -74,10 +81,10 @@ fun PopularBarComponent(
                             color = MaterialTheme.colorScheme.primary,
                         )
                     ) {
-                        append("Newest")
+                        append(stringResource(R.string.newest))
                     }
                     append(" ")
-                    append("Reports")
+                    append(stringResource(R.string.reports))
                 },
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
@@ -85,6 +92,7 @@ fun PopularBarComponent(
                     .padding(top = 4.dp)
                     .padding(horizontal = 16.dp)
             )
+
             HorizontalPager(
                 pageCount = if (!shimmer) populars.size else 10,
                 state = pagerState,
@@ -123,17 +131,16 @@ fun PopularBarComponent(
                     )
                 }
                 ) {
-
-                    if (!shimmer) {
-                        // Card content
-                        populars[pageIndex].let {
+                    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                        if (!shimmer) {
+                            // Card content
                             PopularListItem(
-                                popular = it,
+                                popular = populars[pageIndex],
                                 onItemClick = onPopularStoryClick
                             )
+                        } else {
+                            ShimmerPopularListItemScaffold()
                         }
-                    } else {
-                        ShimmerPopularListItemScaffold()
                     }
                 }
             }
@@ -244,10 +251,16 @@ private fun ShimmerPopularListItemScaffold(
     }
 }
 
+private fun calculateDynamicPopularItemWidth(containerWidth: Dp): Dp = when {
+    containerWidth >= 800.dp -> containerWidth * 0.53f
+    containerWidth >= 600.dp -> containerWidth * 0.61f
+    else -> containerWidth * 0.8f
+}
+
 @Preview
 @Composable
 fun PopularListItemPreview() {
-    NYTNewsTheme() {
+    NYTNewsTheme {
         PopularListItem(
             popular = PopularUi(
                 "234234",

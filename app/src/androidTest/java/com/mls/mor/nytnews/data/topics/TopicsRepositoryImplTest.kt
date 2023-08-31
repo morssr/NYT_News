@@ -91,7 +91,7 @@ class TopicsRepositoryImplTest {
     }
 
     @Test
-    fun getStoriesFromRemoteBy_homeTopic_isNotEmpty() = runTest() {
+    fun getStoriesFromRemoteBy_homeTopic_isNotEmpty() = runTest {
         when (val stories = topicsRepository.getStoriesByTopic(TopicsType.HOME, true)) {
             is Response.Success -> {
                 println("Response.Success stories.data: ${stories.data.size}")

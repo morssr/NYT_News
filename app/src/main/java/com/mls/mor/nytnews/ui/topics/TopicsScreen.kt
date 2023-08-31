@@ -3,7 +3,6 @@
 package com.mls.mor.nytnews.ui.topics
 
 import android.util.Log
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -44,10 +43,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -58,6 +59,7 @@ import com.mls.mor.nytnews.ui.common.AboutUsDialog
 import com.mls.mor.nytnews.ui.common.CustomCollapsingToolbarContainer
 import com.mls.mor.nytnews.ui.common.CustomScrollableTabRow
 import com.mls.mor.nytnews.ui.common.EmailChooserMenu
+import com.mls.mor.nytnews.ui.common.collapseAppBar
 import com.mls.mor.nytnews.ui.settings.AppSettingsDialog
 import com.mls.mor.nytnews.ui.settings.ContactUsDialog
 import com.mls.mor.nytnews.ui.theme.NYTNewsTheme
@@ -86,11 +88,14 @@ fun TopicsScreen(
             viewModel.refreshCurrentTopic(uiState.topics[page])
         },
         feedUpdateStates = uiState.feedsStates.map { it.key to it.value.updateState }.toMap(),
+        dialogSelector = uiState.dialogSelector,
         onStoryClick = onStoryClick,
         onPopularStoryClick = onPopularStoryClick,
         onBookmarkClick = { id, bookmarked -> viewModel.updateBookmark(id, bookmarked) },
         onTopicsChooserDialogDismiss = { viewModel.updateTopics(it) },
         onTryAgainClick = { viewModel.reloadCurrentTopic() },
+        onShowDialogClick = { viewModel.showDialog(it) },
+        onDismissDialogClick = { viewModel.dismissDialog() },
     )
 }
 
@@ -102,22 +107,20 @@ private fun TopicScreenComponent(
     storiesList: Map<TopicsType, List<StoryUI>>,
     popularsList: List<PopularUi> = emptyList(),
     feedUpdateStates: Map<TopicsType, FeedUpdateState> = emptyMap(),
+    dialogSelector: DialogSelector = DialogSelector.None,
     onPageChange: (Int) -> Unit = {},
     onStoryClick: (StoryUI) -> Unit = {},
     onPopularStoryClick: (PopularUi) -> Unit = {},
     onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
     onTopicsChooserDialogDismiss: (List<TopicsType>) -> Unit = {},
     onTryAgainClick: () -> Unit = {},
+    onShowDialogClick: (DialogSelector) -> Unit = {},
+    onDismissDialogClick: () -> Unit = {},
 ) {
 
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState()
-    var showTopicsSelectionDialog by remember { mutableStateOf(false) }
-    var showMainMenuDropdown by remember { mutableStateOf(false) }
-    var showAppSettingsDialog by remember { mutableStateOf(false) }
-    var showAboutUsDialog by remember { mutableStateOf(false) }
-    var showContactUsDialog by remember { mutableStateOf(false) }
-    var showEmailChooser by remember { mutableStateOf(false) }
+    var showInterestsSelectionDialog by remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
 
     val currentOnPageChange by rememberUpdatedState(onPageChange)
@@ -140,35 +143,10 @@ private fun TopicScreenComponent(
         modifier = modifier.appScreenGradientBackground()
     ) {
 
-        if (showAppSettingsDialog) {
-            AppSettingsDialog(
-                onDismiss = { showAppSettingsDialog = false },
-            )
+        // calculate the height of the collapsing toolbar based on the screen height
+        val collapsingToolbarHeight by remember {
+            derivedStateOf { calculateCollapsingToolbarHeight(maxHeight) }
         }
-
-        if (showAboutUsDialog) {
-            AboutUsDialog(
-                onDismiss = { showAboutUsDialog = false },
-            )
-        }
-
-        if (showContactUsDialog) {
-            ContactUsDialog(
-                onDismiss = { showContactUsDialog = false },
-                onEmailClick = {
-                    showContactUsDialog = false
-                    showEmailChooser = true
-                },
-            )
-        }
-
-        if (showEmailChooser) {
-            EmailChooserMenu(recipient = stringResource(id = R.string.app_contact_email_address))
-            showEmailChooser = false
-        }
-
-        // 40% of the screen height
-        val collapsingToolbarHeight = maxHeight * 0.42f
 
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -198,15 +176,14 @@ private fun TopicScreenComponent(
                             }
                         )
                     ) {
-
                         HomeTopAppBar(
-                            showMainMenu = showMainMenuDropdown,
-                            onMenuClick = { showMainMenuDropdown = true },
-                            onLogoClick = { showAboutUsDialog = true },
-                            onDismissMenu = { showMainMenuDropdown = false },
-                            onSettingClick = { showAppSettingsDialog = true },
-                            onAboutUsClick = { showAboutUsDialog = true },
-                            onContactUsClick = { showContactUsDialog = true },
+                            showMainMenu = dialogSelector == DialogSelector.MainMenuDropdown,
+                            onMenuClick = { onShowDialogClick(DialogSelector.MainMenuDropdown) },
+                            onLogoClick = { onShowDialogClick(DialogSelector.AboutUs) },
+                            onDismissMenu = { onDismissDialogClick() },
+                            onSettingClick = { onShowDialogClick(DialogSelector.Settings) },
+                            onAboutUsClick = { onShowDialogClick(DialogSelector.AboutUs) },
+                            onContactUsClick = { onShowDialogClick(DialogSelector.ContactUs) },
                         )
 
                         val showShimmer by remember(key1 = popularsList) {
@@ -225,73 +202,42 @@ private fun TopicScreenComponent(
                 }
             }
         ) { innerPadding ->
-            Column(
-                modifier = Modifier
-                    .padding(top = innerPadding.calculateTopPadding())
-            ) {
-                if (showTopicsSelectionDialog) {
-                    TopicsInterestsDialog(
+            Column(modifier = Modifier.padding(top = innerPadding.calculateTopPadding())) {
+
+                TopicsGeneralDialogsPresenter(
+                    dialogSelector = dialogSelector,
+                    onShowDialogClick = onShowDialogClick,
+                    onDismiss = onDismissDialogClick
+                )
+
+                if (showInterestsSelectionDialog) {
+                    InterestsBottomSheetDialog(
                         onDismiss = { updated, topics ->
                             if (updated) {
                                 coroutineScope.launch { pagerState.animateScrollToPage(0) }
                             }
                             onTopicsChooserDialogDismiss(topics)
-                            showTopicsSelectionDialog = false
+                            showInterestsSelectionDialog = false
                         },
                         selectedTopics = topicsType
                     )
                 }
 
-                Column(modifier = Modifier.animateContentSize()) {
+                Column {
 
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                    InterestBar(onShowTopicsSelectionDialog = { showInterestsSelectionDialog = true })
 
-                    ) {
-                        Text(
-                            text = stringResource(R.string.what_you_curious_about),
-                            modifier = Modifier.padding(start = 16.dp),
-                            style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
+                    InterestTabsRow(
+                        topicsType,
+                        pagerState.currentPage,
+                        onTabClick = { page ->
+                            appBarState.collapseAppBar()
 
-                        IconButton(
-                            modifier = Modifier.padding(end = 4.dp),
-                            onClick = { showTopicsSelectionDialog = true }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.tabler_edit_24dp),
-                                tint = MaterialTheme.colorScheme.onSurface,
-                                contentDescription = stringResource(R.string.edit_topics_content_description)
-                            )
-                        }
-                    }
-
-                    CustomScrollableTabRow(
-                        selectedTabIndex = pagerState.currentPage,
-                        containerColor = Color.Transparent,
-                        edgePadding = 8.dp,
-                        indicator = {},
-                        divider = {}
-                    ) {
-                        topicsType.forEachIndexed { index, topicsType ->
-                            val selected = index == pagerState.currentPage
-                            Tab(
-                                modifier = Modifier.padding(horizontal = 6.dp),
-                                selected = selected,
-                                onClick = {
-                                    coroutineScope.launch {
-                                        pagerState.animateScrollToPage(
-                                            index
-                                        )
-                                    }
-                                },
-                            ) {
-                                CustomTabContent(selected, topicsType)
+                            coroutineScope.launch {
+                                pagerState.animateScrollToPage(page)
                             }
                         }
-                    }
+                    )
                 }
 
                 HorizontalPager(
@@ -316,9 +262,107 @@ private fun TopicScreenComponent(
 }
 
 @Composable
-private fun CustomTabContent(
+private fun InterestTabsRow(
+    topicsType: List<TopicsType> = defaultTopics,
+    currentSelectedPageIndex: Int = 0,
+    onTabClick: (Int) -> Unit = {},
+) {
+    val context = LocalContext.current
+
+    CustomScrollableTabRow(
+        selectedTabIndex = currentSelectedPageIndex,
+        containerColor = Color.Transparent,
+        edgePadding = 8.dp,
+        indicator = {},
+        divider = {}
+    ) {
+        topicsType.forEachIndexed { index, topicsType ->
+            val selected = index == currentSelectedPageIndex
+            val interestString by remember(key1 = topicsType) {
+                derivedStateOf { interestEnumToStringResources(context, topicsType) }
+            }
+
+            Tab(
+                modifier = Modifier.padding(horizontal = 6.dp),
+                selected = selected,
+                onClick = { onTabClick(index) },
+            ) {
+                CustomTabCell(interestString, selected)
+            }
+        }
+    }
+}
+
+@Composable
+private fun InterestBar(
+    modifier: Modifier = Modifier,
+    onShowTopicsSelectionDialog: () -> Unit = {}
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+
+    ) {
+        Text(
+            text = stringResource(R.string.what_you_curious_about),
+            modifier = Modifier.padding(start = 16.dp),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+
+        IconButton(
+            modifier = Modifier.padding(end = 4.dp),
+            onClick = onShowTopicsSelectionDialog
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.tabler_edit_24dp),
+                tint = MaterialTheme.colorScheme.onSurface,
+                contentDescription = stringResource(R.string.edit_topics_content_description)
+            )
+        }
+    }
+}
+
+@Composable
+private fun TopicsGeneralDialogsPresenter(
+    dialogSelector: DialogSelector,
+    onShowDialogClick: (DialogSelector) -> Unit = {},
+    onDismiss: () -> Unit = {},
+) {
+
+    when (dialogSelector) {
+        DialogSelector.AboutUs -> {
+            AboutUsDialog(onDismiss = { onDismiss() })
+        }
+
+        DialogSelector.ContactUs -> {
+            ContactUsDialog(
+                onDismiss = { onDismiss() },
+                onEmailClick = {
+                    onShowDialogClick(DialogSelector.EmailChooser)
+                },
+            )
+        }
+
+        DialogSelector.Settings -> {
+            AppSettingsDialog(onDismiss = { onDismiss() })
+        }
+
+        DialogSelector.EmailChooser -> {
+            EmailChooserMenu(recipient = stringResource(id = R.string.app_contact_email_address))
+            onShowDialogClick(DialogSelector.None)
+        }
+
+        else -> {}
+    }
+
+}
+
+@Composable
+private fun CustomTabCell(
+    text: String,
     selected: Boolean,
-    topicsType: TopicsType
 ) {
     Surface(
         modifier = Modifier,
@@ -345,7 +389,7 @@ private fun CustomTabContent(
         ) {
             if (selected) {
                 Text(
-                    text = topicsType.name,
+                    text = text,
                     fontWeight = FontWeight.SemiBold,
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onPrimary,
@@ -353,7 +397,7 @@ private fun CustomTabContent(
                 )
             } else {
                 Text(
-                    text = topicsType.name,
+                    text = text,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Light,
@@ -364,6 +408,14 @@ private fun CustomTabContent(
     }
 }
 
+private fun calculateCollapsingToolbarHeight(containerHeight: Dp): Dp {
+    return when {
+        containerHeight < 480.dp -> containerHeight * 0.75f
+        containerHeight < 640.dp -> containerHeight * 0.5f
+        containerHeight < 800.dp -> containerHeight * 0.43f
+        else -> containerHeight * 0.33f
+    }
+}
 
 @Preview
 @Composable
@@ -380,11 +432,29 @@ fun TopicsScreenPreview() {
 @Composable
 fun TopicsDialogSelectionPreview() {
     NYTNewsTheme {
-        TopicsInterestsDialog(
+        InterestsBottomSheetDialog(
             selectedTopics = defaultTopics,
             onDismiss = { updated, topics ->
                 Log.d("TAG", "TopicsDialogSelectionPreview: $updated $topics")
             },
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun InterestBarPreview() {
+    NYTNewsTheme {
+        InterestBar()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun InterestTabRowPreview() {
+    NYTNewsTheme {
+        Box(modifier = Modifier.padding(vertical = 16.dp)) {
+            InterestTabsRow()
+        }
     }
 }

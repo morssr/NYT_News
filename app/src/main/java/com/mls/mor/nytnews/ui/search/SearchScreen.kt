@@ -1,10 +1,14 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.mls.mor.nytnews.ui.search
 
 import android.content.Context
 import android.content.res.Resources.NotFoundException
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,7 +21,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -42,6 +47,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,8 +60,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -239,35 +247,40 @@ fun SearchScreen(
                     }
 
                     else -> {
-                        LazyColumn(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.spacedBy(16.dp),
-                            contentPadding = PaddingValues(8.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
+                        LazyVerticalStaggeredGrid(
+                            modifier = modifier,
+                            columns = StaggeredGridCells.Adaptive(300.dp),
+                            contentPadding = PaddingValues(16.dp),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                            verticalItemSpacing = 16.dp
+                            ) {
 
                             items(count = searchItems.itemCount) {
                                 val story = searchItems[it]
                                 story?.let { storyItem: SearchUiModel ->
-                                    SearchStoryItem(
-                                        modifier = Modifier,
-                                        story = storyItem,
-                                        onStoryClick = onSearchItemClick,
-                                        onBookmarkClick = { id ->
-                                            onAddToBookmarksClick(id)
-                                            showAddToBookmarksSnackbar(
-                                                scope,
-                                                snackbarHostState,
-                                                context,
-                                                onUndoAddToBookmarksClick,
-                                                id
-                                            )
-                                        }
-                                    )
-                                    Divider(
-                                        modifier
-                                            .fillMaxWidth()
-                                            .padding(horizontal = 16.dp))
+                                    Column {
+                                        SearchStoryItem(
+                                            modifier = Modifier,
+                                            story = storyItem,
+                                            onStoryClick = onSearchItemClick,
+                                            onBookmarkClick = { id ->
+                                                onAddToBookmarksClick(id)
+                                                showAddToBookmarksSnackbar(
+                                                    scope,
+                                                    snackbarHostState,
+                                                    context,
+                                                    onUndoAddToBookmarksClick,
+                                                    id
+                                                )
+                                            }
+                                        )
+
+                                        Divider(
+                                            modifier
+                                                .fillMaxWidth()
+                                                .padding(horizontal = 16.dp)
+                                        )
+                                    }
                                 }
                             }
 
@@ -282,6 +295,14 @@ fun SearchScreen(
                     }
                 }
             }
+
+            // Handle back button. If search is active, close it. Otherwise, navigate back.
+            BackHandler {
+                if (active) {
+                    active = false
+                }
+            }
+
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -399,77 +420,79 @@ fun SearchStoryItem(
     onBookmarkClick: (String) -> Unit = {},
     onStoryClick: (SearchUiModel) -> Unit = {}
 ) {
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .animateContentSize(animationSpec = tween(50))
-            .clickable {
-                onStoryClick(story)
-            },
-        colors = CardDefaults.elevatedCardColors(
-            containerColor = MaterialTheme.colorScheme.background,
-            contentColor = MaterialTheme.colorScheme.onSurface
-        )
-    ) {
-        ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-            val (image, title, abstract, favorite) = createRefs()
-
-            ItemCommonAsyncImage(
-                modifier = Modifier
-                    .constrainAs(image) {
-                        top.linkTo(parent.top)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        width = Dimension.fillToConstraints
-                        height = Dimension.value(180.dp)
-                    },
-                imageUrl = story.imageUrl,
-                contentDescription = story.title,
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+        Card(
+            modifier = modifier
+                .fillMaxWidth()
+                .animateContentSize(animationSpec = tween(50))
+                .clickable {
+                    onStoryClick(story)
+                },
+            colors = CardDefaults.elevatedCardColors(
+                containerColor = MaterialTheme.colorScheme.background,
+                contentColor = MaterialTheme.colorScheme.onSurface
             )
+        ) {
+            ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+                val (image, title, abstract, favorite) = createRefs()
 
-            Text(
-                modifier = Modifier
-                    .paddingFromBaseline(top = 32.dp)
-                    .padding(horizontal = 16.dp)
-                    .constrainAs(title) {
-                        top.linkTo(image.bottom)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        width = Dimension.fillToConstraints
-                    },
-                text = story.title,
-                style = MaterialTheme.typography.titleLarge
-            )
-
-            ExpandableText(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .paddingFromBaseline(24.dp)
-                    .constrainAs(abstract) {
-                        top.linkTo(title.bottom)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        bottom.linkTo(favorite.top)
-                    },
-                collapsedMaxLine = 2,
-                text = story.abstract,
-                onUnAnnotatedTextClick = { onStoryClick(story) }
-            )
-
-            IconButton(
-                modifier = Modifier
-                    .padding(end = 12.dp)
-                    .padding(top = 16.dp)
-                    .constrainAs(favorite) {
-                        bottom.linkTo(parent.bottom, margin = 8.dp)
-                        end.linkTo(parent.end)
-                    },
-                onClick = { onBookmarkClick(story.id) }
-            ) {
-                Icon(
-                    Icons.Outlined.BookmarkAdd,
-                    contentDescription = "add to bookmarks list"
+                ItemCommonAsyncImage(
+                    modifier = Modifier
+                        .constrainAs(image) {
+                            top.linkTo(parent.top)
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                            width = Dimension.fillToConstraints
+                            height = Dimension.value(180.dp)
+                        },
+                    imageUrl = story.imageUrl,
+                    contentDescription = story.title,
                 )
+
+                Text(
+                    modifier = Modifier
+                        .paddingFromBaseline(top = 32.dp)
+                        .padding(horizontal = 16.dp)
+                        .constrainAs(title) {
+                            top.linkTo(image.bottom)
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                            width = Dimension.fillToConstraints
+                        },
+                    text = story.title,
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                ExpandableText(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .paddingFromBaseline(24.dp)
+                        .constrainAs(abstract) {
+                            top.linkTo(title.bottom)
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                            bottom.linkTo(favorite.top)
+                        },
+                    collapsedMaxLine = 2,
+                    text = story.abstract,
+                    onUnAnnotatedTextClick = { onStoryClick(story) }
+                )
+
+                IconButton(
+                    modifier = Modifier
+                        .padding(end = 12.dp)
+                        .padding(top = 16.dp)
+                        .constrainAs(favorite) {
+                            bottom.linkTo(parent.bottom, margin = 8.dp)
+                            end.linkTo(parent.end)
+                        },
+                    onClick = { onBookmarkClick(story.id) }
+                ) {
+                    Icon(
+                        Icons.Outlined.BookmarkAdd,
+                        contentDescription = "add to bookmarks list"
+                    )
+                }
             }
         }
     }

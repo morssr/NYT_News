@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.mls.mor.nytnews.ui.topics
 
 import androidx.compose.animation.AnimatedVisibility
@@ -6,6 +8,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -19,8 +22,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Refresh
@@ -34,6 +38,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -41,7 +46,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -103,14 +110,22 @@ private fun StoriesList(
     onStoryClick: (StoryUI) -> Unit,
     onBookmarkClick: (String, Boolean) -> Unit
 ) {
-    LazyColumn(
-        modifier = modifier,
-        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
 
+    LazyVerticalStaggeredGrid(
+        modifier = modifier,
+        columns = StaggeredGridCells.Adaptive(300.dp),
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalItemSpacing = 16.dp,
+    ) {
         items(stories) { story ->
-            StoryItem(story = story, onStoryClick = onStoryClick, onBookmarkClick = onBookmarkClick)
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                StoryItem(
+                    story = story,
+                    onStoryClick = onStoryClick,
+                    onBookmarkClick = onBookmarkClick
+                )
+            }
         }
     }
 }
@@ -328,7 +343,7 @@ fun StoryItemPreview_ShortAbstract() {
 @Preview(widthDp = 360, heightDp = 40)
 @Composable
 fun ExpandableToggleAreaCollapsedPreview() {
-    NYTNewsTheme() {
+    NYTNewsTheme {
         ExpandableToggleArea()
     }
 }
@@ -336,7 +351,7 @@ fun ExpandableToggleAreaCollapsedPreview() {
 @Preview(widthDp = 360, heightDp = 40)
 @Composable
 fun ExpandableToggleAreaExpandedPreview() {
-    NYTNewsTheme() {
+    NYTNewsTheme {
         ExpandableToggleArea(expanded = true)
     }
 }

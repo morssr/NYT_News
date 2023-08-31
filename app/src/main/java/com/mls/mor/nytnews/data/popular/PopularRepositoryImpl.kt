@@ -47,7 +47,6 @@ class PopularRepositoryImpl(
 
                 val popularsEntities = popularsResponse.body()?.toPopularEntityList(type)
 
-                log.i { "$popularsEntities" }
                 if (popularsEntities.isNullOrEmpty()) {
                     throw Exception("getPopularsByTypeStream failed with empty response")
                 }
