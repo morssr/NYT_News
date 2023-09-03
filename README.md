@@ -3,6 +3,8 @@
 
 The App is a showcase of my proficiency as an Android developer, demonstrating the application of industry best practices and the utilization of modern technologies to build a reliable, scalable, and aesthetically pleasing news consumption experience.
 
+[Available in the Play Store](https://play.google.com/store/apps/details?id=com.mls.mor.nytnews)
+
 ## Features
 
 - **Headlines:** Get the latest news headlines from the New York Times API.
@@ -12,7 +14,7 @@ The App is a showcase of my proficiency as an Android developer, demonstrating t
 - **Responsive Design:** Enjoy a consistent and visually pleasing layout across various devices.
 - **Dark Mode:** Switch to dark mode for comfortable reading in low-light conditions.
 
-![readme_screenshot_light](https://github.com/morssr/NYT_News/assets/68958800/510de131-496f-4db3-b5b3-7c33a90742e6)
+  ![readme_screenshot_light](https://github.com/morssr/NYT_News/assets/68958800/4d46ee58-893e-4bd4-946a-dc3c1b748b6b)
 
 ## Architecture
 
@@ -51,8 +53,8 @@ NYT's user interface is entirely crafted using Jetpack Compose. The design philo
 - **Dark Mode:** Offer a comfortable reading experience in low-light conditions through a thoughtfully designed dark mode.
 - **Dynamic Colors:** Utilizing Material 3's dynamic color feature for a personalized and engaging color experience.
 
-![NYT_GIT_GIF_1](https://github.com/morssr/NYT_News/assets/68958800/d11a64f9-58fc-4a1d-8d13-febab3f1b4cd)  ![NYT_GIT_GIF_2](https://github.com/morssr/NYT_News/assets/68958800/a6cb9ba5-57bb-49c4-a101-10514cd7817f)
+![NYT_GIT_GIF_1](https://github.com/morssr/NYT_News/assets/68958800/16f50d62-832c-41e9-81cf-52235d5638c1) ![NYT_GIT_GIF_2](https://github.com/morssr/NYT_News/assets/68958800/db5b9d12-f57e-4f0f-8622-8bad883ca289)
 
-![NYT_GIT_GIF_3](https://github.com/morssr/NYT_News/assets/68958800/91d998b8-913f-421b-8e36-842d21764023)
+![NYT_GIT_GIF_3](https://github.com/morssr/NYT_News/assets/68958800/97e2dec9-c74b-45e3-8bc0-8482a5dbbcbe)
 
 https://github.com/morssr/NYT_News/assets/68958800/7378b193-9dd4-4642-8a9c-3e34044f2bfd
